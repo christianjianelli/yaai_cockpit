@@ -340,7 +340,8 @@ sap.ui.define([
                 const roleMap = {
                     system: "System",
                     user: "User",
-                    assistant: "Assistant"
+                    assistant: "Assistant",
+                    tool: "Tool"
                 };
 
                 if (!chat.messages) {
@@ -359,11 +360,8 @@ sap.ui.define([
                     } catch {
                         continue;
                     }
-                    let { role, type } = msg;
-                    if (type === "function_call" || type === "function_call_output") {
-                        participantsSet.add("Assistant");
-                        participantsSet.add("Tool");
-                    } else if (role) {
+                    let { role } = msg;
+                    if (role) {
                         const mappedRole = roleMap[role] || role;
                         participantsSet.add(mappedRole);
                     }
@@ -382,15 +380,17 @@ sap.ui.define([
                     } catch {
                         continue;
                     }
-                    let { role, content, type, name, output } = msg;
+                    let { role, content, tool_calls, tool_name} = msg;
 
                     // Tool call
-                    if (type === "function_call") {
-                        mermaid += `Assistant ->> Tool: Tool call: ${name}\n`;
+                    if (tool_calls.length > 0) {
+                        tool_calls.forEach(tool_call => {
+                            mermaid += `Assistant ->> Tool: Tool call: ${tool_call.function.name}\n`;
+                        });
                     }
                     // Tool response
-                    else if (type === "function_call_output") {
-                        let out = output;
+                    else if (tool_name !== "") {
+                        let out = content;
                         if (typeof out === "string" && out.length > 60) {
                             out = out.slice(0, 57) + "...";
                             out = this._escapeForMermaid(out);

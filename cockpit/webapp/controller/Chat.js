@@ -699,7 +699,7 @@ sap.ui.define([
 
                             }
 
-                            if (msg.role.toLowerCase() === "assistant") {
+                            if (msg.role.toLowerCase() === "assistant" && msg.tool_calls.length === 0) {
 
                                 if (Array.isArray(msg.content)) {
 
