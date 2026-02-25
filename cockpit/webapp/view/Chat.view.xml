@@ -1,0 +1,319 @@
+<mvc:View controllerName="aaic.cockpit.controller.Chat"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:ce="sap.ui.codeeditor"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDChatDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDChatDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDChatTitle" text="{i18n>chat}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDChatBreadcrumbs" currentLocationText="{i18n>chat}">
+                        <Link id="_IDChatLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                        <Link id="_IDChatLinkChats" text="{i18n>chats}" press=".onNavBackMaster('RouteChats')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:navigationActions>
+                    <Button
+                        id="_IDChatRefreshButton"
+                        icon="sap-icon://refresh"
+                        type="Default"
+                        text="{i18n>refresh}" 
+                        press=".onRefreshChat"/>
+                    <Button
+                        id="_IDChatResumeButton"
+                        icon="sap-icon://discussion-2"
+                        type="Default"
+                        text="{i18n>resumeChat}" 
+                        press=".onResumeChat"/>
+                    <Button
+                        id="_IDChatNavBackButton"
+                        icon="sap-icon://nav-back"
+                        type="Default"
+                        text="{i18n>chats}" 
+                        press=".onNavBackMaster('RouteChats')"/>
+                    <Button
+                        id="_IDChatNavHomeButton"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Default" 
+                        press=".onNavBackMaster('RouteMain')"/>    
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader id="_IDChatDynamicPageHeader" pinnable="true">
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+           <l:VerticalLayout id="_IDChatVerticalLayout">
+                <Panel id="_IDChatPanel" width="auto" headerText="{i18n>chat}" class="sapUiResponsiveMargin" expandable="true" expanded="true">
+                    <content>
+                        <form:Form id="_IDChatForm" editable="true">
+                            <form:layout>
+                                <form:ColumnLayout id="_IDChatColumnLayout" 
+                                    columnsM="1"
+                                    columnsL="3"
+                                    columnsXL="3"
+                                />
+                            </form:layout>
+                            <form:formContainers>
+                                <form:FormContainer id="_IDChatFormContainer">
+                                    <form:formElements>
+                                        <form:FormElement id="_IDChatFormElementApiId" label="{i18n>id}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDChatIdInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{chats>id}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDChatFormElementApi" label="{i18n>api}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDChatApiInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{chats>api}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDChatFormElementUsername" label="{i18n>username}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDChatUsernameInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{chats>username}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDChatFormElementChatDate" label="{i18n>date}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDChatChatDateInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{chats>chatDate}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDChatFormElementChatTime" label="{i18n>time}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDChatChatTimeInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{chats>chatTime}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDChatFormElementBlocked" label="{i18n>blocked}">
+                                            <form:fields>
+                                                <CheckBox id="_IDChatBlockedCheckbox" selected="{chats>blocked}" editable="false" ></CheckBox>
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                </form:FormContainer>
+                            </form:formContainers>
+                        </form:Form>
+                    </content>
+                </Panel>
+                <Panel id="_IDChatPanelMessages" width="auto" class="sapUiResponsiveMargin" expandable="false" height="auto">
+                    <content>
+                        <IconTabBar
+                            id="_IDChatIconTabBar"
+                            select=".onIconTabSelect"
+                            expanded="true">
+                            <items>
+                                <IconTabFilter id="_IDChatIconTabFilterMessages" text="{i18n>messages}" key="messages">
+                                    <Table id="_IDChatMessagesTable"
+                                        inset="false"
+                                        alternateRowColors="true"
+                                        popinLayout="GridSmall"
+                                        items="{ 
+                                            path: 'chats>messages',
+                                            templateShareable:false,
+                                            sorter: {
+                                                path: 'seqno'
+                                            }
+                                        }">
+                                        <dependents>
+                                            <plugins:ColumnResizer id="_IDChatColumnResizerModelsTable"/>
+                                        </dependents>
+                                        <headerToolbar>
+                                            <OverflowToolbar id="_IDChatOverflowToolbarMessagesTable">
+                                                <Title id="_IDChatOverflowToolbarTitleMessagesTable" text="{i18n>messages}" level="H2"/>
+                                                <ToolbarSpacer id="_IDChatOverflowToolbarToolbarSpacerMessagesTable"/>
+                                            </OverflowToolbar>
+                                        </headerToolbar>
+                                        <columns>
+                                            <Column id="_IDChatColumnSeqno" width="5em" importance="Low">
+                                                <Text id="_IDChatColumnTextSeqno" text="{i18n>seqno}" />
+                                            </Column>
+                                            <Column id="_IDChatColumnMsg" width="50%" importance="High">
+                                                <Text id="_IDChatColumnTextMsg" text="{i18n>message}" />
+                                            </Column>
+                                            <Column id="_IDChatColumnMsgDate" importance="High">
+                                                <Text id="_IDChatColumnTextMsgDate" text="{i18n>date}" />
+                                            </Column>
+                                            <Column id="_IDChatColumnMsgTime" importance="High">
+                                                <Text id="_IDChatColumnTextMsgTime" text="{i18n>time}" />
+                                            </Column>
+                                            <Column id="_IDChatColumnTotalTokens" importance="High">
+                                                <Text id="_IDChatColumnTextTotalTokens" text="{i18n>totalTokens}" />
+                                            </Column>
+                                            <Column id="_IDChatColumnModel" importance="High">
+                                                <Text id="_IDChatColumnTextModel" text="{i18n>model}" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem id="_IDChatColumnListItemModels" press=".onModelsItemPress">
+                                                <cells>
+                                                    <Text id="_IDChatTextSeqno" text="{chats>seqno}" />
+                                                    <ExpandableText id="_IDChatTexMsg" maxCharacters="150" text="{chats>msg}" />
+                                                    <Text id="_IDChatTextMsgDate" text="{chats>msgDate}" />
+                                                    <Text id="_IDChatTextMsgTime" text="{chats>msgTime}" />
+                                                    <Text id="_IDChatTextTotalTokens" text="{chats>totalTokens}" />
+                                                    <Text id="_IDChatTextModel" text="{chats>model}" />
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </IconTabFilter>
+                                <IconTabFilter id="_IDChatIconTabFilterFlow" text="{i18n>sequenceDiagram}" key="sequenceDiagram">
+                                    <l:VerticalLayout id="vl1" width="100%" class="sapUiContentPadding">
+                                        <OverflowToolbar id="contentTb" design="Transparent">
+                                            <ToolbarSpacer id="_IDChatToolbarSpacerSD"/>
+                                            <Button
+                                                id="_IDChatDownloadSD"
+                                                icon="sap-icon://download"
+                                                type="Default"
+                                                text="{i18n>downloadSD}" 
+                                                press=".onGetSequenceDiagramScreenShot"/>
+			                            </OverflowToolbar>
+                                        <core:HTML 
+                                            id="_IDChatHTMLMessagesSequenceDiagram" 
+                                            content='&lt;div id="aaic-sequence-diagram-container"&gt;&lt;/div&gt;'
+                                            afterRendering=".onAfterRenderingHTMLControlSD">
+                                        </core:HTML>
+                                    </l:VerticalLayout>
+                                </IconTabFilter>
+                                <IconTabFilter id="_IDChatIconTabFilterLog" text="{i18n>log}" key="log">
+                                    <Table 
+                                        id="_IDChatLogTable"
+                                        inset="false"
+                                        alternateRowColors="false"
+                                        popinLayout="GridSmall"
+                                        autoPopinMode="true"
+                                        growing="true"
+		                                growingThreshold="100"
+                                        mode="MultiSelect"
+                                        items="{ 
+                                            path: 'chats>log',
+                                            templateShareable:false,
+                                            sorter: [{
+                                                path: 'seqno'
+                                            }]
+                                        }">
+                                        <headerToolbar>
+                                            <OverflowToolbar id="_IDChatOverflowToolbar">
+                                                <Title id="_IDChatOverflowToolbarTitle" text="{i18n>logs}" level="H2"/>
+                                                <ToolbarSpacer id="_IDChatOverflowToolbarToolbarSpacer"/>
+                                            </OverflowToolbar>
+                                        </headerToolbar>
+                                        <dependents>
+                                            <plugins:ColumnResizer id="_IDChatColumnResizerLogTable"/>
+                                        </dependents>
+                                        <columns>
+                                            <Column id="_IDChatColumnId" importance="High">
+                                                <Text id="_IDChatColumnTextId" text="{i18n>id}" />
+                                            </Column>
+                                            <Column id="_IDChatColumnLogSeqno" width="5em" importance="Low">
+                                                <Text id="_IDChatColumnTextLogSeqno" text="{i18n>seqno}" />
+                                            </Column>
+                                            <Column id="_IDChatColumnMessage" width="30%" importance="High">
+                                                <Text id="_IDChatColumnTextMessage" text="{i18n>message}" />
+                                            </Column>
+                                            <Column id="_IDChatColumnMessageId" importance="Low">
+                                                <Text id="_IDChatColumnTextMessageId" text="{i18n>messageId}" />
+                                            </Column>
+                                            <Column id="_IDChatColumnMessageNumber" importance="Low">
+                                                <Text id="_IDChatColumnTextMessageNumber" text="{i18n>messageNumber}" />
+                                            </Column>
+                                            <Column id="_IDChatColumnUsername" importance="Low">
+                                                <Text id="_IDChatColumnTextUsername" text="{i18n>username}" />
+                                            </Column>
+                                            <Column id="_IDChatColumnDate" importance="High">
+                                                <Text id="_IDChatColumnTextDate" text="{i18n>date}" />
+                                            </Column>
+                                            <Column id="_IDChatColumnTime" importance="High">
+                                                <Text id="_IDChatColumnTextTime" text="{i18n>time}" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem id="_IDChatColumnListItem">
+                                                <cells>
+                                                    <Text id="_IDChatTextId" text="{chats>id}" />
+                                                    <Text id="_IDChatTextLogSeqno" text="{chats>seqno}" />
+                                                    <MessageStrip id="_IDChatMessageStrip"
+                                                        text="{chats>message}"
+                                                        type="{= ${chats>msgty} === 'E' 
+                                                                ? 'Error' 
+                                                                : ${chats>msgty} === 'W' 
+                                                                    ? 'Warning' 
+                                                                    : ${chats>msgty} === 'S' 
+                                                                        ? 'Success' 
+                                                                        : 'Information' }"
+                                                        showIcon="true">
+                                                    </MessageStrip>
+                                                    <Text id="_IDChatTextMessageId" text="{chats>msgid}" />
+                                                    <Text id="_IDChatTextMessageNumber" text="{chats>msgno}" />
+                                                    <Text id="_IDChatTextUsername" text="{chats>username}" />
+                                                    <Text id="_IDChatTextDate" text="{chats>logDate}" />
+                                                    <Text id="_IDChatTextTime" text="{chats>logTime}" />
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </IconTabFilter>
+                                <IconTabFilter id="_IDChatIconTabFilterAgentPlan" text="{i18n>agentPlan}" key="planning">
+                                    <ce:CodeEditor id="_IDChatCodeEditor" type="markdown" width="100%" height="500px" editable="false" />
+                                </IconTabFilter>
+                            </items>
+                        </IconTabBar>
+                    </content>
+                </Panel>
+            </l:VerticalLayout>
+        </f:content>
+        <f:footer>
+			<OverflowToolbar id="_IDChatPageFooter" class="sapUiSmallMarginBottom">
+                <Button id="_IDChatMessagePopoverButton"
+					icon="sap-icon://alert"
+					text="{=${message>/}.length}"
+					visible="{=${message>/}.length > 0}"
+					type="Transparent"
+					press=".onMessagePopoverPress"/>
+                <ToolbarSpacer id="_IDChatToolbarSpacerBegin"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

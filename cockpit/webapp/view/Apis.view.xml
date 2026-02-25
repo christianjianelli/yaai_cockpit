@@ -1,0 +1,86 @@
+<mvc:View controllerName="aaic.cockpit.controller.Apis"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDApisDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDApisDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDApisTitle" text="{i18n>apis}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDApisBreadcrumbs" currentLocationText="{i18n>apis}">
+                        <Link id="_IDApisLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:navigationActions>
+                    <Button
+                        id="_IDApisNavHome"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Transparent" 
+                        press=".onNavBackMaster('RouteMain')"/>    
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <Table id="_IDApisTable"
+                class="sapUiLargeMarginBottom"
+                inset="false"
+                alternateRowColors="false"
+                popinLayout="GridSmall"
+                growing="true"
+		        growingThreshold="10"
+                mode="MultiSelect"
+                items="{ 
+                    path: 'apis>/apis',
+                    templateShareable:false,
+                    sorter: {
+                        path: 'id'
+                    }
+                }">
+                <headerToolbar>
+                    <OverflowToolbar id="_IDApisOverflowToolbarAdd">
+                        <content>
+                            <Title id="_IDApisOverflowToolbarTitle" text="{i18n>apis}" level="H2"/>
+                            <ToolbarSpacer id="_IDApisToolbarSpacerHeaderToolbar"/>
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <dependents>
+                    <plugins:ColumnResizer id="_IDApisColumnResizer"/>
+                </dependents>
+                <columns>
+                    <Column id="_IDApisColumnId" width="15em">
+                        <Text id="_IDApisColumnTextFilename" text="{i18n>id}" />
+                    </Column>
+                    <Column id="_IDApisColumnBaseUrl">
+                        <Text id="_IDApisColumnTextBaseUrl" text="{i18n>baseUrl}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="_IDApisColumnListItem" type="Navigation" press=".onItemPress">
+                        <cells>
+                            <Text id="_IDApisTextId" text="{apis>id}" />
+                            <Text id="_IDApisTextBaseUrl" text="{apis>baseUrl}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <f:footer>
+			<OverflowToolbar id="_IDApisPageFooter" class="sapUiSmallMarginBottom">
+                <Button id="_IDApisMessagePopoverButton"
+					icon="sap-icon://alert"
+					text="{=${message>/}.length}"
+					visible="{=${message>/}.length > 0}"
+					type="Transparent"
+					press=".onMessagePopoverPress"/>
+                <ToolbarSpacer id="_IDApisToolbarSpacerBegin"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

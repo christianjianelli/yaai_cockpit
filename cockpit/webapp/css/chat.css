@@ -1,0 +1,283 @@
+/* Chat panel */
+#aaic-chat-container {
+    overflow: auto;
+    width: 100%;
+    min-height: 300px;
+    background-color: #fff;
+}
+
+#aaic-chat-logo {
+    padding: 10px;
+}
+
+/* Message Container: Flexbox for vertical stacking */
+#aaic-chat-message-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.45;
+    /* Enhances readability by adding space between lines */
+    font-size: 0.9em;
+    /* Slightly reduced base font size to fit more content in the narrow window */
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    /* Spacing between individual messages */
+    max-width: 100%;
+    /* Ensures the container doesn't overflow its parent */
+}
+
+/* Individual Message Styles */
+.aaic-chat-message {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    /* Each message takes full available width */
+    /* Default alignment for LLM messages (align-items: flex-start) */
+}
+
+/* Message Bubble Styling */
+.aaic-chat-message-bubble {
+    padding: 10px 14px;
+    border-radius: 18px;
+    /* Smoothly rounded corners for a modern chat look */
+    max-width: calc(100% - 40px);
+    /* Limits bubble width, leaving space on the opposite side */
+    word-wrap: break-word;
+    /* Prevents long words/URLs from overflowing */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    /* Subtle shadow for depth */
+    position: relative;
+    /* Needed for any future additions like small "tail" elements */
+    min-width: 300px;
+}
+
+.aaic-chat-message-bubble p {
+    margin: 0;
+    /* Remove default paragraph margins inside the bubble */
+}
+
+/* LLM (AI Assistant) Message Specific Styles */
+.aaic-chat-llm-message {
+    align-self: flex-start;
+    align-items: flex-start;
+    /* Aligns LLM messages to the left */
+}
+
+.aaic-chat-llm-message .aaic-chat-message-bubble {
+    background-color: #ffffff;
+    /* Very light blue for LLM messages */
+    color: #2c3e50;
+    /* Darker blue-grey for LLM text */
+    border-bottom-left-radius: 4px;
+    /* Slightly less rounded corner for a distinct visual cue */
+}
+
+/* User Message Specific Styles */
+.aaic-chat-user-message {
+    align-self: flex-end;
+    /* Pushes the entire message block to the right */
+    align-items: flex-end;
+    /* Aligns content (bubble, timestamp) within the block to the right */
+}
+
+.aaic-chat-user-message .aaic-chat-message-bubble {
+    background-color: #e9eef6;
+    /* Soft green for user messages */
+    color: #2c3e50;
+    /* Same dark blue-grey for user text */
+    border-bottom-right-radius: 4px;
+    /* Slightly less rounded corner for a distinct visual cue */
+}
+
+.aaic-chat-message .aaic-llm-typing-dot {
+    width: 7px;
+    height: 7px;
+    margin: 0 2px;
+    border-radius: 50%;
+    background: #a0a0a0;
+    opacity: 0.5;
+    animation: aaic-llm-typing-blink 1.2s infinite both;
+}
+
+.aaic-llm-typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.aaic-llm-typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes aaic-llm-typing-blink {
+    0%, 80%, 100% { opacity: 0.5; }
+    40% { opacity: 1; }
+}
+
+pre:not(.mermaid) {
+    background: #fff;
+    border-left: 3px solid #c9d5e9;
+    border-radius: 0 4px 4px 0;
+    padding: 16px;
+    color: #333;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    line-height: 1.4;
+    overflow-x: auto;
+    margin: 1em 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    scrollbar-width: thin;
+}
+
+.aaic-chat-message-timestamp {
+    font-size: 0.7em;
+    /* Smaller font size for the timestamp */
+    color: #888;
+    /* Muted grey for timestamps */
+    margin-top: 4px;
+    /* Space between bubble and timestamp */
+    padding: 0 8px;
+    /* Horizontal padding to align with bubble content */
+}
+
+.aaic-chat-user-message .aaic-chat-message-timestamp {
+    text-align: right;
+    /* Aligns user timestamps to the right */
+}
+
+.aaic-chat-llm-message .aaic-chat-message-timestamp {
+    text-align: left;
+    /* Aligns LLM timestamps to the left */
+}
+
+/* User Typing Animation */
+.aaic-chat-llm-typing {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    margin-right: 8px;
+}
+
+#aaic-chat-form-container {
+    margin-top: 50px;
+}
+
+#aaic-chat-form {
+    background: #fff;
+    margin: 16px;
+    padding: 22px;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    width: 98vw;
+    max-width: 80%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#aaic-chat-user-text {
+    min-height: 50px;
+    padding: 5px;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    background: #f9fafb;
+    resize: vertical;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    outline: none;
+}
+
+#aaic-chat-user-text:focus {
+    border-color: #2563eb;
+    background: #fff;
+    box-shadow: 0 0 0 2px #2563eb33;
+}
+
+select#aaic-chat-api {
+    min-height: 36px;
+    padding: 5px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    background: #f9fafb;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    outline: none;
+    margin-bottom: 10px;
+    width: auto !important;
+}
+
+select#aaic-chat-api:focus {
+    border-color: #2563eb;
+    background: #fff;
+    box-shadow: 0 0 0 2px #2563eb33;
+}
+
+input[type="password"]#aaic-chat-api-key {
+    min-height: 36px;
+    padding: 5px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    background: #f9fafb;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    outline: none;
+    margin-bottom: 10px;
+    width: auto !important;
+}
+
+input[type="password"]#aaic-chat-api-key:focus {
+    border-color: #2563eb;
+    background: #fff;
+    box-shadow: 0 0 0 2px #2563eb33;
+}
+
+button[type="button"]#aaic-chat-send-btn {
+    margin-top: 8px;
+    padding: 5px 16px;
+    border: none;
+    border-radius: 5px;
+    background: #2563eb;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s;
+    box-shadow: 0 1px 4px rgba(37,99,235,0.07);
+    align-self: flex-start;
+    width: auto;
+    min-width: 0;
+}
+
+button[type="button"]#aaic-chat-send-btn:hover {
+    background: #1d4ed8;
+}
+
+#aaic-chat-clear-btn, #aaic-chat-close-btn{
+    margin-left: 5px;
+    margin-top: 8px;
+    padding: 5px 16px;
+    border: none;
+    border-radius: 5px;
+    background: #e5e7eb;
+    color: #374151;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    align-self: flex-start;
+    width: auto;
+    min-width: 0;
+}
+
+#aaic-chat-clear-btn:hover, #aaic-chat-close-btn:hover {
+    background: #d1d5db;
+}

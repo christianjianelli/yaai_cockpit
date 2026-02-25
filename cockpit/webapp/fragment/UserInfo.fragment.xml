@@ -1,0 +1,44 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout">
+	<ResponsivePopover
+		id="_IDUserInfo"
+		title="{i18n>userInfo}"
+		class="sapUiContentPadding"
+		placement="Bottom"
+		horizontalScrolling="false">
+		<content>
+			<l:VerticalLayout id="_IDUserInfoVerticalLayout">
+				<Label 
+					id="_IDUserInfoLabelUser"
+					labelFor="_IDUserInfoTextUser" 
+					text="{i18n>user}">
+				</Label>
+				<Text id="_IDUserInfoTextUser" text="{userinfo>/userid}" />
+				<Label 
+					id="_IDUserInfoLabelUsername" 
+					class="sapUiSmallMarginTop"
+					labelFor="_IDUserInfoTextUsername" 
+					text="{i18n>name}">
+				</Label>
+				<Text id="_IDUserInfoTextUsername" text="{userinfo>/username}" />
+				<Label 
+					id="_IDUserInfoLabelEmail"
+					class="sapUiSmallMarginTop"
+					labelFor="_IDUserInfoTextEmail" 
+					text="{i18n>email}">
+				</Label>
+				<Text id="_IDUserInfoTextEmail" text="{userinfo>/email}" />
+			</l:VerticalLayout>
+		</content>
+		<footer>
+			<OverflowToolbar id="_IDUserInfoOverflowToolbar">
+				<content>
+					<ToolbarSpacer id="_IDUserInfoToolbarSpacer"/>
+					<Button id="_IDUserInfoButtonClose" text="{i18n>close}" press=".onCloseUserInfo" />
+				</content>
+			</OverflowToolbar>
+		</footer>
+	</ResponsivePopover>
+</core:FragmentDefinition>

@@ -1,0 +1,130 @@
+<mvc:View controllerName="aaic.cockpit.controller.Chats"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDChatsDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDChatsDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDChatsTitle" text="{i18n>chats}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDChatsBreadcrumbs" currentLocationText="{i18n>chats}">
+                        <Link id="_IDChatsLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:navigationActions>
+                    <Button
+                        id="_IDChatsNavHome"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Transparent" 
+                        press=".onNavBackMaster('RouteMain')"/>    
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader id="_IDChatsDynamicPageHeader" pinnable="true">
+                <fb:FilterBar id="_IDChatsilterBar" useToolbar="false" search=".onSearch">
+                    <fb:filterGroupItems>
+                        <fb:FilterGroupItem id="_IDChatsFilterGroupItem" name="Name" label="Date" groupName="Group1" visibleInFilterBar="true">
+                            <fb:control>
+                                <DynamicDateRange
+                                    id="_IDChatsFilterDynamicDateRange"
+                                    change=".onDateFilterChange" />
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem id="_IDChatsFilterGroupItemUserName" name="UserName" label="{i18n>username}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:control>
+                                <Input id="_IDChatsUserNameFilter"></Input>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                    </fb:filterGroupItems>
+                </fb:FilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table id="_IDChatsTable"
+                class="sapUiLargeMarginBottom"
+                inset="false"
+                alternateRowColors="false"
+                popinLayout="GridSmall"
+                autoPopinMode="true"
+                growing="true"
+		        growingThreshold="10"
+                mode="MultiSelect"
+                items="{ 
+                    path: 'chats>/chats',
+                    templateShareable:false,
+                    sorter: [{
+                        path: 'chatDate'
+                    },{
+                        path: 'chatTime'
+                    }]
+                }">
+                <dependents>
+                    <plugins:ColumnResizer id="_IDChatsColumnResizer"/>
+                </dependents>
+                <headerToolbar>
+                    <OverflowToolbar id="_IDChatsOverflowToolbar">
+                        <Title id="_IDChatsOverflowToolbarTitle" text="{i18n>chats}" level="H2"/>
+                        <ToolbarSpacer id="_IDChatsOverflowToolbarToolbarSpacer"/>
+                        <Button id="_IDChatsButtonBlock" class="sapUiTinyMarginEnd" type="Default" icon="sap-icon://locked" text="{i18n>block}" enabled="true" press=".onBlock"/>
+                        <Button id="_IDChatsButtonRelease" class="sapUiTinyMarginEnd" type="Default" icon="sap-icon://unlocked" text="{i18n>release}" enabled="true" press=".onRelease"/>
+                        <Button id="_IDChatsButtonDelete" class="sapUiTinyMarginEnd" type="Reject" icon="sap-icon://delete" text="{i18n>delete}" enabled="true" press=".onDelete"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="_IDChatsColumnId" width="20%" importance="High">
+                        <Text id="_IDChatsColumnTextId" text="{i18n>id}" />
+                    </Column>
+                    <Column id="_IDChatsColumnAPI" importance="High">
+                        <Text id="_IDChatsColumnTextAPI" text="{i18n>api}" />
+                    </Column>
+                    <Column id="_IDChatsColumnUsername" importance="High">
+                        <Text id="_IDChatsColumnTextUsername" text="{i18n>username}" />
+                    </Column>
+                    <Column id="_IDChatsColumnDate" importance="Low">
+                        <Text id="_IDChatsColumnTextDate" text="{i18n>date}" />
+                    </Column>
+                    <Column id="_IDChatsColumnTime" importance="Low">
+                        <Text id="_IDChatsColumnTextTime" text="{i18n>time}" />
+                    </Column>
+                    <Column id="_IDChatsColumnMessages" importance="Low">
+                        <Text id="_IDChatsColumnTextMessages" text="{i18n>messages}" />
+                    </Column>
+                    <Column id="_IDChatsColumnTBlocked" importance="Low">
+                        <Text id="_IDChatsColumnTextBlocked" text="{i18n>blocked}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="_IDChatsColumnListItem" type="Navigation" press=".onItemPress">
+                        <cells>
+                            <Text id="_IDChatsTextId" text="{chats>id}" />
+                            <Text id="_IDChatsTextAPI" text="{chats>api}" />
+                            <Text id="_IDChatsTextUsername" text="{chats>username}" />
+                            <Text id="_IDChatsTextDate" text="{chats>chatDate}" />
+                            <Text id="_IDChatsTextTime" text="{chats>chatTime}" />
+                            <Text id="_IDChatsTextMessages" text="{chats>maxSeqNo}" />
+                            <CheckBox id="_IDChatsCheckboxBlocked" selected="{chats>blocked}" editable="false" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <f:footer>
+			<OverflowToolbar id="_IDChatsPageFooter" class="sapUiSmallMarginBottom">
+                <Button id="_IDChatsMessagePopoverButton"
+					icon="sap-icon://alert"
+					text="{=${message>/}.length}"
+					visible="{=${message>/}.length > 0}"
+					type="Transparent"
+					press=".onMessagePopoverPress"/>
+                <ToolbarSpacer id="_IDChatsToolbarSpacerBegin"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

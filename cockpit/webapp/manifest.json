@@ -1,0 +1,296 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "aaic.cockpit",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "1.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.17.0",
+      "toolsId": "142ee53d-f3a8-47db-93c6-234372ea7183"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "yaaic-manage": {
+          "semanticObject": "yaaic",
+          "action": "manage",
+          "title": "{{yaaic-manage.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": false
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "handleValidation": true,
+    "dependencies": {
+      "minUI5Version": "1.136.12",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "aaic.cockpit.i18n.i18n"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        },
+        {
+          "uri": "css/chat.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "mainContents",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "aaic.cockpit.view",
+        "async": true
+      },
+      "routes": [
+        {
+          "name": "RouteMain",
+          "pattern": ":?query:",
+          "target": [
+            "TargetMain"
+          ]
+        },
+        {
+          "name": "RouteApis",
+          "pattern": "apis",
+          "target": [
+            "TargetApis"
+          ]
+        },
+        {
+          "name": "RouteApi",
+          "pattern": "api/{id}",
+          "target": [
+            "TargetApi"
+          ]
+        },
+        {
+          "name": "RouteAgents",
+          "pattern": "agents",
+          "target": [
+            "TargetAgents"
+          ]
+        },
+        {
+          "name": "RouteAgent",
+          "pattern": "agent/{id}",
+          "target": [
+            "TargetAgent"
+          ]
+        },
+        {
+          "name": "RouteTools",
+          "pattern": "tools",
+          "target": [
+            "TargetTools"
+          ]
+        },
+        {
+          "name": "RouteTool",
+          "pattern": "tool/{className},{methodName}",
+          "target": [
+            "TargetTool"
+          ]
+        },
+        {
+          "name": "RouteDocuments",
+          "pattern": "documents",
+          "target": [
+            "TargetDocuments"
+          ]
+        },
+        {
+          "name": "RouteDocument",
+          "pattern": "document/{id}",
+          "target": [
+            "TargetDocument"
+          ]
+        },
+        {
+          "name": "RouteChats",
+          "pattern": "chats",
+          "target": [
+            "TargetChats"
+          ]
+        },
+        {
+          "name": "RouteChat",
+          "pattern": "chat/{id}",
+          "target": [
+            "TargetChat"
+          ]
+        },
+        {
+          "name": "RouteLogs",
+          "pattern": "logs",
+          "target": [
+            "TargetLogs"
+          ]
+        },
+        {
+          "name": "RouteAsyncTasks",
+          "pattern": "async-tasks",
+          "target": [
+            "TargetAsyncTasks"
+          ]
+        },
+        {
+          "name": "RouteAsyncTask",
+          "pattern": "async-task/{id}",
+          "target": [
+            "TargetAsyncTask"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetMain": {
+          "id": "Main",
+          "name": "Main"
+        },
+        "TargetApis": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Apis",
+          "viewName": "Apis"
+        },
+        "TargetApi": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Api",
+          "viewName": "Api"
+        },
+        "TargetAgents": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Agents",
+          "viewName": "Agents"
+        },
+        "TargetAgent": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Agent",
+          "viewName": "Agent"
+        },
+        "TargetTools": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Tools",
+          "viewName": "Tools"
+        },
+        "TargetTool": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Tool",
+          "viewName": "Tool"
+        },
+        "TargetDocuments": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Documents",
+          "viewName": "Documents"
+        },
+        "TargetDocument": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Document",
+          "viewName": "Document"
+        },
+        "TargetChats": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Chats",
+          "viewName": "Chats"
+        },
+        "TargetChat": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Chat",
+          "viewName": "Chat"
+        },
+        "TargetLogs": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Logs",
+          "viewName": "Logs"
+        },
+        "TargetAsyncTasks": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "AsyncTasks",
+          "viewName": "AsyncTasks"
+        },
+        "TargetAsyncTask": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "AsyncTask",
+          "viewName": "AsyncTask"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "aaic.cockpit.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}

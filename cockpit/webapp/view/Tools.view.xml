@@ -1,0 +1,118 @@
+<mvc:View controllerName="aaic.cockpit.controller.Tools"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDToolsDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDToolsDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDToolsTitle" text="{i18n>tools}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDToolsBreadcrumbs" currentLocationText="{i18n>tools}">
+                        <Link id="_IDToolsLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:navigationActions>
+                    <Button
+                        id="_IDToolsNavHome"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Transparent" 
+                        press=".onNavBackMaster('RouteMain')"/>    
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader id="_IDToolsDynamicPageHeader" pinnable="true">
+                <fb:FilterBar id="_IDToolsFilterBar" useToolbar="false" search=".onSearch">
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem id="_IDToolsFilterGroupItemClassName" name="ClassName" label="{i18n>className}" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="_IDToolsClassNameFilter"></Input>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem id="_IDToolsFilterGroupItemMethodName" name="MethodName" label="{i18n>methodName}" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="_IDToolsMethodNameFilter"></Input>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem id="_IDToolsFilterGroupItemDescription" name="Description" label="{i18n>description}" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="_IDToolsDescriptionFilter"></Input>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table id="_IDToolsTable"
+                class="sapUiLargeMarginBottom"
+                inset="false"
+                alternateRowColors="false"
+                popinLayout="GridSmall"
+                growing="true"
+		        growingThreshold="10"
+                mode="MultiSelect"
+                items="{ 
+                    path: 'tools>/tools',
+                    templateShareable:false,
+                    sorter: {
+                        path: 'model'
+                    }
+                }">
+                <dependents>
+                    <plugins:ColumnResizer id="_IDToolsColumnResizer"/>
+                </dependents>
+                <headerToolbar>
+                    <OverflowToolbar id="_IDToolsOverflowToolbar">
+                        <Title id="_IDToolsOverflowToolbarTitle" text="{i18n>tools}" level="H2"/>
+                        <ToolbarSpacer id="_IDToolsOverflowToolbarToolbarSpacer"/>
+                        <Button id="_IDToolsButtonAdd" icon="sap-icon://add" text="{i18n>add}" press=".onAdd"></Button>
+                        <Button id="_IDToolsButtonAssignToAgent" icon="sap-icon://connected" text="{i18n>assignToAgent}" press=".onOpenSelectAgentDialog"></Button>
+                        <Button id="_IDToolsButtonDelete" icon="sap-icon://delete" text="{i18n>delete}" type="Reject" press=".onDelete"></Button>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="_IDToolsColumnClassName">
+                        <Text id="_IDToolsColumnTextClassName" text="{i18n>className}" />
+                    </Column>
+                    <Column id="_IDToolsColumnMethodName">
+                        <Text id="_IDToolsColumnTextMethodName" text="{i18n>methodName}" />
+                    </Column>
+                    <Column id="_IDToolsColumnProxyClassName">
+                        <Text id="_IDToolsColumnTextProxyClassName" text="{i18n>proxyClass}" />
+                    </Column>
+                    <Column id="_IDToolsColumnToolDescription">
+                        <Text id="_IDToolsColumnTextToolDescription" text="{i18n>toolDescription}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="_IDToolsColumnListItem" type="Navigation" press=".onItemPress">
+                        <cells>
+                            <Text id="_IDToolsTextClassName" text="{tools>className}" />
+                            <Text id="_IDToolsTextMethodName" text="{tools>methodName}" />
+                            <Text id="_IDToolsTextProxyClassName" text="{tools>proxyClass}" />
+                            <Text id="_IDToolsTextToolDescription" text="{tools>description}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <f:footer>
+			<OverflowToolbar id="_IDToolsPageFooter" class="sapUiSmallMarginBottom">
+                <Button id="_IDToolsMessagePopoverButton"
+					icon="sap-icon://alert"
+					text="{=${message>/}.length}"
+					visible="{=${message>/}.length > 0}"
+					type="Transparent"
+					press=".onMessagePopoverPress"/>
+                <ToolbarSpacer id="_IDToolsToolbarSpacerBegin"/>
+			</OverflowToolbar>
+	    </f:footer>
+	</f:DynamicPage>
+</mvc:View>

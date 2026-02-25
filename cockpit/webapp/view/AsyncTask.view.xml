@@ -1,0 +1,202 @@
+<mvc:View controllerName="aaic.cockpit.controller.AsyncTask"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDAsyncTaskDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDAsyncTaskDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDAsyncTaskTitle" text="{i18n>asyncTask}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDAsyncTaskBreadcrumbs" currentLocationText="{i18n>asyncTask}">
+                        <Link id="_IDAsyncTaskLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                        <Link id="_IDAsyncTaskLinkChats" text="{i18n>asyncTasks}" press=".onNavBackMaster('RouteAsyncTasks')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:navigationActions>
+                    <Button
+                        id="_IDAsyncTaskNavBack"
+                        icon="sap-icon://nav-back"
+                        type="Transparent"
+                        text="{i18n>asyncTasks}" 
+                        press=".onNavBackMaster('RouteAsyncTasks')"/>
+                    <Button
+                        id="_IDAsyncTaskNavHome"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Transparent" 
+                        press=".onNavBackMaster('RouteMain')"/>    
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader id="_IDAsyncTaskDynamicPageHeader" pinnable="true">
+                
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+           <l:VerticalLayout id="_IDAsyncTaskVerticalLayout">
+                <Panel id="_IDAsyncTaskPanel" width="auto" headerText="{i18n>taskInfo}" class="sapUiResponsiveMargin" expandable="true" expanded="true">
+                    <content>
+                        <form:Form id="_IDAsyncTaskForm" editable="true">
+                            <form:layout>
+                                <form:ColumnLayout id="_IDAsyncTaskColumnLayout" 
+                                    columnsM="1"
+                                    columnsL="3"
+                                    columnsXL="3"
+                                />
+                            </form:layout>
+                            <form:formContainers>
+                                <form:FormContainer id="_IDAsyncTaskFormContainer">
+                                    <form:formElements>
+                                        <form:FormElement id="_IDAsyncTaskFormElementId" label="{i18n>id}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAsyncTaskIdInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{async>id}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDAsyncTaskFormElementChatId" label="{i18n>chatId}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAsyncTaskChatIdInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{async>chatId}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDAsyncTaskFormElementName" label="{i18n>name}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAsyncTaskNameInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    required="true"
+                                                    value="{async>name}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDAsyncTaskFormElementStatus" label="{i18n>status}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAsyncTaskStatusInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    required="true"
+                                                    value="{async>status}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDAsyncTaskFormElementUsername" label="{i18n>username}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAsyncTaskUsernameInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    required="true"
+                                                    value="{async>username}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDAsyncTaskFormElementStartDate" label="{i18n>startDate}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAsyncTaskStartDateInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    required="true"
+                                                    value="{async>startDate}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDAsyncTaskFormElementStartTime" label="{i18n>startTime}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAsyncTaskStartTimeInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    required="true"
+                                                    value="{async>startTime}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDAsyncTaskFormElementEndDate" label="{i18n>endDate}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAsyncTaskEndDateInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    required="true"
+                                                    value="{async>endDate}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDAsyncTaskFormElementEndTime" label="{i18n>endTime}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAsyncTaskEndTimeInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    required="true"
+                                                    value="{async>endTime}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDAsyncTaskFormElementResponse" label="{i18n>response}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAsyncTaskResponseInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    required="true"
+                                                    value="{async>response}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                </form:FormContainer>
+                            </form:formContainers>
+                        </form:Form>
+                    </content>
+                </Panel>
+            </l:VerticalLayout>
+        </f:content>
+        <f:footer>
+			<OverflowToolbar id="_IDAsyncTaskPageFooter" class="sapUiSmallMarginBottom">
+                <Button id="_IDAsyncTaskMessagePopoverButton"
+					icon="sap-icon://alert"
+					text="{=${message>/}.length}"
+					visible="{=${message>/}.length > 0}"
+					type="Transparent"
+					press=".onMessagePopoverPress"/>
+                <ToolbarSpacer id="_IDAsyncTaskToolbarSpacerBegin"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

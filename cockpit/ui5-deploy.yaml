@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "3.1"
+metadata:
+  name: aaic.cockpit
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          url: http://192.168.153.129:8000
+          client: '001'
+        app:
+          name: YAAI_COCKPIT
+          description: ABAP AI tools Cockpit
+          package: YAAI_COCKPIT
+          transport: NPLK900126
+        exclude:
+          - /test/

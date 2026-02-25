@@ -1,0 +1,116 @@
+<mvc:View controllerName="aaic.cockpit.controller.Agents"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDAgentsDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDAgentsDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDAgentsTitle" text="{i18n>agents}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDAgentsBreadcrumbs" currentLocationText="{i18n>agents}">
+                        <Link id="_IDAgentsLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:navigationActions>
+                    <Button
+                        id="_IDAgentsNavHome"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Transparent" 
+                        press=".onNavBackMaster('RouteMain')"/>    
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader id="_IDAgentsDynamicPageHeader" pinnable="true">
+                <fb:FilterBar id="_IDAgentsFilterBar" useToolbar="false" search=".onSearch">
+                    <fb:filterGroupItems>
+                        <fb:FilterGroupItem id="_IDAgentsFilterGroupItemAgent" name="Agent" label="{i18n>name}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:control>
+                                <Input id="_IDAgentsNameFilter"></Input>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem id="_IDAgentssFilterGroupItemDescription" name="Description" label="{i18n>description}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:control>
+                                <Input id="_IDAgentsDescriptionFilter"></Input>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                    </fb:filterGroupItems>
+                </fb:FilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table id="_IDAgentsTable"
+                class="sapUiMediumMarginBottom"
+                inset="false"
+                alternateRowColors="false"
+                popinLayout="GridSmall"
+                growing="true"
+		        growingThreshold="10"
+                mode="MultiSelect"
+                items="{ 
+                    path: 'agents>/agents',
+                    templateShareable:false,
+                    sorter: {
+                        path: 'model'
+                    }
+                }">
+                <dependents>
+                    <plugins:ColumnResizer id="_IDAgentsColumnResizer"/>
+                </dependents>
+                <headerToolbar>
+                    <OverflowToolbar id="_IDAgentsOverflowToolbar">
+                        <Title id="_IDAgentsOverflowToolbarTitle" text="{i18n>tools}" level="H2"/>
+                        <ToolbarSpacer id="_IDAgentsOverflowToolbarToolbarSpacer"/>
+                        <Button id="_IDAgentsButtonAdd" icon="sap-icon://add" text="{i18n>add}" press=".onAdd"></Button>
+                        <Button id="_IDAgentsButtonDelete" icon="sap-icon://delete" text="{i18n>delete}" type="Reject" press=".onDelete"></Button>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="_IDAgentsColumnName">
+                        <Text id="_IDAgentsColumnTextName" text="{i18n>name}" />
+                    </Column>
+                    <Column id="_IDAgentsColumnDescription">
+                        <Text id="_IDAgentsColumnTextAgentName" text="{i18n>description}" />
+                    </Column>
+                    <Column id="_IDAgentsColumnSystemInstructions">
+                        <Text id="_IDAgentsColumnTextSystemInstructions" text="{i18n>systemInstructions}" />
+                    </Column>
+                    <Column id="_IDAgentsColumnRagDocument">
+                        <Text id="_IDAgentsColumnTextRagDocument" text="{i18n>ragDocument}" />
+                    </Column>
+                    <Column id="_IDAgentsColumnPromptTemplate">
+                        <Text id="_IDAgentsColumnTextPromptTemplate" text="{i18n>promptTemplate}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="_IDAgentsColumnListItem" type="Navigation" press=".onItemPress">
+                        <cells>
+                            <Text id="_IDAgentsTextName" text="{agents>name}" />
+                            <Text id="_IDAgentsTextDescription" text="{agents>description}" />
+                            <Text id="_IDAgentsTextSystemInstructions" text="{agents>filenameSi}" />
+                            <Text id="_IDAgentsTextRagDocument" text="{agents>filenameCtx}" />
+                            <Text id="_IDAgentsTextPromptTemplate" text="{agents>promptTemplate}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <f:footer>
+			<OverflowToolbar id="_IDAgentsPageFooter" class="sapUiSmallMarginBottom">
+                <Button id="_IDAgentsMessagePopoverButton"
+					icon="sap-icon://alert"
+					text="{=${message>/}.length}"
+					visible="{=${message>/}.length > 0}"
+					type="Transparent"
+					press=".onMessagePopoverPress"/>
+                <ToolbarSpacer id="_IDAgentsToolbarSpacerBegin"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

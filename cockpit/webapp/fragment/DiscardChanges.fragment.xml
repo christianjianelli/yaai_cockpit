@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Dialog
+		id="_IDDiscardChangesDialog"
+		title="{i18n>discardChangesTitle}"
+		class="sapUiContentPadding">
+		<content>
+			<Text id="_IDDiscardChangesText" text="{i18n>discardChangesQuestion}"></Text>
+		</content>
+		<buttons>        
+            <Button id="_IDDiscardChangesButtonYes" press=".onDiscardChanges" text="{i18n>yes}"/>
+			<Button id="_IDDiscardChangesButtonNo" press=".onKeepChanges" text="{i18n>no}"/>
+        </buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,157 @@
+<mvc:View controllerName="aaic.cockpit.controller.AsyncTasks"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDAsyncTasksDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDAsyncTasksDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDAsyncTasksTitle" text="{i18n>asyncTasks}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDAsyncTasksBreadcrumbs" currentLocationText="{i18n>asyncTasks}">
+                        <Link id="_IDAsyncTasksLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:navigationActions>
+                    <Button
+                        id="_IDAsyncTasksNavHome"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Transparent" 
+                        press=".onNavBackMaster('RouteMain')"/>    
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader id="_IDAsyncTasksDynamicPageHeader" pinnable="true">
+                <fb:FilterBar id="_IDAsyncTasksFilterBar" useToolbar="false" search=".onSearch">
+                    <fb:filterGroupItems>
+                        <fb:FilterGroupItem id="_IDAsyncTasksFilterGroupItem" name="Name" label="Date" groupName="Group1" visibleInFilterBar="true">
+                            <fb:control>
+                                <DynamicDateRange
+                                    id="_IDAsyncTasksFilterDynamicDateRange"
+                                    change=".onDateFilterChange" />
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem id="_IDAsyncTasksFilterGroupItemUserName" name="UserName" label="{i18n>username}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:control>
+                                <Input id="_IDAsyncTasksUserNameFilter"></Input>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                    </fb:filterGroupItems>
+                </fb:FilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table id="_IDAsyncTasksTable"
+                class="sapUiLargeMarginBottom"
+                inset="false"
+                alternateRowColors="false"
+                popinLayout="GridSmall"
+                autoPopinMode="true"
+                growing="true"
+		        growingThreshold="10"
+                mode="MultiSelect"
+                items="{ 
+                    path: 'async>/tasks',
+                    templateShareable:false,
+                    sorter: {
+                        path: 'model'
+                    }
+                }">
+                <dependents>
+                    <plugins:ColumnResizer id="_IDAsyncTasksColumnResizer"/>
+                </dependents>
+                <headerToolbar>
+                    <OverflowToolbar id="_IDAsyncTasksOverflowToolbar">
+                        <Title id="_IDAsyncTasksOverflowToolbarTitle" text="{i18n>tasks}" level="H2"/>
+                        <ToolbarSpacer id="_IDAsyncTasksOverflowToolbarToolbarSpacer"/>
+                        <Button id="_IDAsyncTasksButtonCancel" class="sapUiTinyMarginEnd" type="Default" icon="sap-icon://cancel" text="{i18n>cancel}" enabled="true" press=".onCancel"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="_IDAsyncTasksColumnId" width="20%" importance="High">
+                        <Text id="_IDAsyncTasksColumnTextId" text="{i18n>id}" />
+                    </Column>
+                    <Column id="_IDAsyncTasksColumnChatId" width="20%" importance="High">
+                        <Text id="_IDAsyncTasksColumnTextChatId" text="{i18n>chatId}" />
+                    </Column>
+                    <Column id="_IDAsyncTasksColumnName" importance="Low">
+                        <Text id="_IDAsyncTasksColumnTextName" text="{i18n>name}" />
+                    </Column>
+                    <Column id="_IDAsyncTasksColumnStatus" importance="Low">
+                        <Text id="_IDAsyncTasksColumnTextStatus" text="{i18n>status}" />
+                    </Column>
+                    <Column id="_IDAsyncTasksColumnUsername" importance="Low">
+                        <Text id="_IDAsyncTasksColumnTextUsername" text="{i18n>username}" />
+                    </Column>
+                    <Column id="_IDAsyncTasksColumnDate" importance="High">
+                        <Text id="_IDAsyncTasksColumnTextDate" text="{i18n>startDate}" />
+                    </Column>
+                    <Column id="_IDAsyncTasksColumnTime" importance="High">
+                        <Text id="_IDAsyncTasksColumnTextTime" text="{i18n>startTime}" />
+                    </Column>
+                    <Column id="_IDAsyncTasksColumnCancelled" importance="High">
+                        <Text id="_IDAsyncTasksColumnTextCancelled" text="{i18n>cancelled}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="_IDAsyncTasksColumnListItem" type="Navigation" press=".onItemPress">
+                        <cells>
+                            <Text id="_IDAsyncTasksTextId" text="{async>id}" />
+                            <Text id="_IDAsyncTasksTextChatId" text="{async>chatId}" />
+                            <Text id="_IDAsyncTasksTextName" text="{async>name}" />
+                            <MessageStrip id="_IDAsyncTasksMessageStrip"
+                                text="{async>status}"
+                                type="{= ${async>status} === 'Failed' 
+                                        ? 'Error' 
+                                        : ${async>status} === 'Finished' 
+                                        ? 'Success' 
+                                        : ${async>status} === 'Paused' 
+                                        ? 'Warning' 
+                                        : ${async>status} === 'Created' 
+                                        ? 'Information'
+                                        : ${async>status} === 'Cancelled' 
+                                        ? 'Error' 
+                                        : 'Information' }"
+                                showIcon="true"
+                                customIcon="{= ${async>status} === 'Running' 
+                                        ? 'sap-icon://in-progress' 
+                                        : ${async>status} === 'Failed' 
+                                        ? 'sap-icon://status-critical' 
+                                        : ${async>status} === 'Finished' 
+                                        ? 'sap-icon://message-success' 
+                                        : ${async>status} === 'Paused' 
+                                        ? 'sap-icon://pause' 
+                                        : ${async>status} === 'Created' 
+                                        ? 'sap-icon://message-information'
+                                        : ${async>status} === 'Cancelled' 
+                                        ? 'sap-icon://message-error' 
+                                        : 'sap-icon://message-information' }">
+                            </MessageStrip>
+                            <Text id="_IDAsyncTasksTextUsername" text="{async>username}" />
+                            <Text id="_IDAsyncTasksTextDate" text="{async>startDate}" />
+                            <Text id="_IDAsyncTasksTextTime" text="{async>startTime}" />
+                            <CheckBox id="_IDAsyncTasksCheckboxCancelled" selected="{async>cancelled}" editable="false" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <f:footer>
+			<OverflowToolbar id="_IDAsyncTasksPageFooter" class="sapUiSmallMarginBottom">
+                <Button id="_IDAsyncTasksMessagePopoverButton"
+					icon="sap-icon://alert"
+					text="{=${message>/}.length}"
+					visible="{=${message>/}.length > 0}"
+					type="Transparent"
+					press=".onMessagePopoverPress"/>
+                <ToolbarSpacer id="_IDAsyncTasksToolbarSpacerBegin"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

@@ -1,0 +1,71 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified">
+	<ResponsivePopover
+		id="_IDUserSettings"
+		title="{i18n>userSettings}"
+		class="sapUiContentPadding"
+		placement="Bottom"
+		horizontalScrolling="false">
+		<content>
+			<l:VerticalLayout id="_IDUserSettingsVerticalLayout">
+				<Label 
+					id="_IDUserSettingsLabelDefaultAPI" 
+					labelFor="_IDUserSettingsDeafultApi" 
+					text="{i18n>defaultAPI}">
+				</Label>
+				<Select
+					id="_IDUserSettingsDefaultApi"
+					forceSelection="false"
+					width="100%"
+					change=".onDefaultApiChange"
+					selectedKey="{settings>/DefaultAPI}"
+					items="{
+						path: 'apis>/apis',
+						sorter: { path: 'id' }
+					}">
+					<core:Item id="_IDUserSettingsSelectItemApi" key="{apis>id}" text="{apis>id}" />
+				</Select>
+				<Label 
+					id="_IDUserSettingsLabelPromptMaxLength" 
+					class="sapUiSmallMarginTop"
+					labelFor="_IDUserSettingsInputMethodName" 
+					text="{i18n>promptMaxLength}">
+				</Label>
+				<Input
+					id="_IDUserSettingsInputPromptMaxLength"
+					type="Number"
+					width="20em"
+					editable="true"
+					value="{settings>/UserPromptMaxLength}"
+					required="false">
+				</Input>
+				<Label 
+					id="_IDUserSettingsLabelDefaultAgent" 
+					class="sapUiSmallMarginTop"
+					labelFor="_IDUserSettingsInputMethodName" 
+					text="{i18n>defaultAgent}">
+				</Label>
+				<Input
+					id="_IDUserSettingsInputDefaultAgent"
+					type="Text"
+					width="20em"
+					editable="true"
+					value="{settings>/DefaultAgentId}"
+					required="false">
+				</Input>
+			</l:VerticalLayout>
+		</content>
+		<footer>
+			<OverflowToolbar id="_IDUserSettingsOverflowToolbar">
+				<content>
+					<ToolbarSpacer id="_IDUserSettingsToolbarSpacer"/>
+					<Button id="_IDUserSettingsButtonSave" press=".onSaveUserSettings" text="{i18n>save}"/>
+					<Button id="_IDUserSettingsButtonCancel" press=".onCloseUserSettings" text="{i18n>cancel}"/>
+				</content>
+			</OverflowToolbar>
+		</footer>
+	</ResponsivePopover>
+</core:FragmentDefinition>

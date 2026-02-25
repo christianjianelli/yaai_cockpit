@@ -1,0 +1,132 @@
+<mvc:View controllerName="aaic.cockpit.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards">
+    <Page id="main" showHeader="false">
+        <content>
+            <GenericTile 
+                id="_IDMainGenericTileOpenAI" 
+                class="sapUiSmallMargin" 
+                header="{i18n>openai}"
+		        subheader="{i18n>apiSettings}" 
+                press="onApiTilePress('OPENAI')">
+                <TileContent id="_IDMainTileContentOpenAI">
+                    <ImageContent id="_IDMainImageContentOpenAI" src="images/openai_logo_small.png" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
+                id="_IDMainGenericTileAnthropic" 
+                class="sapUiSmallMargin" 
+                header="{i18n>anthropic}"
+		        subheader="{i18n>apiSettings}" 
+                press="onApiTilePress('ANTHROPIC')">
+                <TileContent id="_IDMainTileContentAnthropic">
+                    <ImageContent id="_IDMainImageContentAnthropic" src="images/anthropic_logo_small.png" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
+                id="_IDMainGenericTileGoogle" 
+                class="sapUiSmallMargin" 
+                header="{i18n>googlegemini}"
+		        subheader="{i18n>apiSettings}" 
+                press="onApiTilePress('GOOGLE')">
+                <TileContent id="_IDMainTileContentGoogle">
+                    <ImageContent id="_IDMainImageContentGoogle" src="images/google_gemini_logo_small.png" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
+                id="_IDMainGenericTileMistral" 
+                class="sapUiSmallMargin" 
+                header="{i18n>mistral}"
+		        subheader="{i18n>apiSettings}" 
+                press="onApiTilePress('MISTRAL')">
+                <TileContent id="_IDMainTileContentMistral">
+                    <ImageContent id="_IDMainImageContentMistral" src="images/mistral_logo_small.png" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
+                id="_IDMainGenericTileOllama" 
+                class="sapUiSmallMargin" 
+                header="{i18n>ollama}"
+		        subheader="{i18n>apiSettings}" 
+                press="onApiTilePress('OLLAMA')">
+                <TileContent id="_IDMainTileContentOllama">
+                    <ImageContent id="_IDMainImageContentOllama" src="images/ollama_logo_small.png" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
+                id="_IDMainGenericTileTools" 
+                class="sapUiSmallMargin" 
+                header="{i18n>tools}" 
+                frameType="OneByOne" 
+                press="onTilePress('RouteTools')">
+                <TileContent id="_IDMainTileContentTools">
+                    <FeedContent id="_IDMainFeedContentTools" 
+                        contentText="{i18n>maintainAgentTools}"
+                        subheader="{i18n>LLMFunctionCalling}" value="{stats>/tools}" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
+                id="_IDMainGenericTileDocuments" 
+                class="sapUiSmallMargin" 
+                header="{i18n>ragDocuments}" 
+                frameType="OneByOne" 
+                press="onTilePress('RouteDocuments')">
+                <TileContent id="_IDMainTileContentDocuments">
+                    <FeedContent id="_IDMainFeedContentDocuments" 
+                        contentText="{i18n>manageDocuments}"
+                        subheader="{i18n>RAG}" value="{stats>/documents}" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
+                id="_IDMainGenericTileAgents" 
+                class="sapUiSmallMargin" 
+                header="{i18n>agents}"
+                frameType="OneByOne"
+                press="onTilePress('RouteAgents')">
+                <TileContent id="_IDMainTileContentAgents">
+                    <FeedContent id="_IDMainFeedContentAgents" 
+                        contentText="{i18n>maintainAgents}"
+                        subheader="{i18n>LLMAgents}" value="{stats>/agents}" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
+                id="_IDMainGenericTileChats" 
+                class="sapUiSmallMargin" 
+                header="{i18n>chats}" 
+                frameType="OneByOne" 
+                press="onTilePress('RouteChats')">
+                <TileContent id="_IDMainTileContentChats">
+                    <FeedContent id="_IDMainFeedContentChats" 
+                        contentText="{i18n>searchChats}"
+                        subheader="{i18n>chats}" value="{stats>/chats}" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
+                id="_IDMainGenericTileLogs" 
+                class="sapUiSmallMargin" 
+                header="{i18n>logs}" 
+                frameType="OneByOne" 
+                press="onTilePress('RouteLogs')">
+                <TileContent id="_IDMainTileContentLogs">
+                    <FeedContent id="_IDMainFeedContentLogs" 
+                        contentText="{i18n>searchLogs}"
+                        subheader="{i18n>logs}" value="{stats>/logs}" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
+                id="_IDMainGenericTileAsyncTasks" 
+                class="sapUiSmallMargin" 
+                header="{i18n>asyncTasks}" 
+                frameType="OneByOne" 
+                press="onTilePress('RouteAsyncTasks')">
+                <TileContent id="_IDMainTileContentAsyncTasks">
+                    <FeedContent id="_IDMainFeedContentAsyncTasks" 
+                        contentText="{i18n>searchAsyncTasks}"
+                        subheader="{i18n>asyncTasks}" value="{stats>/async}" />
+                </TileContent>
+            </GenericTile>
+        </content>
+	</Page>
+</mvc:View>

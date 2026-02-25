@@ -1,0 +1,26 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified">
+	<SelectDialog id="_IDSelectAgentDialog"
+		title="{i18n>selectAgent}"
+		search=".onSearchAgent"
+		searchPlaceholder="{searchAgent}"
+		confirm=".onAssignToAgent"
+		cancel=".onCloseSelectAgentDialog"
+		showClearButton="true"
+        resizable="true"
+		items="{
+			path: 'agents>/agents',
+			sorter: {
+				path: 'name',
+				descending: false
+			}
+		}">
+		<StandardListItem id="_IDSelectAgentDialogStandardListItem"
+			title="{agents>name}"
+			description="{agents>description}"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

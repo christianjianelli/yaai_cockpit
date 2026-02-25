@@ -1,0 +1,301 @@
+<mvc:View controllerName="aaic.cockpit.controller.Agent"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDAgentDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDAgentDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDAgentTitle" text="{i18n>agent}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDAgentBreadcrumbs" currentLocationText="{i18n>agent}">
+                        <Link id="_IDAgentLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                        <Link id="_IDAgentLinkAgents" text="{i18n>agents}" press=".onNavBackMaster('RouteAgents')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:actions>
+                    <Button id="_IDAgentButtonEdit" class="sapUiTinyMarginEnd" type="Default" icon="sap-icon://edit" text="{i18n>edit}" press=".onToogleEdit"/>
+                    <Button id="_IDAgentButtonSave" type="Emphasized" text="{i18n>save}" press=".onSaveChanges" enabled="false"/>
+                </f:actions>
+                <f:navigationActions>
+                    <Button
+                        id="_IDAgentNavBack"
+                        icon="sap-icon://nav-back"
+                        type="Transparent"
+                        text="{i18n>agents}" 
+                        press=".onNavBackMaster('RouteAgents')"/>
+                    <Button
+                        id="_IDAgentNavHome"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Transparent" 
+                        press=".onNavBackMaster('RouteMain')"/>    
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <l:VerticalLayout id="_IDAgentVerticalLayout">
+                <Panel id="_IDAgentPanel" width="auto" headerText="{i18n>agentInfo}" class="sapUiResponsiveMargin" expandable="false">
+                    <content>
+                        <form:Form id="_IDAgentForm" editable="true">
+                            <form:layout>
+                                <form:ColumnLayout id="_IDAgentColumnLayout" 
+                                    columnsM="1"
+                                    columnsL="3"
+                                    columnsXL="3"
+                                />
+                            </form:layout>
+                            <form:formContainers>
+                                <form:FormContainer id="_IDAgentFormContainer">
+                                    <form:formElements>
+                                        <form:FormElement id="_IDAgentFormElementId" label="{i18n>id}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAgentIdInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{agents>id}">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement id="_IDAgentFormElementName" label="{i18n>name}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAgentNameInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{agents>name}">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement id="_IDAgentFormElementDescription" label="{i18n>description}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAgentDescriptionInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{agents>description}">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement id="_IDAgentFormElementFilenameSystemInstructions" label="{i18n>filenameSystemInstructions}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAgentFilenameSystemInstructionsInput"
+                                                    type="Text"
+                                                    showValueHelp="true"
+                                                    valueHelpRequest=".onDocumentValueHelpRequest"
+                                                    editable="false"
+                                                    value="{agents>filenameSi}">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement id="_IDAgentFormElementFilenameContext" label="{i18n>filenameContext}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAgentFilenameContextInput"
+                                                    type="Text"
+                                                    showValueHelp="true"
+                                                    valueHelpRequest=".onDocumentValueHelpRequest"
+                                                    editable="false"
+                                                    value="{agents>filenameCtx}">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement id="_IDAgentFormElementpromptTemplate" label="{i18n>promptTemplate}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAgentPromptTemplateInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{agents>promptTemplate}">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                </form:FormContainer>
+                            </form:formContainers>
+                        </form:Form>
+                    </content>
+                </Panel>
+                <Panel id="_IDAgentPanelTools" width="auto" class="sapUiResponsiveMargin" expandable="false">
+                    <content>
+                        <Table id="_IDAgentToolsTable"
+                            inset="false"
+                            alternateRowColors="true"
+                            popinLayout="GridSmall"
+                            mode="MultiSelect"
+                            items="{ 
+                                path: 'agents>tools',
+                                templateShareable:false,
+                                sorter: {
+                                    path: 'className'
+                                }
+                            }">
+                            <dependents>
+                                <plugins:ColumnResizer id="_IDAgentColumnResizer"/>
+                            </dependents>
+                            <headerToolbar>
+                                <OverflowToolbar id="_IDAgentOverflowToolbar">
+                                    <Title id="_IDAgentOverflowToolbarTitle" text="{i18n>tools}" level="H2"/>
+                                    <ToolbarSpacer id="_IDAgentOverflowToolbarToolbarSpacer"/>
+                                    <Button id="_IDAgentButtonLoadOnDemand" text="{i18n>loadOnDemand}" press=".onToggleLoadOnDemand" enabled="false"></Button>
+                                    <Button id="_IDAgentButtonAdd" icon="sap-icon://add" text="{i18n>add}" press=".onToolValueHelpRequest" enabled="false"></Button>
+                                    <Button id="_IDAgentButtonDelete" icon="sap-icon://delete" text="{i18n>delete}" type="Reject" press=".onDelete" enabled="false"></Button>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column id="_IDAgentToolsColumnClassName">
+                                    <Text id="_IDAgentToolsColumnTextClassName" text="{i18n>className}" />
+                                </Column>
+                                <Column id="_IDAgentToolsColumnMethodName">
+                                    <Text id="_IDAgentToolsColumnTextMethodName" text="{i18n>methodName}" />
+                                </Column>
+                                <Column id="_IDAgentToolsColumnProxyClassName">
+                                    <Text id="_IDAgentToolsColumnTextProxyClassName" text="{i18n>proxyClass}" />
+                                </Column>
+                                <Column id="_IDAgentToolsColumnToolDescription">
+                                    <Text id="_IDAgentToolsColumnTextToolDescription" text="{i18n>toolDescription}" />
+                                </Column>
+                                <Column id="_IDAgentToolsColumnLoadOnDemand">
+                                    <Text id="_IDAgentToolsColumnTextLoadOnDemand" text="{i18n>loadOnDemand}" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="_IDAgentToolsColumnListItem">
+                                    <cells>
+                                        <Text id="_IDAgentToolsTextClassName" text="{agents>className}" />
+                                        <Text id="_IDAgentToolsTextMethodName" text="{agents>methodName}" />
+                                        <Text id="_IDAgentToolsTextProxyClassName" text="{agents>proxyClass}" />
+                                        <Text id="_IDAgentToolsTextToolDescription" text="{agents>description}" />
+                                        <CheckBox id="_IDAgentToolsTextLoadOnDemand" editable="false" selected="{agents>loadOnDemand}"></CheckBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+                <Panel id="_IDAgentPanelDocs" width="auto" class="sapUiResponsiveMargin" expandable="false">
+                    <content>
+                        <Table id="_IDAgentDocsTable"
+                            inset="false"
+                            alternateRowColors="true"
+                            popinLayout="GridSmall"
+                            mode="MultiSelect"
+                            items="{ 
+                                path: 'agents>docs',
+                                templateShareable:false,
+                                sorter: {
+                                    path: 'className'
+                                }
+                            }">
+                            <dependents>
+                                <plugins:ColumnResizer id="_IDAgentColumnResizerTableDocs"/>
+                            </dependents>
+                            <headerToolbar>
+                                <OverflowToolbar id="_IDAgentOverflowToolbarTableDocs">
+                                    <Title id="_IDAgentOverflowToolbarTitleTableDocs" text="{i18n>documents}" level="H2"/>
+                                    <ToolbarSpacer id="_IDAgentOverflowToolbarToolbarSpacerTableDocs"/>
+                                    <Button id="_IDAgentButtonAddDoc" icon="sap-icon://add" text="{i18n>add}" press=".onDocumentValueHelpRequest" enabled="false"></Button>
+                                    <Button id="_IDAgentButtonDeleteDoc" icon="sap-icon://delete" text="{i18n>delete}" type="Reject" press=".onDeleteDocument" enabled="false"></Button>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column id="_IDAgentDocsColumnFilename">
+                                    <Text id="_IDAgentDocsColumnTextMethodName" text="{i18n>filename}" />
+                                </Column>
+                                <Column id="_IDAgentDocsColumnDocDescription">
+                                    <Text id="_IDAgentDocsColumnTextDocDescription" text="{i18n>description}" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="IDAgentDocsColumnListItem">
+                                    <cells>
+                                        <Text id="IDAgentDocsTextFilename" text="{agents>filename}" />
+                                        <Text id="IDAgentDocsTextDocDescription" text="{agents>description}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+                <Panel id="_IDAgentPanelModels" width="auto" class="sapUiResponsiveMargin" expandable="false">
+                    <content>
+                        <Table id="_IDAgentModelsTable"
+                            inset="false"
+                            alternateRowColors="true"
+                            popinLayout="GridSmall"
+                            mode="MultiSelect"
+                            items="{ 
+                                path: 'agents>models',
+                                templateShareable:false,
+                                sorter: {
+                                    path: 'api'
+                                }
+                            }">
+                            <dependents>
+                                <plugins:ColumnResizer id="_IDAgentColumnResizerModelsTable"/>
+                            </dependents>
+                            <headerToolbar>
+                                <OverflowToolbar id="_IDAgentOverflowToolbarModelsTable">
+                                    <Title id="_IDAgentOverflowToolbarTitleModelsTable" text="{i18n>models}" level="H2"/>
+                                    <ToolbarSpacer id="_IDAgentOverflowToolbarToolbarSpacerModelsTable"/>
+                                    <Button id="_IDAgentButtonAddModel" icon="sap-icon://add" text="{i18n>add}" press=".onOpenAddModelDialog" enabled="false"></Button>
+                                    <Button id="_IDAgentButtonDeleteModel" icon="sap-icon://delete" text="{i18n>delete}" type="Reject" press=".onDeleteModel" enabled="false"></Button>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column id="_IDAgentToolsColumnApi">
+                                    <Text id="_IDAgentToolsColumnTextApi" text="{i18n>api}" />
+                                </Column>
+                                <Column id="_IDAgentToolsColumnModel">
+                                    <Text id="_IDAgentToolsColumnTextModel" text="{i18n>model}" />
+                                </Column>
+                                <Column id="_IDAgentToolsColumnTemperature">
+                                    <Text id="_IDAgentToolsColumnTextTemperature" text="{i18n>temperature}" />
+                                </Column>
+                                <Column id="_IDAgentToolsColumnVerbosity">
+                                    <Text id="_IDAgentToolsColumnTextVerbosity" text="{i18n>verbosity}" />
+                                </Column>
+                                <Column id="_IDAgentToolsColumnReasoning">
+                                    <Text id="_IDAgentToolsColumnTextReasoning" text="{i18n>reasoning}" />
+                                </Column>
+                                <Column id="_IDAgentToolsColumnMaxToolCalls">
+                                    <Text id="_IDAgentToolsColumnTextMaxToolCalls" text="{i18n>maxToolCalls}" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="_IDAgentToolsColumnListItemModels" press=".onModelsItemPress">
+                                    <cells>
+                                        <Text id="_IDAgentToolsTexApi" text="{agents>api}" />
+                                        <Text id="_IDAgentToolsTextModel" text="{agents>model}" />
+                                        <Text id="_IDAgentToolsTextTemperature" text="{agents>temperature}" />
+                                        <Text id="_IDAgentToolsTextVerbosity" text="{agents>verbosity}" />
+                                        <Text id="_IDAgentToolsTextReasoning" text="{agents>reasoning}" />
+                                        <Text id="_IDAgentToolsTextMaxToolCalls" text="{agents>maxToolCalls}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+            </l:VerticalLayout>
+        </f:content>
+        <f:footer>
+			<OverflowToolbar id="_IDAgentPageFooter" class="sapUiSmallMarginBottom">
+                <Button id="_IDAgentMessagePopoverButton"
+					icon="sap-icon://alert"
+					text="{=${message>/}.length}"
+					visible="{=${message>/}.length > 0}"
+					type="Transparent"
+					press=".onMessagePopoverPress"/>
+                <ToolbarSpacer id="_IDAgentToolbarSpacerBegin"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

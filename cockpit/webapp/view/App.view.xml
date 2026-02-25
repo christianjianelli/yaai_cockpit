@@ -1,0 +1,114 @@
+<mvc:View controllerName="aaic.cockpit.controller.App"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+	xmlns:f="sap.f"
+	xmlns:l="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt">
+    <tnt:ToolPage id="_IDAppToolPage">
+        <tnt:header>
+			<tnt:ToolHeader id="_IDAppToolHeader">
+				<Button
+					id="_IDAppSideNavigationToggleButton"
+					icon="sap-icon://menu2"
+					type="Transparent"
+					press=".onSideNavButtonPress">
+					<layoutData>
+						<OverflowToolbarLayoutData id="_IDAppOverflowToolbarLayoutData" priority="NeverOverflow" />
+					</layoutData>
+				</Button>
+				<core:Icon id="_IDAppIcon" src="sap-icon://ai"></core:Icon>
+                <Title level="H1" text="{i18n>title}" wrapping="false" id="productName" />
+				<ToolbarSpacer id="_IDAppToolbarSpacer" />
+				<ToolbarSeparator id="_IDAppToolbarSeparator" />
+				<OverflowToolbarButton id="_IDAppOverflowToolbarButton2" icon="sap-icon://action-settings" type="Transparent" text="Settings" press=".onDisplayUserSettings"/>
+				<tnt:ToolHeaderUtilitySeparator id="_IDAppToolHeaderUtilitySeparator"/>
+				<ToolbarSpacer id="_IDAppToolbarSpacer1" width="1.125rem"/>
+				<Avatar id="_IDAppAvatar" initials="{userinfo>/initials}" displaySize="XS" press=".onDisplayUserInfo" />
+            </tnt:ToolHeader>
+		</tnt:header>
+		<tnt:sideContent>
+			<tnt:SideNavigation id="_IDAppSideNavigation"
+				expanded="true"
+				selectedKey="{navigation>/selectedKey}"
+				itemSelect=".onItemSelect">
+				<tnt:NavigationList id="_IDAppNavigationList" items="{path: 'navigation>/navigation', templateShareable:false}">
+					<tnt:NavigationListItem id="_IDAppNavigationListItem"
+						text="{navigation>title}"
+						icon="{navigation>icon}"
+						enabled="{navigation>enabled}"
+						expanded="{navigation>expanded}"
+						items="{path: 'navigation>items', templateShareable:false}"
+						selectable="{= ${items}.length > 3}"
+						key="{navigation>key}">
+						<tnt:NavigationListItem id="_IDAppNavigationListItem1"
+							text="{navigation>title}"
+							key="{navigation>key}"
+							enabled="{navigation>enabled}" />
+					</tnt:NavigationListItem>
+				</tnt:NavigationList>
+				<tnt:fixedItem>
+					<tnt:NavigationList id="_IDAppNavigationList1" items="{path: 'navigation>/fixedNavigation', templateShareable: false}">
+						<tnt:NavigationListItem id="_IDAppNavigationListItem2" key="{navigation>key}" text="{navigation>title}" icon="{navigation>icon}" ariaHasPopup="{navigation>ariaHasPopup}" design="{navigation>design}" press=".onQuickActionPress" selectable="{navigation>selectable}"/>
+					</tnt:NavigationList>
+				</tnt:fixedItem>
+			</tnt:SideNavigation>
+		</tnt:sideContent>
+		<tnt:mainContents>
+			<f:SidePanel id="_IDAppSidePanel" sidePanelResizable="true" sidePanelWidth="30%" sidePanelMinWidth="30em" toggle=".onSidePanelToggle">
+				<f:mainContent>
+					<App id="mainContents" height="100%"/>
+				</f:mainContent>
+				<f:items>
+					<f:SidePanelItem id="_IDAppSidePanelItemChat" icon="sap-icon://discussion" text="Chat">
+						<!--<l:VerticalLayout class="sapUiSmallMargin" id="_IDAppVerticalLayoutChat" width="100%">-->
+						<VBox
+						    id="_IDAppVBoxChat"
+							height="100%"
+							width="100%"
+							fitContainer="true">
+							<core:HTML 
+								id="_IDAppHTML" 
+								class="sapUiMediumMarginTop"
+								content='&lt;div id="aaic-chat-container"&gt;&lt;div id="aaic-chat-message-container"&gt;&lt;/div&gt; &lt;/div&gt;'
+								afterRendering=".onAfterRenderingHTMLControl">
+							</core:HTML>
+							<Label id="_IDAppLabelSelectApi" class="sapUiSmallMarginTop" text="{i18n>selectApi}" labelFor="_IDAppSelectApi" />
+							<Select
+								id="_IDAppSelectApi"
+								forceSelection="false"
+								width="100%"
+								change=".onSelectApiChange"
+								items="{
+									path: 'apis>/apis',
+									sorter: { path: 'id' }
+								}">
+								<core:Item id="_IDAppSelectItemApi" key="{apis>id}" text="{apis>id}" />
+							</Select>
+							<Input id="_IDAppTextApiKey" placeholder="Enter your API Key (Optional)" required="true" change=".onTextApiKeyChange" />
+							<Input id="_IDAppTextAgentId" placeholder="Agent Id (Optional)" change=".onTextAgentIdChange" />
+							<TextArea 
+								id="_IDAppTextAreaUserPrompt" 
+								placeholder="Enter your message here" 
+								maxLength="{= parseInt(%{settings>/UserPromptMaxLength})}"
+								rows="5" 
+								growing="true" 
+								growingMaxLines="100" 
+								width="100%" 
+								liveChange=".onUserPromptLiveChange"/>
+							<l:HorizontalLayout id="_IDAppHorizontalLayout">
+								<Button id="_IDAppButtonSend" text="{i18n>send}" press=".onSend"></Button>
+								<Button id="_IDAppButtonRefresh" class="sapUiTinyMarginBegin" text="{i18n>refresh}" press=".onRefresh"></Button>
+								<Button id="_IDAppButtonClear" class="sapUiTinyMarginBegin" text="{i18n>clear}" press=".onClear"></Button>
+								<Button id="_IDAppButtonNewChat" class="sapUiTinyMarginBegin" text="{i18n>newChat}" press=".onNewChat"></Button>
+								<Text id="_IDAppTextUserPromptRemainingLength" class="sapUiTinyMarginBegin sapUiTinyMarginTop remainingLength"></Text>
+							</l:HorizontalLayout>
+						</VBox>
+						<!--</l:VerticalLayout>-->
+					</f:SidePanelItem>
+				</f:items>
+			</f:SidePanel>
+        </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>

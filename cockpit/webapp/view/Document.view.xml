@@ -1,0 +1,111 @@
+<mvc:View controllerName="aaic.cockpit.controller.Document"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:ce="sap.ui.codeeditor"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDDocumentDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDDocumentDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDDocumentTitle" text="{i18n>document}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDDocumentBreadcrumbs" currentLocationText="{i18n>document}">
+                        <Link id="_IDDocumentLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                        <Link id="_IDDocumentLinkAgents" text="{i18n>documents}" press=".onNavBackMaster('RouteDocuments')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:actions>
+                    <Button id="_IDDocumentButtonEdit" class="sapUiTinyMarginEnd" type="Default" icon="sap-icon://edit" text="{i18n>edit}" press=".onToogleEdit"/>
+                    <Button id="_IDDocumentButtonSave" class="sapUiTinyMarginEnd" type="Emphasized" icon="sap-icon://save" text="{i18n>save}" enabled="false" press=".onSaveChanges"/>
+                </f:actions>
+                <f:navigationActions>
+                    <Button
+                        id="_IDDocumentNavBack"
+                        icon="sap-icon://nav-back"
+                        type="Transparent"
+                        text="{i18n>documents}" 
+                        press=".onNavBackMaster('RouteDocuments')"/>
+                    <Button
+                        id="_IDDocumentNavHome"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Transparent" 
+                        press=".onNavBackMaster('RouteMain')"/>    
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <l:VerticalLayout id="_IDDocumentVerticalLayout" width="100%">
+                <Panel id="_IDDocumentPanel" width="auto" class="sapUiResponsiveMargin" headerText="{i18n>ragDocumentInfo}" expandable="false">
+                    <content>
+                        <form:Form id="_IDDocumentForm" editable="true">
+                            <form:layout>
+                                <form:ColumnLayout id="_IDDocumentColumnLayout" 
+                                    columnsM="1"
+                                    columnsL="3"
+                                    columnsXL="3"
+                                />
+                            </form:layout>
+                            <form:formContainers>
+                                <form:FormContainer id="_IDDocumentFormContainer">
+                                    <form:formElements>
+                                        <form:FormElement id="_IDDocumentFormElementFileName" label="{i18n>filename}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDDocumentFileNameInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{rag>filename}">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement id="_IDDocumentFormElementDescription" label="{i18n>description}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDDocumentDescriptionInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{rag>description}">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement id="_IDDocumentFormElementKeywords" label="{i18n>keywords}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDDocumentKeywordsInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{rag>keywords}">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                </form:FormContainer>
+                            </form:formContainers>
+                        </form:Form>
+                    </content>
+                </Panel>
+                <Panel id="_IDDocumentContentPanel" width="auto" headerText="{i18n>ragDocumentContent}" class="sapUiResponsiveMargin" expandable="false">
+                    <content>
+                        <ce:CodeEditor id="_IDDocumentCodeEditor" type="markdown" width="100%" height="500px" editable="false" change=".onCodeEditorChange" />
+                    </content>
+                </Panel>
+            </l:VerticalLayout>
+        </f:content>
+        <f:footer>
+			<OverflowToolbar id="_IDDocumentPageFooter" class="sapUiSmallMarginBottom">
+                <Button id="_IDDocumentMessagePopoverButton"
+					icon="sap-icon://alert"
+					text="{=${message>/}.length}"
+					visible="{=${message>/}.length > 0}"
+					type="Transparent"
+					press=".onMessagePopoverPress"/>
+                <ToolbarSpacer id="_IDDocumentToolbarSpacerBegin"/>
+			</OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

@@ -1,0 +1,115 @@
+<mvc:View controllerName="aaic.cockpit.controller.Documents"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDDocumentsDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDDocumentsDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDDocumentsTitle" text="{i18n>ragDocuments}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDDocumentsBreadcrumbs" currentLocationText="{i18n>ragDocuments}">
+                        <Link id="_IDDocumentsLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:navigationActions>
+                    <Button
+                        id="_IDDocumentsNavHome"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Transparent" 
+                        press=".onNavBackMaster('RouteMain')"/>    
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader id="_IDDocumentsDynamicPageHeader" pinnable="true">
+                <fb:FilterBar id="_IDDocumentsFilterBar" useToolbar="false" search=".onSearch">
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem id="_IDDocumentsFilterGroupItem" name="Filename" label="{i18n>filename}" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="_IDDocumentsFilenameFilter"></Input>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem id="_IDDocumentsFilterGroupItemDescription" name="Description" label="{i18n>description}" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="_IDDocumentsDescriptionFilter"></Input>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem id="_IDDocumentsFilterGroupItemKeywords" name="Keywords" label="{i18n>keywords}" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="_IDDocumentsKeywordsFilter"></Input>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table id="_IDDocumentsTable"
+                class="sapUiLargeMarginBottom"
+                inset="false"
+                alternateRowColors="false"
+                popinLayout="GridSmall"
+                growing="true"
+		        growingThreshold="10"
+                mode="MultiSelect"
+                items="{ 
+                    path: 'rag>/documents',
+                    templateShareable:false,
+                    sorter: {
+                        path: 'model'
+                    }
+                }">
+                <headerToolbar>
+                    <OverflowToolbar id="_IDDocumentsOverflowToolbarAdd">
+                        <content>
+                            <Title id="_IDDocumentsOverflowToolbarTitle" text="{i18n>documents}" level="H2"/>
+                            <ToolbarSpacer id="_IDDocumentsToolbarSpacerHeaderToolbar"/>
+                            <Button id="_IDDocumentsButtonAdd" icon="sap-icon://add-document" text="{i18n>add}" press=".onAdd"></Button>
+                            <Button id="_IDDocumentsButtonDelete" icon="sap-icon://delete" text="{i18n>delete}" type="Reject" press=".onDelete"></Button>
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <dependents>
+                    <plugins:ColumnResizer id="_IDDocumentsColumnResizer"/>
+                </dependents>
+                <columns>
+                    <Column id="_IDDocumentsColumnFilename">
+                        <Text id="_IDDocumentsColumnTextFilename" text="{i18n>filename}" />
+                    </Column>
+                    <Column id="_IDDocumentsColumnProxyDescription">
+                        <Text id="_IDDocumentsColumnTextDescription" text="{i18n>description}" />
+                    </Column>
+                    <Column id="_IDDocumentsColumnKeywords">
+                        <Text id="_IDDocumentsColumnTextKeywords" text="{i18n>keywords}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="_IDDocumentsColumnListItem" type="Navigation" press=".onItemPress">
+                        <cells>
+                            <Text id="_IDDocumentsTextFilename" text="{rag>filename}" />
+                            <Text id="_IDDocumentsTextDescription" text="{rag>description}" />
+                            <Text id="_IDDocumentsTextKeywords" text="{rag>keywords}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <f:footer>
+			<OverflowToolbar class="sapUiSmallMarginBottom" id="_IDDocumentsPageFooter">
+                <Button id="_IDDocumentsMessagePopoverButton"
+					icon="sap-icon://alert"
+					text="{=${message>/}.length}"
+					visible="{=${message>/}.length > 0}"
+					type="Transparent"
+					press=".onMessagePopoverPress"/>
+                <ToolbarSpacer id="_IDDocumentsToolbarSpacerBegin"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

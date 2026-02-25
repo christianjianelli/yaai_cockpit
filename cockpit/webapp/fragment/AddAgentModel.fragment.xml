@@ -1,0 +1,115 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified">
+	<Dialog
+		id="_IDAddAgentModelDialog"
+		title="{i18n>addModel}"
+		class="sapUiContentPadding">
+		<content>
+			<l:VerticalLayout id="_IDAddAgentModelVerticalLayout">
+				<Label 
+					id="_IDAddAgentModelLabelApi" 
+					labelFor="_IDAddAgentModelRBGApi" 
+					text="{i18n>api}">
+				</Label>
+				<RadioButtonGroup 
+					id="_IDAddAgentModelRBGApi" 
+					class="sapUiSmallMarginBottom"
+					columns="5" 
+					selectedIndex="0"
+					select=".onApiSelect">
+					<RadioButton id="IDAddAgentModelRBOpenAI" text="{i18n>openai}" />
+					<RadioButton id="IDAddAgentModelRBAnthropic" text="{i18n>anthropic}" />
+					<RadioButton id="IDAddAgentModelRBGoogle" text="{i18n>google}" />
+					<RadioButton id="IDAddAgentModelRBMistral" text="{i18n>mistral}" />
+					<RadioButton id="IDAddAgentModelRBOllama" text="{i18n>ollama}" />
+				</RadioButtonGroup>
+				<Label 
+					id="_IDAddAgentModelLabelModel" 
+					labelFor="_IDAddAgentModelInputModel" 
+					text="{i18n>model}">
+				</Label>
+				<Input
+					id="_IDAddAgentModelInputModel"
+					class="sapUiSmallMarginBottom"
+					type="Text"
+					width="20em"
+					editable="true"
+					required="true"
+					showSuggestion="true"
+					suggestionItems="{modelsvh>/models}">
+					<suggestionItems>
+						<core:Item id="_IDAddAgentModelSuggestionItems" text="{modelsvh>model}" />
+					</suggestionItems>
+				</Input>
+				<Label 
+					id="_IDAddAgentModelLabelTemperature" 
+					labelFor="_IDAddAgentModelSliderTemperature" 
+					text="{i18n>temperature}">
+				</Label>
+				<Slider 
+					id="_IDAddAgentModelSliderTemperature" 
+					class="sapUiLargeMarginBottom"
+					showAdvancedTooltip="true" 
+					showHandleTooltip="false" 
+					enableTickmarks="true" 
+					min="0" 
+					max="2" 
+					step="0.1" 
+					value="1"
+					width="100%"/>
+				<Label 
+					id="_IDAddAgentModelLabelVerbosity" 
+					labelFor="_IDAddAgentModelRBGVerbosity" 
+					text="{i18n>verbosity}">
+				</Label>
+				<RadioButtonGroup 
+					id="_IDAddAgentModelRBGVerbosity" 
+					class="sapUiSmallMarginBottom"
+					columns="3" 
+					selectedIndex="0">
+					<RadioButton id="_IDAddAgentModelRBVerbosityLow" text="{i18n>low}" />
+					<RadioButton id="_IDAddAgentModelRBVerbosityMedium" text="{i18n>medium}" />
+					<RadioButton id="_IDAddAgentModelRBVerbosityHigh" text="{i18n>high}" />
+				</RadioButtonGroup>	
+				<Label 
+					id="_IDAddAgentModelLabelReasoning" 
+					labelFor="_IDAddAgentModelRBGReasoning" 
+					text="{i18n>reasoning}">
+				</Label>
+				<RadioButtonGroup 
+					id="_IDAddAgentModelRBGReasoning" 
+					class="sapUiSmallMarginBottom"
+					columns="4" 
+					selectedIndex="0">
+					<RadioButton id="_IDAddAgentModelRBReasoningMin" text="{i18n>minimal}" />
+					<RadioButton id="_IDAddAgentModelRBReasoningLow" text="{i18n>low}" />
+					<RadioButton id="_IDAddAgentModelRBReasoningMedium" text="{i18n>medium}" />
+					<RadioButton id="_IDAddAgentModelRBReasoningHigh" text="{i18n>high}" />
+				</RadioButtonGroup>	
+				<Label 
+					id="_IDAddAgentModelLabelMaxToolCalls" 
+					labelFor="_IDAddAgentModelSliderMaxToolCalls" 
+					text="{i18n>maxToolCalls}">
+				</Label>
+				<Slider 
+					id="_IDAddAgentModelSliderMaxToolCalls" 
+					class="sapUiLargeMarginBottom"
+					showAdvancedTooltip="true" 
+					showHandleTooltip="false" 
+					enableTickmarks="true" 
+					min="5" 
+					max="100" 
+					step="5" 
+					value="5"
+					width="100%"/>
+			</l:VerticalLayout>
+		</content>
+		<buttons>        
+            <Button id="_IDAddAgentModelButtonAdd" press=".onAddAgentModel" text="{i18n>add}"/>
+			<Button id="_IDAddAgentModelButtonCancel" press=".onCloseAddModelDialog" text="{i18n>cancel}"/>
+        </buttons>
+	</Dialog>
+</core:FragmentDefinition>

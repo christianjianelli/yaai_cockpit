@@ -1,0 +1,5 @@
+{
+    "UserPromptMaxLength": 1000,
+    "DefaultAPI": "",
+    "DefaultAgentId": ""
+}

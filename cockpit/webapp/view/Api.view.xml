@@ -1,0 +1,144 @@
+<mvc:View controllerName="aaic.cockpit.controller.Api"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDApiDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDApiDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDApiTitle" text="{i18n>api}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDApiBreadcrumbs" currentLocationText="{i18n>api}">
+                        <Link id="_IDApiLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                        <Link id="_IDApiLinkApis" text="{i18n>apis}" press=".onNavBackMaster('RouteApis')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:actions>
+                    <Button id="_IDApiButtonEdit" class="sapUiTinyMarginEnd" type="Default" icon="sap-icon://edit" text="{i18n>edit}" press=".onToogleEdit"/>
+                    <Button id="_IDApiButtonSave" class="sapUiTinyMarginEnd" type="Emphasized" icon="sap-icon://save" text="{i18n>save}" enabled="false" press=".onSave"/>
+                </f:actions>
+                <f:navigationActions>
+                    <Button
+                        id="_IDApisNavBack"
+                        icon="sap-icon://nav-back"
+                        type="Transparent"
+                        text="{i18n>apis}" 
+                        press=".onNavBackMaster('RouteApis')"/>
+                    <Button
+                        id="_IDApiNavHome"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Transparent" 
+                        press=".onNavBackMaster('RouteMain')"/>    
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <l:VerticalLayout id="_IDApiVerticalLayout">                
+                <Panel id="_IDApiPanel" width="auto" headerText="{i18n>basicInfo}" class="sapUiResponsiveMargin" expandable="true" expanded="true">
+                    <content>
+                        <form:Form id="_IDApiForm" editable="true">
+                            <form:layout>
+                                <form:ColumnLayout id="_IDApiColumnLayout" 
+                                    columnsM="1"
+                                    columnsL="3"
+                                    columnsXL="3"
+                                />
+                            </form:layout>
+                            <form:formContainers>
+                                <form:FormContainer id="_IDApiFormContainer">
+                                    <form:formElements>
+                                        <form:FormElement id="_IDApiFormElementApiId" label="{i18n>api}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDApiIdInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{apis>id}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDApiFormElementbaseUrl" label="{i18n>baseUrl}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDApiBaseUrlInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    required="true"
+                                                    change=".onPropertyChanged"
+                                                    value="{apis>baseUrl}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                </form:FormContainer>
+                            </form:formContainers>
+                        </form:Form>
+                    </content>
+                </Panel>
+                <Panel id="_IDApiModelsPanel" width="auto" headerText="{i18n>models}" class="sapUiResponsiveMargin" expandable="true" expanded="true">
+                    <content>
+                        <Table id="_IDApiModelsTable"
+                            inset="false"
+                            alternateRowColors="false"
+                            mode="MultiSelect"
+                            items="{ 
+                                path: 'apis>models',
+                                templateShareable:false,
+                                sorter: {
+                                    path: 'model'
+                                }
+                            }">
+                            <headerToolbar>
+                                <OverflowToolbar id="_IDApiOverflowToolbar">
+                                    <Title id="_IDApiOverflowToolbarTitle" text="{i18n>models}" level="H2"/>
+                                    <ToolbarSpacer id="_IDApiOverflowToolbarToolbarSpacer"/>
+                                    <Button id="_IDApiOverflowToolbarButtonAdd" text="{i18n>add}" press=".onAdd" enabled="false"></Button>
+                                    <Button id="_IDApiOverflowToolbarButtonSetDefault" text="{i18n>setDefault}" press=".onSetDefault" enabled="false"></Button>
+                                    <Button id="_IDApiOverflowToolbarButtonDelete" text="{i18n>delete}" press=".onDelete" enabled="false"></Button>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <dependents>
+                                <plugins:ColumnResizer id="_IDApiColumnResizer"/>
+                            </dependents>
+                            <columns>
+                                <Column id="_IDApiColumnModel">
+                                    <Text id="_IDApiColumnTextModel" text="{i18n>model}" />
+                                </Column>
+                                <Column id="_IDApiColumnDefaultModel">
+                                    <Text id="_IDApiTextColumnDefault" text="{i18n>default}" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="_IDApiColumnListItem">
+                                    <cells>
+                                        <ObjectIdentifier id="_IDApiObjectIdentifier" title="{apis>model}"/>
+                                        <CheckBox id="_IDApiModelDefault" select=".onPropertyChanged" selected="{apis>defaultModel}" editable="false"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+            </l:VerticalLayout>
+        </f:content>
+        <f:footer>
+			<OverflowToolbar class="sapUiSmallMarginBottom" id="_IDApiPageFooter">
+                <Button id="_IDApiMessagePopoverButton"
+					icon="sap-icon://alert"
+					text="{=${message>/}.length}"
+					visible="{=${message>/}.length > 0}"
+					type="Transparent"
+					press=".onMessagePopoverPress"/>
+                <ToolbarSpacer id="_IDApiToolbarSpacerBegin"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

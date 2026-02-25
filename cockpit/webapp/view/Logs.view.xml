@@ -1,0 +1,145 @@
+<mvc:View controllerName="aaic.cockpit.controller.Logs"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDLogsDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDLogsDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDLogsTitle" text="{i18n>logs}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDLogsBreadcrumbs" currentLocationText="{i18n>logs}">
+                        <Link id="_IDLogsLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:navigationActions>
+                    <Button
+                        id="_IDLogsNavHome"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Transparent" 
+                        press=".onNavBackMaster('RouteMain')"/>    
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader id="_IDLogsDynamicPageHeader" pinnable="true">
+                <fb:FilterBar id="_IDLogsFilterBar" useToolbar="false" search=".onSearch">
+                    <fb:filterGroupItems>
+                        <fb:FilterGroupItem id="_IDLogsFilterGroupItem" name="Date" label="{i18n>date}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:control>
+                                <DynamicDateRange
+                                    id="_IDLogsFilterDynamicDateRange"
+                                    change=".onDateFilterChange" />
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem id="_IDLogsFilterGroupItemUserName" name="UserName" label="{i18n>username}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:control>
+                                <Input id="_IDLogsUserNameFilter"></Input>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                    </fb:filterGroupItems>
+                </fb:FilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table id="_IDLogsTable"
+                class="sapUiLargeMarginBottom"
+                inset="false"
+                alternateRowColors="false"
+                popinLayout="GridSmall"
+                autoPopinMode="true"
+                growing="true"
+		        growingThreshold="100"
+                mode="MultiSelect"
+                items="{ 
+                    path: 'logs>/messages',
+                    templateShareable:false,
+                    sorter: [{
+                        path: 'logDate'
+                    },{
+                        path: 'logTime'
+                    },{
+                        path: 'id'
+                    },{
+                        path: 'seqno'
+                    }]
+                }">
+                <headerToolbar>
+                    <OverflowToolbar id="_IDLogsOverflowToolbar">
+                        <Title id="_IDLogsOverflowToolbarTitle" text="{i18n>logs}" level="H2"/>
+                        <ToolbarSpacer id="_IDLogsOverflowToolbarToolbarSpacer"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <dependents>
+                    <plugins:ColumnResizer id="IDLogsColumnResizer"/>
+                </dependents>
+                <columns>
+                    <Column id="_IDLogsColumnId" width="20%" importance="High">
+                        <Text id="_IDLogsColumnTextId" text="{i18n>id}" />
+                    </Column>
+                    <Column id="_IDLogsColumnSeqno" width="20%" importance="High">
+                        <Text id="_IDLogsColumnTextSeqno" text="{i18n>seqno}" />
+                    </Column>
+                    <Column id="_IDLogsColumnMessage" width="30%" importance="High">
+                        <Text id="_IDLogsColumnTextMessage" text="{i18n>message}" />
+                    </Column>
+                    <Column id="_IDLogsColumnMessageId" importance="Low">
+                        <Text id="_IDLogsColumnTextMessageId" text="{i18n>messageId}" />
+                    </Column>
+                    <Column id="_IDLogsColumnMessageNumber" importance="Low">
+                        <Text id="_IDLogsColumnTextMessageNumber" text="{i18n>messageNumber}" />
+                    </Column>
+                    <Column id="_IDLogsColumnUsername" importance="Low">
+                        <Text id="_IDLogsColumnTextUsername" text="{i18n>username}" />
+                    </Column>
+                    <Column id="_IDLogsColumnDate" importance="High">
+                        <Text id="_IDLogsColumnTextDate" text="{i18n>date}" />
+                    </Column>
+                    <Column id="_IDLogsColumnTime" importance="High">
+                        <Text id="_IDLogsColumnTextTime" text="{i18n>time}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="_IDLogsColumnListItem">
+                        <cells>
+                            <Text id="_IDLogsTextId" text="{logs>id}" />
+                            <Text id="_IDLogsTextSeqno" text="{logs>seqno}" />
+                            <MessageStrip id="_IDLogsMessageStrip"
+                                text="{logs>message}"
+                                type="{= ${logs>msgty} === 'E' 
+                                        ? 'Error' 
+                                        : ${logs>msgty} === 'W' 
+                                            ? 'Warning' 
+                                            : ${logs>msgty} === 'S' 
+                                                ? 'Success' 
+                                                : 'Information' }"
+                                showIcon="true">
+                            </MessageStrip>
+                            <Text id="_IDLogsTextMessageId" text="{logs>msgid}" />
+                            <Text id="_IDLogsTextMessageNumber" text="{logs>msgno}" />
+                            <Text id="_IDLogsTextUsername" text="{logs>username}" />
+                            <Text id="_IDLogsTextDate" text="{logs>logDate}" />
+                            <Text id="_IDLogsTextTime" text="{logs>logTime}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <f:footer>
+			<OverflowToolbar id="_IDLogsPageFooter" class="sapUiSmallMarginBottom">
+                <Button id="_IDLogsMessagePopoverButton"
+					icon="sap-icon://alert"
+					text="{=${message>/}.length}"
+					visible="{=${message>/}.length > 0}"
+					type="Transparent"
+					press=".onMessagePopoverPress"/>
+                <ToolbarSpacer id="_IDLogsToolbarSpacerBegin"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>
