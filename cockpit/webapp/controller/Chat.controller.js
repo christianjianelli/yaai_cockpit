@@ -279,8 +279,21 @@ sap.ui.define([
                     blocked: responseData.chat.blocked,
                     planRagId: responseData.chat.planRagId,
                     messages: responseData.chat.messages,
-                    log: responseData.chat.log
+                    log: responseData.chat.log,
+                    tools: responseData.chat.tools
                 };
+
+            if (chat.planRagId.length > 0) {
+                view.byId("_IDChatIconTabFilterAgentPlan").setVisible(true);
+            } else {
+                view.byId("_IDChatIconTabFilterAgentPlan").setVisible(false);
+            }
+
+            if (chat.tools.length > 0) {
+                view.byId("_IDChatIconTabFilterLoadedTools").setVisible(true);
+            } else {
+                view.byId("_IDChatIconTabFilterLoadedTools").setVisible(false);
+            }    
 
             let model = view.getModel("chats");
 

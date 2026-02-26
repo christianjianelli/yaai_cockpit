@@ -298,6 +298,58 @@
                                 <IconTabFilter id="_IDChatIconTabFilterAgentPlan" text="{i18n>agentPlan}" key="planning">
                                     <ce:CodeEditor id="_IDChatCodeEditor" type="markdown" width="100%" height="500px" editable="false" />
                                 </IconTabFilter>
+                                <IconTabFilter id="_IDChatIconTabFilterLoadedTools" text="{i18n>toolsLoadedOnDemand}" key="loadedTools" visible="false">
+                                    <Table 
+                                        id="_IDChatToolsTable"
+                                        inset="false"
+                                        alternateRowColors="false"
+                                        popinLayout="GridSmall"
+                                        autoPopinMode="true"
+                                        growing="true"
+		                                growingThreshold="100"
+                                        mode="MultiSelect"
+                                        items="{ 
+                                            path: 'chats>tools',
+                                            templateShareable:false,
+                                            sorter: [{
+                                                path: 'className'
+                                            }]
+                                        }">
+                                        <headerToolbar>
+                                            <OverflowToolbar id="_IDChatToolsOverflowToolbar">
+                                                <Title id="_IDChatToolsOverflowToolbarTitle" text="{i18n>logs}" level="H2"/>
+                                                <ToolbarSpacer id="_IDChatToolsOverflowToolbarToolbarSpacer"/>
+                                            </OverflowToolbar>
+                                        </headerToolbar>
+                                        <dependents>
+                                            <plugins:ColumnResizer id="_IDChatColumnResizerToolsTable"/>
+                                        </dependents>
+                                        <columns>
+                                            <Column id="_IDChatToolsColumnClassName">
+                                                <Text id="_IDChatToolsColumnTextClassName" text="{i18n>className}" />
+                                            </Column>
+                                            <Column id="_IDChatToolsColumnMethodName">
+                                                <Text id="_IDChatToolsColumnTextMethodName" text="{i18n>methodName}" />
+                                            </Column>
+                                            <Column id="_IDChatToolsColumnProxyClassName">
+                                                <Text id="_IDChatToolsColumnTextProxyClassName" text="{i18n>proxyClass}" />
+                                            </Column>
+                                            <Column id="_IDChatToolsColumnToolDescription">
+                                                <Text id="_IDChatToolsColumnTextToolDescription" text="{i18n>toolDescription}" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem id="_IDChatToolsColumnListItem">
+                                                <cells>
+                                                    <Text id="_IDChatToolsTextClassName" text="{chats>className}" />
+                                                    <Text id="_IDChatToolsTextMethodName" text="{chats>methodName}" />
+                                                    <Text id="_IDChatToolsTextProxyClassName" text="{chats>proxyClass}" />
+                                                    <Text id="_IDChatToolsTextToolDescription" text="{chats>description}" />
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </IconTabFilter>
                             </items>
                         </IconTabBar>
                     </content>

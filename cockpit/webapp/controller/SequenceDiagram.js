@@ -98,7 +98,8 @@ sap.ui.define([
                 const roleMap = {
                     system: "System",
                     user: "User",
-                    assistant: "Assistant"
+                    assistant: "Assistant",
+                    tool: "Tool"
                 };
 
                 if (!chat.messages) {
@@ -198,6 +199,7 @@ sap.ui.define([
                             let to;
                             if (from === "User") to = "Assistant";
                             else if (from === "System") to = "Assistant";
+                            else if (from === "Assistant" && element.text.type === "tool_use") to = "Tool";
                             else if (from === "Assistant") to = "User";
                             let msgContent = element.text;
                             msgContent = this._escapeForMermaid(msgContent);
@@ -425,6 +427,11 @@ sap.ui.define([
             
             //################ Private APIs ###################
             _escapeForMermaid: function(text) {
+                if (typeof text !== 'string') {
+                    let converted = JSON.stringify(text);
+                    converted = converted.slice(0, 57) + "...";
+                    return converted.replace(/[&<>();#\n\r]/g, "");
+                }    
                 return text.replace(/[&<>();#\n\r]/g, "");
             }
 

@@ -563,9 +563,12 @@ sap.ui.define([
 
                                 } else {
 
-                                    this.removeLlmTyping();
+                                    if(!msg.content.type) {
 
-                                    this.addLlmMessage(msg.content, newMessage.seqno, this._getDateTime(newMessage.msgDate, newMessage.msgTime) );
+                                        this.removeLlmTyping();
+
+                                        this.addLlmMessage(msg.content, newMessage.seqno, this._getDateTime(newMessage.msgDate, newMessage.msgTime) );
+                                    }
 
                                 }
                             }
