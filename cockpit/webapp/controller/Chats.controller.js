@@ -340,16 +340,26 @@ sap.ui.define([
                         type: "Emphasized",
                         text: resourceBundle.getText("yes"),
                         press: function () {         
-                            this._confirmDialog.setBusy(true);              
-                            for (const item of selectedItems) {
-                                const chatId = item.getBindingContext("chats").getProperty("id")
-                                this._delete(chatId);
-                            }
+                            
+                            this._confirmDialog.setBusy(true);                                     
+                            
                             if (table) {
+                                
+                                let selectedItems = table.getSelectedItems();
+
+                                const chatId = selectedItems[0].getBindingContext("chats").getProperty("id");
+            
+                                console.log('Deleting chat with ID: ' + chatId);
+
+                                this._delete(chatId);
+                                
                                 table.removeSelections();
                             }                           
+                            
                             this._confirmDialog.setBusy(false);
+                            
                             this._confirmDialog.close();
+
                         }.bind(this)
                     }),
                     endButton: new Button({
