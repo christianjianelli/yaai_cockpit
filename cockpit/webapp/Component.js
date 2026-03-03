@@ -38,7 +38,15 @@ sap.ui.define([
             // call the base component's init function
             UIComponent.prototype.init.apply(this, arguments);
 
-            Localization.setLanguage("en")
+            /*
+            this._loadUserInfo().then(
+                () => {
+                    Localization.setLanguage(this._language);
+                }
+            );
+            */
+
+            this._loadUserInfo();
 
             //sap.ui.getCore().applyTheme("sap_horizon_dark");
 
@@ -286,6 +294,59 @@ sap.ui.define([
 
             });
             
+        },
+
+        _fetchData: async function (url, options = {}) {
+
+            const defaultOptions = {
+                method: 'GET',
+                headers: {
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache',
+                    'Content-Type': 'application/json'
+                },
+                ...options
+            };
+
+            try {
+                const response = await fetch(url, defaultOptions);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Handle different response types
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    return await response.json();
+                } else {
+                    return await response.text();
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                throw error;
+            }
+        },
+        
+        _loadUserInfo: async function () {
+        
+            const userInfo = await this._fetchData('/sap/bc/ui2/start_up');
+
+            const model = this.getModel("userinfo");
+
+            model.setData({
+                email: userInfo.email,
+                username: userInfo.fullName,
+                userid: userInfo.id,
+                initials: userInfo.email.slice(0, 2).toUpperCase(),
+                language: userInfo.language,
+                languageBcp47: userInfo.languageBcp47
+            });
+
+            this._language = userInfo.languageBcp47 || "en";
+
+            Localization.setLanguage(this._language);
+
         }
 
     });

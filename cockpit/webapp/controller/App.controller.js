@@ -53,7 +53,7 @@ sap.ui.define(
           Chat.agentId = modelData.DefaultAgentId;
         }
 
-        this._loadUserInfo();
+        //this._loadUserInfo();
 
       },
 
@@ -390,82 +390,82 @@ sap.ui.define(
         const navigationModel = view.getModel("navigation");
 
         const navigationData = {
-          "navigation": [
+          navigation: [
             {
-              "title": resourceBundle.getText("home"),
-              "icon": "sap-icon://home",
-              "key": "home"
+              title: resourceBundle.getText("home"),
+              icon: "sap-icon://home",
+              key: "home"
             },
             {
-              "title": resourceBundle.getText("LLM_APIs"),
-              "icon": "sap-icon://ai",
-              "expanded": true,
-              "key": "apis",
-              "items": [
+              title: resourceBundle.getText("LLM_APIs"),
+              icon: "sap-icon://ai",
+              expanded: true,
+              key: "apis",
+              items: [
                 {
-                  "title": "OpenAI",
-                  "key": "openai-api"
+                  title: "OpenAI",
+                  key: "openai-api"
                 },
                 {
-                  "title": "Anthropic",
-                  "key": "anthropic-api"
+                  title: "Anthropic",
+                  key: "anthropic-api"
                 },
                 {
-                  "title": "Google Gemini",
-                  "key": "google-api"
+                  title: "Google Gemini",
+                  key: "google-api"
                 },
                 {
-                  "title": "Mistral",
-                  "key": "mistral-api"
+                  title: "Mistral",
+                  key: "mistral-api"
                 },{
-                  "title": "Ollama",
-                  "key": "ollama-api"
+                  title: "Ollama",
+                  key: "ollama-api"
                 },
                 {
-                  "title": resourceBundle.getText("allAPIs"),
-                  "key": "all-apis"
+                  title: resourceBundle.getText("allAPIs"),
+                  key: "all-apis"
                 }
               ]
             },
             {
-              "title": resourceBundle.getText("tools"),
-              "icon": "sap-icon://syntax",
-              "key": "tools"
+              title: resourceBundle.getText("tools"),
+              icon: "sap-icon://syntax",
+              key: "tools"
             },
             {
-              "title": resourceBundle.getText("ragDocuments"),
-              "icon": "sap-icon://documents",
-              "key": "documents"
+              title: resourceBundle.getText("ragDocuments"),
+              icon: "sap-icon://documents",
+              key: "documents"
             },
             {
-              "title": resourceBundle.getText("agents"),
-              "icon": "sap-icon://enablement",
-              "key": "agents"
+              title: resourceBundle.getText("agents"),
+              icon: "sap-icon://enablement",
+              key: "agents"
             },
             {
-              "title": resourceBundle.getText("chats"),
-              "icon": "sap-icon://discussion",
-              "key": "chats"
+              title: resourceBundle.getText("chats"),
+              icon: "sap-icon://discussion",
+              key: "chats"
             },
             {
-              "title": resourceBundle.getText("logs"),
-              "icon": "sap-icon://command-line-interfaces",
-              "key": "logs"
+              title: resourceBundle.getText("logs"),
+              icon: "sap-icon://command-line-interfaces",
+              key: "logs"
             },
             {
-              "title": resourceBundle.getText("asyncTasks"),
-              "icon": "sap-icon://future",
-              "key": "async-tasks"
+              title: resourceBundle.getText("asyncTasks"),
+              icon: "sap-icon://future",
+              key: "async-tasks"
             }				
           ],
-          "fixedNavigation": [
+          fixedNavigation: [
             {
-              "title": resourceBundle.getText("documentation"),
-              "icon": "sap-icon://learning-assistant",
-              "key": "documentation"
+              title: resourceBundle.getText("documentation"),
+              icon: "sap-icon://learning-assistant",
+              key: "documentation"
             }
           ],
-          "selectedKey": "home"
+          selectedKey: "home"
         };
 
         navigationModel.setData(navigationData);
@@ -552,6 +552,7 @@ sap.ui.define(
 
       _loadUserInfo: async function () {
         
+        /*
         const userInfo = await this.fetchData('/sap/bc/ui2/start_up');
 
         const view = this.getView();
@@ -564,6 +565,7 @@ sap.ui.define(
           userid: userInfo.id,
           initials: userInfo.email.slice(0, 2).toUpperCase()
         });
+        */
 
       }
        
