@@ -146,6 +146,10 @@ sap.ui.define([
             div.innerHTML = svg;
         },
 
+        onAfterRenderingHTMLControlAP: async function (event) {
+
+        },
+
         onResumeChat: function(event) {
           
             const sidePanel = Chat.getSidePanel();
@@ -192,6 +196,7 @@ sap.ui.define([
 
                 const view = this.getView();
 
+                /*
                 const codeEditor = view.byId("_IDChatCodeEditor");
 
                 if (codeEditor) {
@@ -199,6 +204,9 @@ sap.ui.define([
                 } else {
                     return;
                 }
+                */
+
+                document.getElementById('aai-agent-plan-container').innerHTML = '';
 
                 const model = view.getModel("chats");
 
@@ -224,9 +232,7 @@ sap.ui.define([
                     return;
                 }
 
-                if (codeEditor) {
-                    codeEditor.setValue(responseData.document.content);
-                }
+                document.getElementById('aai-agent-plan-container').innerHTML = window.marked.parse(responseData.document.content);
 
             }
 

@@ -92,7 +92,7 @@
 				<Label 
 					id="_IDAddAgentModelLabelMaxToolCalls" 
 					labelFor="_IDAddAgentModelSliderMaxToolCalls" 
-					text="{i18n>maxToolCalls}">
+					text="{i18n>maxToolCalls0Unlimited}">
 				</Label>
 				<Slider 
 					id="_IDAddAgentModelSliderMaxToolCalls" 
@@ -100,10 +100,10 @@
 					showAdvancedTooltip="true" 
 					showHandleTooltip="false" 
 					enableTickmarks="true" 
-					min="5" 
+					min="0" 
 					max="100" 
 					step="5" 
-					value="5"
+					value="10"
 					width="100%"/>
 			</l:VerticalLayout>
 		</content>

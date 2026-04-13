@@ -296,7 +296,11 @@
                                     </Table>
                                 </IconTabFilter>
                                 <IconTabFilter id="_IDChatIconTabFilterAgentPlan" text="{i18n>agentPlan}" key="planning">
-                                    <ce:CodeEditor id="_IDChatCodeEditor" type="markdown" width="100%" height="500px" editable="false" />
+                                    <core:HTML 
+                                        id="_IDChatHTMLAgentPlan" 
+                                        content='&lt;div id="aai-agent-plan-container"&gt;&lt;/div&gt;'
+                                        afterRendering=".onAfterRenderingHTMLControlAP">
+                                    </core:HTML>
                                 </IconTabFilter>
                                 <IconTabFilter id="_IDChatIconTabFilterLoadedTools" text="{i18n>toolsLoadedOnDemand}" key="loadedTools" visible="false">
                                     <Table 

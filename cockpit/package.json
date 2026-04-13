@@ -9,7 +9,7 @@
   ],
   "main": "webapp/index.html",
   "devDependencies": {
-    "@sap/ux-ui5-tooling": "^1.20.2",
+    "@sap/ux-ui5-tooling": "^1.20.4",
     "@ui5/cli": "^4.0.0",
     "rimraf": "^5.0.5"
   },

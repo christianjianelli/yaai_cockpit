@@ -8,6 +8,7 @@ sap.ui.define([
             createMermaidSequenceDiagramOpenAI: function (chat) {
 
                 const roleMap = {
+                    system: "System",
                     developer: "Developer",
                     user: "User",
                     assistant: "Assistant"
@@ -76,7 +77,7 @@ sap.ui.define([
                     else if (role) {
                         let from = roleMap[role] || role;
                         let to;
-                        if (from === "Developer") to = "Assistant";
+                        if (from === "Developer" || from === "System") to = "Assistant";
                         else if (from === "User") to = "Assistant";
                         else if (from === "Assistant") to = "User";
                         let msgContent = content.replace(/\r?\n/g, " ");
