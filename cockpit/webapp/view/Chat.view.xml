@@ -298,8 +298,7 @@
                                 <IconTabFilter id="_IDChatIconTabFilterAgentPlan" text="{i18n>agentPlan}" key="planning">
                                     <core:HTML 
                                         id="_IDChatHTMLAgentPlan" 
-                                        content='&lt;div id="aai-agent-plan-container"&gt;&lt;/div&gt;'
-                                        afterRendering=".onAfterRenderingHTMLControlAP">
+                                        content='&lt;div id="aaic-agent-plan-container"&gt;&lt;/div&gt;'>
                                     </core:HTML>
                                 </IconTabFilter>
                                 <IconTabFilter id="_IDChatIconTabFilterLoadedTools" text="{i18n>toolsLoadedOnDemand}" key="loadedTools" visible="false">

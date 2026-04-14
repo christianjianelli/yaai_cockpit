@@ -146,10 +146,6 @@ sap.ui.define([
             div.innerHTML = svg;
         },
 
-        onAfterRenderingHTMLControlAP: async function (event) {
-
-        },
-
         onResumeChat: function(event) {
           
             const sidePanel = Chat.getSidePanel();
@@ -195,16 +191,6 @@ sap.ui.define([
             if (selectedTabKey === "planning") {
 
                 const view = this.getView();
-
-                /*
-                const codeEditor = view.byId("_IDChatCodeEditor");
-
-                if (codeEditor) {
-                    codeEditor.setValue("");
-                } else {
-                    return;
-                }
-                */
 
                 document.getElementById('aai-agent-plan-container').innerHTML = '';
 
