@@ -192,7 +192,7 @@ sap.ui.define([
 
                 const view = this.getView();
 
-                document.getElementById('aai-agent-plan-container').innerHTML = '';
+                document.getElementById('aaic-agent-plan-container').innerHTML = '';
 
                 const model = view.getModel("chats");
 
@@ -218,7 +218,7 @@ sap.ui.define([
                     return;
                 }
 
-                document.getElementById('aai-agent-plan-container').innerHTML = window.marked.parse(responseData.document.content);
+                document.getElementById('aaic-agent-plan-container').innerHTML = window.marked.parse(responseData.document.content);
 
             }
 
