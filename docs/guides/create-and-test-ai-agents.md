@@ -127,14 +127,14 @@ The table shows:
 - `Description`
 - `Load on Demand`
 
-`Load on Demand` is useful when you do not want every tool to be exposed immediately. The agent can then load tools only when needed, and those loaded tools later appear in the chat analysis screen. To enable this functionality, assign the tools `YCL_AAIC_FUNC_CALL_TOOLS GET_AVAILABLE_TOOLS` and `YCL_AAIC_FUNC_CALL_TOOLS REQUEST_TOOLS`. This allows the agent to retrieve the list of available tools and request the specific tools it needs.
+`Load on Demand` is useful when you do not want every tool to be exposed immediately. The agent can then load tools only when needed, and those loaded tools later appear in the chat analysis screen. To enable this functionality, assign the tools `YCL_AAI_FUNC_CALL_TOOLS GET_AVAILABLE_TOOLS` and `YCL_AAI_FUNC_CALL_TOOLS REQUEST_TOOLS`. This allows the agent to retrieve the list of available tools and request the specific tools it needs.
 These two tools must not be configured for on-demand loading. They need to be immediately available to the agent. 
 
 ### Assign documents
 
 In the `Documents` section, use `Add` to attach additional RAG documents to the agent.
 
-These documents expand the agent’s access to supporting knowledge. This functionality requires assignment of the tools `YCL_AAIC_RAG_TOOLS GET_LIST_OF_DOCUMENTS` and `YCL_AAIC_RAG_TOOLS GET_DOCUMENTATION`. This allows the agent to retrieve the list of available documents and request the specific documents it needs. These two tools must not be configured for on-demand loading. They need to be immediately available to the agent. 
+These documents expand the agent’s access to supporting knowledge. This functionality requires assignment of the tools `YCL_AAI_RAG_TOOLS GET_LIST_OF_DOCUMENTS` and `YCL_AAI_RAG_TOOLS GET_DOCUMENTATION`. This allows the agent to retrieve the list of available documents and request the specific documents it needs. These two tools must not be configured for on-demand loading. They need to be immediately available to the agent. 
 
 ### Assign models
 
