@@ -162,7 +162,7 @@ From the agent detail page:
 5. Enter your prompt.
 6. Choose `Send`.
 
-![Integrated test chat from the agent page](./images/chat.jpg)
+![Integrated test chat from the agent page](./images/integrated_chat.jpg)
 
 Testing advice:
 
@@ -206,44 +206,4 @@ If a response is delayed or incomplete, check:
 
 - `Async Tasks` to see whether the background task is still running, finished, or failed
 - `Logs` for system-wide messages and errors
-- `Chats` for the exact message and tool-call history
-
-This is important because chat execution in the cockpit runs asynchronously.
-
-## Recommended End-to-End Procedure
-
-Use this sequence when setting up a new agent:
-
-1. Maintain the provider base URL and model list in `LLM APIs`.
-2. Register the necessary ABAP tools in `Tools`.
-3. Upload system-instructions and context documents in `Documents (RAG)`.
-4. Create the agent in `Agents`.
-5. Edit the agent and assign:
-   - the system-instructions document
-   - the RAG/context document
-   - tools
-   - one or more models
-6. Save the agent.
-7. Test it from the integrated chat on the agent page.
-8. Validate behavior in `Chats`, especially `Messages`, `Sequence Diagram`, and `Log`.
-9. Use `Async Tasks` and `Logs` if execution does not behave as expected.
-
-## Tips for Better Agent Quality
-
-- Use concise, explicit system instructions in markdown.
-- Give each tool a description that makes its purpose unambiguous.
-- Limit the tool set to what the agent should actually use.
-- Attach RAG documents only when they add information the model is unlikely to know.
-- Test with both simple prompts and realistic business prompts.
-- Inspect the sequence diagram to verify whether the tool-calling flow matches your expectation.
-
-## Summary
-
-The cockpit supports the full lifecycle of agent setup:
-
-- provider and model configuration
-- tool registration
-- markdown document management
-- agent composition
-- live testing through the integrated chat
-- post-run analysis through chats, logs, and async task monitoring
+- `Messages` for the exact message and tool-calls
