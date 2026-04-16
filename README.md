@@ -20,6 +20,10 @@ The ABAP system must have the following package installed:
 
 See the [Installation Guide](/docs/Installation.md)
 
+> **Important:** The cockpit is designed to be used as a standalone application, not inside the SAP Fiori Launchpad.
+
+---
+
 ## How-to Guides
 
  - [How to Create and Test AI Agents in the ABAP AI tools Cockpit](/docs/guides/create-and-test-ai-agents.md)

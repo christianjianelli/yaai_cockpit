@@ -99,6 +99,8 @@ The Visual Studio Code documentation has all the information on how to set up yo
    <img src="guides/images/sicf4.jpg" alt="Transaction SICF" width="400px">
 </p>
 
+> **Important:** The cockpit is designed to be used as a standalone application, not inside the SAP Fiori Launchpad.
+
 If you have the domain `vhcalnplci.dummy.nodomain` correctly configured in your hosts file, the application should appear in your default browser:
 
 https://vhcalnplci.dummy.nodomain:44300/sap/bc/ui5_ui5/sap/yaai_cockpit/index.html?sap-client=001&sap-language=EN
