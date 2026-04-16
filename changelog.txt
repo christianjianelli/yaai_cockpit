@@ -9,8 +9,14 @@ Legend
 - : removed
 
 
+2026-04-16 v1.0.8
+-------------------
+
+* App Controller - Documentation button link fixed.
+
+
 2026-04-14 v1.0.7
 -------------------
 
 * Chat controller - Agent plan display bugfix.
-- Chat view - xmlns:ce="sap.ui.codeeditor" removed
+- Chat view - xmlns:ce="sap.ui.codeeditor" removed.

@@ -178,7 +178,7 @@ sap.ui.define(
             break;
 
           case "documentation":
-            window.open("https://github.com/christianjianelli/yaai_cloud_cockpit");  
+            window.open("https://github.com/christianjianelli/yaai_cockpit");  
             break;
             
           default:
