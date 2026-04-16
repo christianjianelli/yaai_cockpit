@@ -8,6 +8,24 @@ The ABAP AI tools Cockpit is a frontend tool designed to streamline the creation
 
 ---
 
+## Installation
+
+### Prerequisites
+
+The ABAP system must have the following package installed:
+
+ - **[ABAP AI tools](https://github.com/christianjianelli/yaai)**
+
+### Installation Steps
+
+See the [Installation Guide](/docs/Installation.md)
+
+## How-to Guides
+
+ - [How to Create and Test AI Agents in the ABAP AI tools Cockpit](/docs/guides/create-and-test-ai-agents.md)
+
+---
+
 ## Main Features
 
 ### LLM APIs
@@ -138,17 +156,3 @@ All chats and tasks executed by AI Agents run as asynchronous processes. In this
 <p style="margin-left: 50px">
    <img src="./docs/images/screenshot-cockpit-async_tasks.jpg" alt="Async Tasks" width="600px">
 </p>
-
----
-
-## Installation
-
-### Prerequisites
-
-The ABAP system must have the following package installed:
-
- - **[ABAP AI tools](https://github.com/christianjianelli/yaai)**
-
-### Installation Steps
-
-See the [Installation Guide](/docs/Installation.md)

@@ -11,7 +11,7 @@ The cockpit organizes agent work into these areas:
 - `Documents (RAG)`: upload markdown files for system instructions, tools documentation, additional context, etc
 - `Agents`: create and configure the agent itself
 - `Chats`: test agents and inspect messages, tool calls, sequence diagrams and logs
-- `Logs`: review system-wide log messages
+- `Logs`: review log messages
 - `Async Tasks`: monitor background execution status
 
 Typical flow:
@@ -19,10 +19,10 @@ Typical flow:
 1. Configure an LLM API and its models.
 2. Configure the tools the agent will use.
 3. Upload markdown documents for instructions and context.
-4. Create the agent record.
-5. Assign tools, documents, and one or more models to the agent.
+4. Create the agent.
+5. Assign tools, documents, and a LLM model to the agent.
 6. Test the agent from the integrated chat.
-7. Review the resulting chat, logs, and async task execution.
+7. Review the resulting chat, messages, sequence diagram, logs, and async task execution.
 
 ## 1. Configure LLM APIs
 
