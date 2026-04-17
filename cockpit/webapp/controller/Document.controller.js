@@ -221,6 +221,62 @@ sap.ui.define([
 
         },
 
+        onDownloadDocument: function(event) {
+
+            const view = this.getView();
+
+            const codeEditor = view.byId("_IDDocumentCodeEditor");
+
+            const filename = view.byId("_IDDocumentFileNameInput").getValue();
+
+            const blob = new Blob([codeEditor.getValue()], { type: "text/markdown" });
+
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+
+            document.body.appendChild(a);
+            a.click();
+
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+        },
+
+        onPrintDocument: function(event) {
+
+            const view = this.getView();
+
+            const resourceBundle = view.getModel("i18n").getResourceBundle();
+
+            const printWindow = window.open("", "_blank");
+
+            const codeEditor = view.byId("_IDDocumentCodeEditor");
+
+            const content = window.marked.parse(codeEditor.getValue());
+
+            const filename = view.byId("_IDDocumentFileNameInput").getValue();
+
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>${filename}</title>
+                </head>
+                <body>
+                    ${content}
+                </body>
+                </html>
+            `);
+
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+            printWindow.close();
+
+        },
+
         //################ Private APIs ###################
 
         _loadData: async function() {

@@ -9,6 +9,15 @@ Legend
 - : removed
 
 
+2026-04-17 v1.0.9
+-------------------
++ Chats view - Chat Id filter added.
++ Chats controller - Chat Id filter added to chats search.
++ Chat view - Print Agent Plan button added
++ Chat controller - Print Agent Plan implemented
++ Document view - Download and Print Document buttons added
++ Document controller - Download Document and Print Document implemented
+
 2026-04-16 v1.0.8
 -------------------
 

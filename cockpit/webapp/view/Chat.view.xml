@@ -295,10 +295,21 @@
                                     </Table>
                                 </IconTabFilter>
                                 <IconTabFilter id="_IDChatIconTabFilterAgentPlan" text="{i18n>agentPlan}" key="planning">
-                                    <core:HTML 
-                                        id="_IDChatHTMLAgentPlan" 
-                                        content='&lt;div id="aaic-agent-plan-container"&gt;&lt;/div&gt;'>
-                                    </core:HTML>
+                                    <l:VerticalLayout id="vl2" width="100%" class="sapUiContentPadding">
+                                        <OverflowToolbar id="_IDChatOFBPlanning" design="Transparent">
+                                            <ToolbarSpacer id="_IDChatToolbarSpacerPlanning"/>
+                                            <Button
+                                                id="_IDChatPrintPlanning"
+                                                icon="sap-icon://print"
+                                                type="Default"
+                                                text="{i18n>print}" 
+                                                press=".onPrintAgentPlan"/>
+			                            </OverflowToolbar>
+                                        <core:HTML 
+                                            id="_IDChatHTMLAgentPlan" 
+                                            content='&lt;div id="aaic-agent-plan-container"&gt;&lt;/div&gt;'>
+                                        </core:HTML>
+                                    </l:VerticalLayout>
                                 </IconTabFilter>
                                 <IconTabFilter id="_IDChatIconTabFilterLoadedTools" text="{i18n>toolsLoadedOnDemand}" key="loadedTools" visible="false">
                                     <Table 

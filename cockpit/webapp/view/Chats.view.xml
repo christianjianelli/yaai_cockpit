@@ -42,6 +42,11 @@
                                 <Input id="_IDChatsUserNameFilter"></Input>
                             </fb:control>
                         </fb:FilterGroupItem>
+                        <fb:FilterGroupItem id="_IDChatsFilterGroupItemChatId" name="ChatId" label="{i18n>chatId}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:control>
+                                <Input id="_IDChatsChatIdFilter"></Input>
+                            </fb:control>
+                        </fb:FilterGroupItem>
                     </fb:filterGroupItems>
                 </fb:FilterBar>
             </f:DynamicPageHeader>

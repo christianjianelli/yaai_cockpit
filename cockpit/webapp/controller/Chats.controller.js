@@ -107,14 +107,20 @@ sap.ui.define([
             const view = this.getView();
 
             const usernameInput = view.byId("_IDChatsUserNameFilter");
+            const chatIdInput = view.byId("_IDChatsChatIdFilter");
 
             let username;
+            let chatId;
 
             if (usernameInput) {
                username = usernameInput.getValue();
             }
 
-            this._loadData(username);
+            if (chatIdInput) {
+                chatId = chatIdInput.getValue();
+            }
+
+            this._loadData(username, chatId);
           
         },
 
@@ -377,7 +383,7 @@ sap.ui.define([
 
         //################ Private APIs ###################
 
-        _loadData: async function(username = "") {
+        _loadData: async function(username = "", chatId = "") {
 
             const view = this.getView();
 
@@ -391,7 +397,7 @@ sap.ui.define([
 
             try {
           
-                const responseData = await this.fetchData(endpoint + "&datefrom=" + this._dateFrom + "&dateto=" + this._dateTo + "&username=" + username);
+                const responseData = await this.fetchData(endpoint + "&datefrom=" + this._dateFrom + "&dateto=" + this._dateTo + "&username=" + username + "&id=" + chatId);
 
                 model.setData(responseData);
 
