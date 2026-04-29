@@ -84,7 +84,7 @@ sap.ui.define(
 			getEndpoint: function (resource) {
 
 				let baseUrl = '/sap/yaai/';
-				let urlParams = '?sap-client=001&r=' + Date.now();
+				let urlParams = '?r=' + Date.now();
 
 				return baseUrl + resource + urlParams;
 
