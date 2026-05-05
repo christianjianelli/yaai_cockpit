@@ -148,6 +148,8 @@
                                         inset="false"
                                         alternateRowColors="true"
                                         popinLayout="GridSmall"
+                                        growing="true"
+                                        growingThreshold="50"
                                         items="{ 
                                             path: 'chats>messages',
                                             templateShareable:false,
