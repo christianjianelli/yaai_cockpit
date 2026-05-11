@@ -1,0 +1,37 @@
+<mvc:View controllerName="aaic.cockpit.controller.NotFound"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.f"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDNotFoundDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDNotFoundDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDNotFoundTitle" text="{i18n>notFound}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDNotFoundBreadcrumbs" currentLocationText="{i18n>notFound}">
+                        <Link id="_IDNotFoundLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:navigationActions>
+                    <Button
+                        id="_IDNotFoundNavHome"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Transparent" 
+                        press=".onNavBackMaster('RouteMain')"/>    
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <IllustratedMessage 
+                id="_IDGenIllustratedMessage"
+                description="{i18n>resourceNotFound}"
+                title="{i18n>notFound}"
+                illustrationType="sapIllus-ErrorScreen">
+            </IllustratedMessage>
+        </f:content>
+        <f:footer>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

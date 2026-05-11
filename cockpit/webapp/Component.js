@@ -74,6 +74,12 @@ sap.ui.define([
             // set the tools model
             this.setModel(models.createJSONModelExt(), "tools");
 
+            // set the tasks model
+            this.setModel(models.createJSONModelExt(), "tasks");
+
+            // set the taskflows model
+            this.setModel(models.createJSONModelExt(), "taskflows");
+
             // set the RAG model
             this.setModel(models.createJSONModelExt(), "rag");
 
@@ -265,7 +271,7 @@ sap.ui.define([
 
         _checkUnsavedChanges: function() {
 
-            const models = ["apis", "rag", "tools", "agents"];
+            const models = ["apis", "rag", "tools", "agents", "tasks", "taskflows"];
             
             for (const model of models) {
 
@@ -282,7 +288,7 @@ sap.ui.define([
 
         _discardAllUnsavedChanges: function() {
 
-            const models = ["apis", "rag", "tools", "agents"];  
+            const models = ["apis", "rag", "tools", "agents", "tasks", "taskflows"];  
             
             models.forEach(element => {
                 

@@ -274,7 +274,7 @@ sap.ui.define([
                 view.setBusy(false);
 
             } else {
-                console.error('Element with class "example123" not found.');
+                console.error('sequence diagram element not found.');
             }
 
         },

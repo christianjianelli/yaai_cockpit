@@ -165,6 +165,14 @@ sap.ui.define(
             ownerComponent.setOnHoldNavigation("RouteDocuments");
             break;
 
+          case "tasks":
+            ownerComponent.setOnHoldNavigation("RouteTasks");
+            break;
+          
+          case "taskflows":
+            ownerComponent.setOnHoldNavigation("RouteTaskflows");
+            break;
+
           case "chats":
             ownerComponent.setOnHoldNavigation("RouteChats");
             break;
@@ -441,6 +449,16 @@ sap.ui.define(
               title: resourceBundle.getText("agents"),
               icon: "sap-icon://enablement",
               key: "agents"
+            },
+            {
+              title: resourceBundle.getText("tasks"),
+              icon: "sap-icon://task",
+              key: "tasks"
+            },
+            {
+              title: resourceBundle.getText("taskflows"),
+              icon: "sap-icon://process",
+              key: "taskflows"
             },
             {
               title: resourceBundle.getText("chats"),

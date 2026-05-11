@@ -92,6 +92,30 @@
                 </TileContent>
             </GenericTile>
             <GenericTile 
+                id="_IDMainGenericTileTasks" 
+                class="sapUiSmallMargin" 
+                header="{i18n>tasks}"
+                frameType="OneByOne"
+                press="onTilePress('RouteTasks')">
+                <TileContent id="_IDMainTileContentTasks">
+                    <FeedContent id="_IDMainFeedContentTasks" 
+                        contentText="{i18n>maintainTasks}"
+                        subheader="{i18n>agentsTasks}" value="{stats>/tasks}" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
+                id="_IDMainGenericTileTaskflows" 
+                class="sapUiSmallMargin" 
+                header="{i18n>taskflows}"
+                frameType="OneByOne"
+                press="onTilePress('RouteTaskflows')">
+                <TileContent id="_IDMainTileContentTaskflows">
+                    <FeedContent id="_IDMainFeedContentTaskflows" 
+                        contentText="{i18n>maintainTaskflows}"
+                        subheader="{i18n>agentsTaskflows}" value="{stats>/taskflows}" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
                 id="_IDMainGenericTileChats" 
                 class="sapUiSmallMargin" 
                 header="{i18n>chats}" 

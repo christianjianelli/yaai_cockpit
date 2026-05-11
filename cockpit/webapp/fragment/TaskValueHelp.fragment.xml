@@ -1,0 +1,23 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog id="_IDTaskValueHelpSelectDialog"
+		title="{i18n>selectTask}"
+		search=".onSearchTask"
+		searchPlaceholder="{i18n>searchTask}"
+		confirm=".onTaskValueHelpDialogClose"
+		cancel=".onTaskValueHelpDialogClose"
+		showClearButton="false"
+		items="{
+			path: 'tasks>/tasks',
+			sorter: {
+				path: 'name',
+				descending: false
+			}
+		}">
+		<StandardListItem id="_IDTaskValueHelpStandardListItem"
+			title="{tasks>name}"
+			description="{tasks>description}"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

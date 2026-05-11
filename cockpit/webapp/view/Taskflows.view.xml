@@ -1,0 +1,108 @@
+<mvc:View controllerName="aaic.cockpit.controller.Taskflows"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDTaskflowsDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDTaskflowsDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDTaskflowsTitle" text="{i18n>taskflows}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDTaskflowsBreadcrumbs" currentLocationText="{i18n>taskflows}">
+                        <Link id="_IDTaskflowsLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:navigationActions>
+                    <Button
+                        id="_IDTaskflowsNavHome"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Transparent" 
+                        press=".onNavBackMaster('RouteMain')"/>
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader id="_IDTaskflowsDynamicPageHeader" pinnable="true">
+                <fb:FilterBar id="_IDTaskflowsFilterBar" useToolbar="false" search=".onSearch">
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem id="_IDTaskflowsFilterGroupItemTaskName" name="TaskName" label="{i18n>name}" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="_IDTaskflowsTaskNameFilter"></Input>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem id="_IDTaskflowsFilterGroupItemTaskId" name="TaskId" label="{i18n>id}" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="_IDTaskflowsTaskIdFilter"></Input>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table id="_IDTaskflowsTable"
+                class="sapUiLargeMarginBottom"
+                inset="false"
+                alternateRowColors="false"
+                popinLayout="GridSmall"
+                growing="true"
+		        growingThreshold="10"
+                mode="MultiSelect"
+                items="{ 
+                    path: 'taskflows>/taskflows',
+                    templateShareable:false,
+                    sorter: {
+                        path: 'name'
+                    }
+                }">
+                <dependents>
+                    <plugins:ColumnResizer id="_IDTaskflowsColumnResizer"/>
+                </dependents>
+                <headerToolbar>
+                    <OverflowToolbar id="_IDTaskflowsOverflowToolbar">
+                        <Title id="_IDTaskflowsOverflowToolbarTitle" text="{i18n>taskflows}" level="H2"/>
+                        <ToolbarSpacer id="_IDTaskflowsOverflowToolbarToolbarSpacer"/>
+                        <Button id="_IDTaskflowsButtonAdd" icon="sap-icon://add" text="{i18n>add}" press=".onAdd"></Button>
+                        <Button id="_IDTaskflowsButtonDelete" icon="sap-icon://delete" text="{i18n>delete}" type="Reject" press=".onDelete"></Button>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="_IDTaskflowsColumnTaskId">
+                        <Text id="_IDTaskflowsColumnTextTaskId" text="{i18n>id}" />
+                    </Column>
+                    <Column id="_IDTaskflowsColumnTaskName">
+                        <Text id="_IDTaskflowsColumnTextTaskName" text="{i18n>name}" />
+                    </Column>
+                    <Column id="_IDTaskflowsColumnTaskDescription">
+                        <Text id="_IDTaskflowsColumnTextTaskDescription" text="{i18n>description}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="_IDTaskflowsColumnListItem" type="Navigation" press=".onItemPress">
+                        <cells>
+                            <Text id="_IDTaskflowsTextTaskId" text="{taskflows>id}" />
+                            <Text id="_IDTaskflowsTextTaskName" text="{taskflows>name}" />
+                            <Text id="_IDTaskflowsTextTaskDescription" text="{taskflows>description}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <f:footer>
+			<OverflowToolbar id="_IDTaskflowsPageFooter" class="sapUiSmallMarginBottom">
+                <Button id="_IDTaskflowsMessagePopoverButton"
+					icon="sap-icon://alert"
+					text="{=${message>/}.length}"
+					visible="{=${message>/}.length > 0}"
+					type="Transparent"
+					press=".onMessagePopoverPress"/>
+                <ToolbarSpacer id="_IDTaskflowsToolbarSpacerBegin"/>
+			</OverflowToolbar>
+	    </f:footer>
+	</f:DynamicPage>
+</mvc:View>

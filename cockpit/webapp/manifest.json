@@ -5,7 +5,7 @@
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
-      "version": "1.1.1"
+      "version": "1.1.2"
     },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
@@ -86,7 +86,10 @@
         "type": "View",
         "viewType": "XML",
         "path": "aaic.cockpit.view",
-        "async": true
+        "async": true,
+        "bypassed": {
+          "target": "TargetNotFound"
+        }
       },
       "routes": [
         {
@@ -186,6 +189,38 @@
           "target": [
             "TargetAsyncTask"
           ]
+        },
+        {
+          "name": "RouteTasks",
+          "pattern": "tasks",
+          "target": [
+            "TargetTasks"
+          ]
+        },{
+          "name": "RouteTask",
+          "pattern": "task/{id}",
+          "target": [
+            "TargetTask"
+          ]
+        },
+        {
+          "name": "RouteTaskflows",
+          "pattern": "taskflows",
+          "target": [
+            "TargetTaskflows"
+          ]
+        },{
+          "name": "RouteTaskflow",
+          "pattern": "taskflow/{id}",
+          "target": [
+            "TargetTaskflow"
+          ]
+        },{
+          "name": "RouteNotFound",
+          "pattern": "not-found",
+          "target": [
+            "TargetNotFound"
+          ]
         }
       ],
       "targets": {
@@ -283,6 +318,41 @@
           "clearControlAggregation": false,
           "viewId": "AsyncTask",
           "viewName": "AsyncTask"
+        },
+        "TargetTasks": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Tasks",
+          "viewName": "Tasks"
+        },
+        "TargetTask": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Task",
+          "viewName": "Task"
+        },
+        "TargetTaskflows": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Taskflows",
+          "viewName": "Taskflows"
+        },
+        "TargetTaskflow": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Taskflow",
+          "viewName": "Taskflow"
+        },
+        "TargetNotFound": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "NotFound",
+          "viewName": "NotFound"
         }
       }
     },

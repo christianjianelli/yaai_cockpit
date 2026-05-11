@@ -1,0 +1,185 @@
+<mvc:View controllerName="aaic.cockpit.controller.Taskflow"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:plugins="sap.m.plugins"
+    xmlns="sap.m">
+    <f:DynamicPage id="_IDTaskflowDynamicPage" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="_IDTaskflowDynamicPageTitle">
+                <f:heading>
+                    <Title id="_IDTaskflowTitle" text="{i18n>taskflow}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs id="_IDTaskflowBreadcrumbs" currentLocationText="{i18n>taskflow}">
+                        <Link id="_IDTaskflowLinkHome" text="{i18n>home}" press=".onNavBackMaster('RouteMain')"/>
+                        <Link id="_IDTaskflowLinkTasks" text="{i18n>taskflows}" press=".onNavBackMaster('RouteTaskflows')"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:actions>
+                    <Button id="_IDTaskflowButtonEdit" class="sapUiTinyMarginEnd" type="Default" icon="sap-icon://edit" text="{i18n>edit}" press=".onToogleEdit"/>
+                    <Button id="_IDTaskflowButtonSave" class="sapUiTinyMarginEnd" type="Emphasized" icon="sap-icon://save" text="{i18n>save}" enabled="false" press=".onSave"/>
+                </f:actions>
+                <f:navigationActions>
+                    <Button
+                        id="_IDTaskflowNavBack"
+                        icon="sap-icon://nav-back"
+                        type="Transparent"
+                        text="{i18n>taskflows}" 
+                        press=".onNavBackMaster('RouteTaskflows')"/>
+                    <Button
+                        id="_IDTaskflowNavHome"
+                        icon="sap-icon://home"
+                        tooltip="{i18n>home}"
+                        type="Transparent" 
+                        press=".onNavBackMaster('RouteMain')"/>    
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <l:VerticalLayout id="_IDTaskflowVerticalLayout">
+                <Panel id="_IDTaskflowModelsPanel" width="auto" headerText="{i18n>taskflowInfo}" class="sapUiResponsiveMargin" expandable="false">
+                    <content>
+                        <form:Form id="_IDTaskflowForm" editable="true">
+                            <form:layout>
+                                <form:ColumnLayout id="_IDTaskflowColumnLayout" 
+                                    columnsM="1"
+                                    columnsL="3"
+                                    columnsXL="3"
+                                />
+                            </form:layout>
+                            <form:formContainers>
+                                <form:FormContainer id="_IDTaskflowFormContainer">
+                                    <form:formElements>
+                                        <form:FormElement id="_IDTaskflowFormElementId" label="{i18n>id}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDTaskflowIdInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{taskflows>id}">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement id="_IDTaskflowFormElementName" label="{i18n>name}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDTaskflowNameInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{taskflows>name}">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement id="_IDTaskflowFormElementTaskDescription" label="{i18n>description}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDTaskflowDescriptionInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{taskflows>description}">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                </form:FormContainer>
+                            </form:formContainers>
+                        </form:Form>
+                    </content>
+                </Panel>
+                <Panel id="_IDTaskflowPanelTasks" width="auto" class="sapUiResponsiveMargin" expandable="false" height="auto">
+                    <content>
+                        <IconTabBar
+                            id="_IDTaskflowIconTabBar"
+                            select=".onIconTabSelect"
+                            expanded="true">
+                            <items>
+                                <IconTabFilter id="_IDTaskflowIconTabFilterTasks" text="{i18n>tasks}" key="tasks">
+                                    <Table id="_IDTaskflowTasksTable"
+                                        inset="false"
+                                        alternateRowColors="true"
+                                        popinLayout="GridSmall"
+                                        growing="true"
+                                        growingThreshold="10"
+                                        mode="MultiSelect"
+                                        items="{ 
+                                            path: 'taskflows>tasks',
+                                            templateShareable:false
+                                        }">
+                                        <dependents>
+                                            <plugins:ColumnResizer id="_IDTaskflowColumnResizerTasksTable"/>
+                                        </dependents>
+                                        <headerToolbar>
+                                            <OverflowToolbar id="_IDTaskflowOverflowToolbarTasksTable">
+                                                <Title id="_IDTaskflowOverflowToolbarTitleTasksTable" text="{i18n>tasks}" level="H2"/>
+                                                <ToolbarSpacer id="_IDTaskflowOverflowToolbarToolbarSpacerTasksTable"/>
+                                                <Button id="_IDTaskflowButtonAddTask" icon="sap-icon://add" text="{i18n>add}" press=".onTaskValueHelpRequest"></Button>
+                                                <Button id="_IDTaskflowButtonAssignPreviousTask" icon="sap-icon://connected" text="{i18n>assignPreviousTask}" press=".onTaskValueHelpRequest"></Button>
+                                                <Button id="_IDTaskflowButtonDeleteTask" icon="sap-icon://delete" text="{i18n>delete}" type="Reject" press=".onDelete"></Button>
+                                            </OverflowToolbar>
+                                        </headerToolbar>
+                                        <columns>
+                                            <Column id="_IDTaskflowColumnTask" importance="High">
+                                                <Text id="_IDTaskflowColumnTextTask" text="{i18n>task}" />
+                                            </Column>
+                                            <Column id="_IDTaskflowColumnTaskName" importance="High">
+                                                <Text id="_IDTaskflowColumnTextTaskName" text="{i18n>taskName}" />
+                                            </Column>
+                                            <Column id="_IDTaskflowColumnPreviousTask" importance="High">
+                                                <Text id="_IDTaskflowColumnTextPreviousTask" text="{i18n>previousTask}" />
+                                            </Column>
+                                            <Column id="_IDTaskflowColumnPreviousTaskName" importance="High">
+                                                <Text id="_IDTaskflowColumnTextPreviousTaskName" text="{i18n>previousTaskName}" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem id="_IDTaskflowColumnListItemTasks" press=".onTasksItemPress">
+                                                <cells>
+                                                    <Text id="_IDTaskflowTextSeqno" text="{taskflows>taskId}" />
+                                                    <Text id="_IDTaskflowTextTaskName" text="{taskflows>taskName}" />
+                                                    <Text id="_IDTaskflowTextPreviousTask" text="{taskflows>previousTaskId}" />
+                                                    <Text id="_IDTaskflowTextPreviousTaskName" text="{taskflows>previousTaskName}" />
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </IconTabFilter>
+                                <IconTabFilter id="_IDTaskflowIconTabFilterFlowchart" text="{i18n>flowchart}" key="flowchart">
+                                    <l:VerticalLayout id="_IDTaskflowVerticalLayoutFC" width="100%" class="sapUiContentPadding">
+                                        <OverflowToolbar id="_IDTaskflowToolbarFC" design="Transparent">
+                                            <ToolbarSpacer id="_IDTaskflowToolbarSpacerFC"/>
+                                            <Button
+                                                id="_IDTaskflowDownloadFC"
+                                                icon="sap-icon://download"
+                                                type="Default"
+                                                text="{i18n>download}" 
+                                                press=".onGetFlowchartDiagramScreenShot"/>
+			                            </OverflowToolbar>
+                                    <core:HTML 
+                                        id="_IDTaskflowHTMLMessagesFlowchart" 
+                                        content='&lt;div id="aaic-flowchart-diagram-container"&gt;&lt;/div&gt;'
+                                        afterRendering=".onAfterRenderingHTMLControlFC">
+                                    </core:HTML>
+                                    </l:VerticalLayout>
+                                </IconTabFilter>
+                            </items>
+                        </IconTabBar>
+                    </content>
+                </Panel>                                
+            </l:VerticalLayout>
+        </f:content>
+        <f:footer>
+			<OverflowToolbar id="_IDTaskflowPageFooter" class="sapUiSmallMarginBottom">
+                <Button id="_IDTaskflowMessagePopoverButton"
+					icon="sap-icon://alert"
+					text="{=${message>/}.length}"
+					visible="{=${message>/}.length > 0}"
+					type="Transparent"
+					press=".onMessagePopoverPress"/>
+                <ToolbarSpacer id="_IDTaskflowToolbarSpacerBegin"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

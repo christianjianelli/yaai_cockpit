@@ -275,7 +275,7 @@ sap.ui.define([
             };
 
             if ( tool.class_name === "" || tool.method_name === "" || tool.description === "") {
-                MessageBox.alert(resourceBundle.getText("multipleChatsDeletionNotAllowed"));
+                MessageBox.alert(resourceBundle.getText("classNameMethodNameDescriptionRequired"));
                 return;
             }
 
@@ -315,18 +315,17 @@ sap.ui.define([
                 this.onSearch();
 
             } catch (error) {
-
-                // 4. Handle any errors during the fetch or parsing process
-
+                
                 this.Dialog.setBusy(false);
-
-                MessageBox.error(error.message);
 
                 const resourceBundle = view.getModel("i18n").getResourceBundle();
 
+                // 4. Handle any errors during the fetch or parsing process
+                MessageBox.error(error.message);
+
                 const message = new Message({
-                    message: error.message,
-                    description: resourceBundle.getText("communicationError"),
+                    message: resourceBundle.getText("communicationError"),
+                    description: error.message,
                     type: MessageType.Error
                 });
                 
@@ -369,8 +368,8 @@ sap.ui.define([
                 const resourceBundle = view.getModel("i18n").getResourceBundle();
 
                 const message = new Message({
-                    message: error.message,
-                    description: resourceBundle.getText("communicationError"),
+                    message: resourceBundle.getText("communicationError"),
+                    description: error.message,
                     type: MessageType.Error
                 });
                 
@@ -424,8 +423,8 @@ sap.ui.define([
                     const resourceBundle = view.getModel("i18n").getResourceBundle();
 
                     const message = new Message({
-                        message: error.message,
-                        description: resourceBundle.getText("communicationError"),
+                        message: resourceBundle.getText("communicationError"),
+                        description: error.message,
                         type: MessageType.Error
                     });
                     
@@ -481,8 +480,8 @@ sap.ui.define([
                 const resourceBundle = view.getModel("i18n").getResourceBundle();
 
                 const message = new Message({
-                    message: error.message,
-                    description: resourceBundle.getText("communicationError"),
+                    message: resourceBundle.getText("communicationError"),
+                    description: error.message,
                     type: MessageType.Error
                 });
                 
@@ -530,8 +529,8 @@ sap.ui.define([
                 const resourceBundle = view.getModel("i18n").getResourceBundle();
 
                 const message = new Message({
-                    message: error.message,
-                    description: resourceBundle.getText("communicationError"),
+                    message: resourceBundle.getText("communicationError"),
+                    description: error.message,
                     type: MessageType.Error
                 });
                 

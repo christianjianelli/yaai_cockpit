@@ -201,8 +201,8 @@
                                     </Table>
                                 </IconTabFilter>
                                 <IconTabFilter id="_IDChatIconTabFilterFlow" text="{i18n>sequenceDiagram}" key="sequenceDiagram">
-                                    <l:VerticalLayout id="vl1" width="100%" class="sapUiContentPadding">
-                                        <OverflowToolbar id="contentTb" design="Transparent">
+                                    <l:VerticalLayout id="_IDChatVerticalLayoutSD" width="100%" class="sapUiContentPadding">
+                                        <OverflowToolbar id="_IDChatToolbarSD" design="Transparent">
                                             <ToolbarSpacer id="_IDChatToolbarSpacerSD"/>
                                             <Button
                                                 id="_IDChatDownloadSD"

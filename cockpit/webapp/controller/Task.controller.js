@@ -7,7 +7,7 @@ sap.ui.define([
 ], (BaseController, Messaging, Message, MessageType, MessageToast) => {
     "use strict";
 
-    return BaseController.extend("aaic.cockpit.controller.Tool", {
+    return BaseController.extend("aaic.cockpit.controller.Task", {
 
         _hasChanges: false,
 
@@ -19,7 +19,7 @@ sap.ui.define([
 
             const router = ownerComponent.getRouter();
 
-            router.getRoute("RouteTool").attachPatternMatched(this.onRouteMatched, this);
+            router.getRoute("RouteTask").attachPatternMatched(this.onRouteMatched, this);
 
         },
 
@@ -29,26 +29,24 @@ sap.ui.define([
 
             let view = this.getView();
 
-            let model = view.getModel("tools");
+            let model = view.getModel("tasks");
 
             let modelData = model.getData();
 
-            if(modelData.tools) {
+            if(modelData.tasks) {
 
-                let index = modelData.tools.findIndex(
-                    tool => tool.className.toUpperCase() === args.className.toUpperCase() &&
-                        tool.methodName.toUpperCase() === args.methodName.toUpperCase()
+                let index = modelData.tasks.findIndex(
+                    task => task.id === args.id
                 );
                 
                 view.bindElement({
-                    path: `/tools/${index}`,
-                    model: "tools"
+                    path: `/tasks/${index}`,
+                    model: "tasks"
                 });
 
             }
 
-            this._className= args.className;
-            this._methodName= args.methodName;
+            this._id= args.id;
 
             this._edit = false;
             
@@ -61,7 +59,7 @@ sap.ui.define([
             const sideNavigation = ownerComponent.getSideNavigation();
 
             if (sideNavigation) {
-                sideNavigation.setSelectedKey("tools");
+                sideNavigation.setSelectedKey("tasks");
             }
             
             Messaging.removeAllMessages();
@@ -92,22 +90,21 @@ sap.ui.define([
             
             const resourceBundle = view.getModel("i18n").getResourceBundle();
 
-            const button = view.byId("_IDToolMessagePopoverButton");
+            const button = view.byId("_IDTaskMessagePopoverButton");
 
             Messaging.removeAllMessages();
 
-            const tool = {
-                class_name: this.getView().getBindingContext("tools").getProperty("className"),
-                method_name: this.getView().getBindingContext("tools").getProperty("methodName"),
-                proxy_class: this.getView().getBindingContext("tools").getProperty("proxyClass"),
-                description: this.getView().getBindingContext("tools").getProperty("description")
+            const task = {
+                id: this.getView().getBindingContext("tasks").getProperty("id"),
+                name: this.getView().getBindingContext("tasks").getProperty("name"),
+                description: this.getView().getBindingContext("tasks").getProperty("description")
             };
 
-            if ( tool.class_name === "" || tool.method_name === "" || tool.description === "") {
+            if ( task.name === "" || task.description === "") {
 
                 const message = new Message({
                     message: resourceBundle.getText("fillAllRequiredFields"),
-                    description: resourceBundle.getText("toolRequiredFieldsDescription"),
+                    description: resourceBundle.getText("taskRequiredFieldsDescription"),
                     type: MessageType.Error
                 });
                 
@@ -121,11 +118,11 @@ sap.ui.define([
             const formData = new FormData();
             
             // Fill form data
-            Object.keys(tool).forEach(key => {
-                formData.append(key, tool[key]);
+            Object.keys(task).forEach(key => {
+                formData.append(key, task[key]);
             });
             
-            const endpoint = this.getEndpoint('llm_tool');
+            const endpoint = this.getEndpoint('task');
 
             try {
 
@@ -146,9 +143,9 @@ sap.ui.define([
                 // 3. Handle the successful data
                 if (responseData.updated) {
 
-                    MessageToast.show(resourceBundle.getText("toolUpdatedSuccessfully"));
+                    MessageToast.show(resourceBundle.getText("TaskUpdatedSuccessfully"));
 
-                    const model = view.getModel("tools");
+                    const model = view.getModel("tasks");
 
                     if (model) {
                         model.commit();
@@ -171,6 +168,8 @@ sap.ui.define([
             } catch (error) {
                 
                 // 4. Handle any errors during the fetch or parsing process
+                console.error('Operation failed:', error);
+
                 const message = new Message({
                     message: resourceBundle.getText("updateError"),
                     description: error.message,
@@ -193,54 +192,57 @@ sap.ui.define([
 
             view.setBusy(true);
          
-            const endpoint = this.getEndpoint('llm_tool');
-          
-            const responseData = await this.fetchData(endpoint + "&class_name=" + this._className + "&method_name=" + this._methodName);
+            const endpoint = this.getEndpoint('task');
+            
+            const responseData = await this.fetchData(endpoint + "&id=" + this._id);
 
-            let model = view.getModel("tools");
+            if (!Array.isArray(responseData.tasks)) {
+                view.setBusy(false); 
+                return;
+            }
+
+            let model = view.getModel("tasks");
 
             let modelData = model.getData();
 
             let index = 0;
-
-            if (!modelData.tools) {
             
-                modelData.tools = [];
+            if (!modelData.tasks) {
             
-                modelData.tools.push({
-                    className: responseData.tool.className,
-                    methodName: responseData.tool.methodName,
-                    proxyClass: responseData.tool.proxyClass,
-                    description: responseData.tool.description
+                modelData.tasks = [];
+            
+                modelData.tasks.push({
+                    id: responseData.tasks[0].id,
+                    name: responseData.tasks[0].name,
+                    description: responseData.tasks[0].description
                 });
             
             } else {
                 
-                index = modelData.tools.findIndex( tool => tool.className === this._className && tool.methodName === this._methodName );
+                index = modelData.tasks.findIndex( task => task.id === this._id );
                 
-                if(!modelData.tools[index]) {
+                if(!modelData.tasks[index]) {
                    
-                    modelData.tools.push({
-                        className: responseData.tool.className,
-                        methodName: responseData.tool.methodName,
-                        proxyClass: responseData.tool.proxyClass,
-                        description: responseData.tool.description
+                    modelData.tasks.push({
+                        id: responseData.tasks[0].id,
+                        name: responseData.tasks[0].name,
+                        description: responseData.tasks[0].description
                     });
                 
                 } else {
                     
-                    modelData.tools[index].className = responseData.tool.className;
-                    modelData.tools[index].methodName = responseData.tool.methodName;
-                    modelData.tools[index].proxyClass = responseData.tool.proxyClass;
-                    modelData.tools[index].description = responseData.tool.description;
+                    modelData.tasks[index].id = responseData.tasks[0].id;
+                    modelData.tasks[index].name = responseData.tasks[0].name;
+                    modelData.tasks[index].description = responseData.tasks[0].description;
+
                 }
 
                 model.setModelData(modelData);
             }
 
             view.bindElement({
-                path: `/tools/${index}`,
-                model: "tools"
+                path: `/tasks/${index}`,
+                model: "tasks"
             });
 
             view.setBusy(false);
@@ -265,9 +267,9 @@ sap.ui.define([
             
             const view = this.getView();
 
-            const idsEditable = ["_IDToolProxyClassInput", "_IDToolToolDescriptionInput"];
+            const idsEditable = ["_IDTaskNameInput", "_IDTaskDescriptionInput"];
 
-            const idsEnable = ["_IDToolButtonSave"];                
+            const idsEnable = ["_IDTaskButtonSave"];                
 
             idsEditable.forEach(id => {
                 let control = view.byId(id);

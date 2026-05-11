@@ -9,11 +9,11 @@
   ],
   "main": "webapp/index.html",
   "devDependencies": {
-    "@sap/ux-ui5-tooling": "^1.22.0",
+    "@sap-ux/eslint-plugin-fiori-tools": "^10.0.4",
+    "@sap/ux-ui5-tooling": "^1.23.0",
     "@ui5/cli": "^4.0.0",
-    "rimraf": "^5.0.5",
-    "@sap-ux/eslint-plugin-fiori-tools": "^9.0.0",
-    "eslint": "^9"
+    "eslint": "^9",
+    "rimraf": "^5.0.5"
   },
   "scripts": {
     "start": "fiori run --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#aaiccockpit-display\"",
