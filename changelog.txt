@@ -8,6 +8,25 @@ Legend
 + : added
 - : removed
 
+2026-05-11 v1.1.2
+-------------------
++ Tasks view and controller
++ Task view and controller
++ Taskflows view and controller
++ Taskflow view and controller
++ Not Found view and controller
++ AddTask fragment
++ AddTaskflow fragment
++ TaskValueHelp fragment
++ Translations
++ Tasks and Taskflows routes and targets
++ Not Found route and target
++ Bypassed config added to routing
++ Tasks and Taskflows tiles added to Main view
++ Tasks and Taskflows models added to Component.js
++ Tasks and Taskflows navigation items added to App controller
+
+
 2026-05-05 v1.1.1
 -------------------
 + Attributes growing and growingThreshold set for chat messages table.
