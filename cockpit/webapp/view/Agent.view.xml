@@ -107,7 +107,7 @@
                                                 </Input>
                                             </form:fields>
                                         </form:FormElement>
-                                        <form:FormElement id="_IDAgentFormElementpromptTemplate" label="{i18n>promptTemplate}">
+                                        <form:FormElement id="_IDAgentFormElementPromptTemplate" label="{i18n>promptTemplate}">
                                             <form:fields>
                                                 <Input
                                                     id="_IDAgentPromptTemplateInput"
@@ -115,6 +115,28 @@
                                                     editable="false"
                                                     value="{agents>promptTemplate}">
                                                 </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement id="_IDAgentFormElementTaskFlowId" label="{i18n>taskFlowId}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAgentTaskFlowIdInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{agents>taskFlowId}"
+                                                    showValueHelp="true"
+                                                    valueHelpRequest=".onTaskFlowIdValueHelpRequest">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement id="_IDAgentFormElementAutonomous" label="{i18n>autonomous}">
+                                            <form:fields>
+                                                <CheckBox id="_IDAgentFormElementCheckBoxAutonomous" selected="{agents>autonomous}" editable="false" />
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement id="_IDAgentFormElementBlocked" label="{i18n>blocked}">
+                                            <form:fields>
+                                                <CheckBox id="_IDAgentFormElementCheckBoxBlocked" selected="{agents>blocked}" editable="false" />
                                             </form:fields>
                                         </form:FormElement>
                                     </form:formElements>

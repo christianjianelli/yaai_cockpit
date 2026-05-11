@@ -1,0 +1,26 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog id="_IDTaskflowValueHelpSelectDialog"
+		title="{i18n>selectTaskflow}"
+		search=".onSearchTaskflow"
+		searchPlaceholder="{i18n>searchTaskflow}"
+		confirm=".onTaskflowValueHelpDialogClose"
+		cancel=".onTaskflowValueHelpDialogClose"
+		showClearButton="false"
+		items="{
+			path: 'taskflows>/taskflows',
+			sorter: {
+				path: 'name',
+				descending: false
+			}
+		}">
+		<StandardListItem id="_IDTaskflowValueHelpStandardListItem"
+			title="{taskflows>id}"
+			description="{taskflows>description}"
+			info="{taskflows>name}"
+			type="Active"
+			wrapping="true"
+			wrapCharLimit="50" />
+	</SelectDialog>
+</core:FragmentDefinition>

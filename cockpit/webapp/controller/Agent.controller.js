@@ -393,6 +393,57 @@ sap.ui.define([
             this.AddModelDialog.close();
         },
 
+        onTaskFlowIdValueHelpRequest: async function(event) {
+
+            // Create dialog lazily
+			this.TaskflowsVHDialog ??= await this.loadFragment({
+				name: "aaic.cockpit.fragment.TaskflowValueHelp",
+                controller: this
+			});
+
+			this.TaskflowsVHDialog.open();
+
+            this.TaskflowsVHDialog.setBusy(true);
+
+            try {
+                
+                await this._loadTaskflowsData(this.getView());
+
+                this.TaskflowsVHDialog.setBusy(false);
+
+            } catch (error) {
+
+                this.TaskflowsVHDialog.setBusy(false);
+
+                const message = new Message({
+                    message: error.message,
+                    type: MessageType.Error
+                });
+                
+                Messaging.addMessages(message);
+
+            }
+
+        },
+
+        onTaskflowValueHelpDialogClose: function(event) {
+
+            const selectedItem = event.getParameter("selectedItem");
+
+            if (!selectedItem) {
+                return;
+            }
+            
+            const taskFlowId = selectedItem.getBindingContext("taskflows").getProperty("id");
+            
+            const input = this.byId("_IDAgentTaskFlowIdInput");
+
+            if (input) {
+                input.setValue(taskFlowId);
+            }
+
+        },
+
         onDelete: function(event) {
 
             const view = this.getView();
@@ -679,6 +730,9 @@ sap.ui.define([
                           filenameCtx: responseData.agent.filenameCtx,
                           fileCtxDescr: responseData.agent.fileCtxDescr,
                           promptTemplate: responseData.agent.promptTemplate,
+                          taskFlowId: responseData.agent.taskFlowId,
+                          autonomous: responseData.agent.autonomous,
+                          blocked: responseData.agent.blocked,
                           tools: responseData.agent.tools,
                           docs: responseData.agent.docs,
                           models: responseData.agent.models  
@@ -764,6 +818,17 @@ sap.ui.define([
             model.setModelData(modelData);
         },
 
+        _loadTaskflowsData: async function(view) {
+         
+            let model = view.getModel("taskflows");
+
+            const endpoint = this.getEndpoint('task_flow');
+          
+            const modelData = await this.fetchData(endpoint);
+
+            model.setModelData(modelData);
+        },
+
         _setEditMode: function(editable) {
 
             const view = this.getView();
@@ -772,7 +837,10 @@ sap.ui.define([
                                  "_IDAgentDescriptionInput", 
                                  "_IDAgentFilenameSystemInstructionsInput",
                                  "_IDAgentFilenameContextInput",
-                                 "_IDAgentPromptTemplateInput"];
+                                 "_IDAgentPromptTemplateInput",
+                                 "_IDAgentTaskFlowIdInput",
+                                 "_IDAgentFormElementCheckBoxAutonomous",
+                                 "_IDAgentFormElementCheckBoxBlocked"];
 
             const idsEnable = ["_IDAgentButtonAdd", 
                                "_IDAgentButtonDelete", 

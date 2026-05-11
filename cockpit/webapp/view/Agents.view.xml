@@ -87,6 +87,9 @@
                     <Column id="_IDAgentsColumnPromptTemplate">
                         <Text id="_IDAgentsColumnTextPromptTemplate" text="{i18n>promptTemplate}" />
                     </Column>
+                    <Column id="_IDAgentsColumnAutonomous">
+                        <Text id="_IDAgentsColumnTextAutonomous" text="{i18n>autonomous}" />
+                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem id="_IDAgentsColumnListItem" type="Navigation" press=".onItemPress">
@@ -96,6 +99,7 @@
                             <Text id="_IDAgentsTextSystemInstructions" text="{agents>filenameSi}" />
                             <Text id="_IDAgentsTextRagDocument" text="{agents>filenameCtx}" />
                             <Text id="_IDAgentsTextPromptTemplate" text="{agents>promptTemplate}" />
+                            <CheckBox id="_IDAgentsCheckBoxAutonomous" selected="{agents>autonomous}" enabled="false" />
                         </cells>
                     </ColumnListItem>
                 </items>
