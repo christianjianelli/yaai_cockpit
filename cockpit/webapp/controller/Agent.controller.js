@@ -665,6 +665,27 @@ sap.ui.define([
 			binding.filter([filter]);
 		},
 
+        onSearchDocument: function (event) {
+			const value = event.getParameter("value");
+			const filter = new Filter({
+                filters: [
+                    new Filter({
+                        path: 'description',
+                        operator: FilterOperator.Contains,
+                        value1: value
+                    }),
+                    new Filter({
+                        path: 'keywords',
+                        operator: FilterOperator.Contains,
+                        value1: value
+                    })
+                ],
+                and: false
+            });
+			var binding = event.getParameter("itemsBinding");
+			binding.filter([filter]);
+		},
+
         onToggleLoadOnDemand: function() {
 
             const view = this.getView();

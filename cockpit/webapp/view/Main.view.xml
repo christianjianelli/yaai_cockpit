@@ -64,7 +64,7 @@
                 <TileContent id="_IDMainTileContentTools">
                     <FeedContent id="_IDMainFeedContentTools" 
                         contentText="{i18n>maintainAgentTools}"
-                        subheader="{i18n>LLMFunctionCalling}" value="{stats>/tools}" />
+                        subheader="" value="{stats>/tools}" />
                 </TileContent>
             </GenericTile>
             <GenericTile 
@@ -76,7 +76,7 @@
                 <TileContent id="_IDMainTileContentDocuments">
                     <FeedContent id="_IDMainFeedContentDocuments" 
                         contentText="{i18n>manageDocuments}"
-                        subheader="{i18n>RAG}" value="{stats>/documents}" />
+                        subheader="" value="{stats>/documents}" />
                 </TileContent>
             </GenericTile>
             <GenericTile 
@@ -88,7 +88,7 @@
                 <TileContent id="_IDMainTileContentAgents">
                     <FeedContent id="_IDMainFeedContentAgents" 
                         contentText="{i18n>maintainAgents}"
-                        subheader="{i18n>LLMAgents}" value="{stats>/agents}" />
+                        subheader="" value="{stats>/agents}" />
                 </TileContent>
             </GenericTile>
             <GenericTile 
@@ -100,7 +100,7 @@
                 <TileContent id="_IDMainTileContentTasks">
                     <FeedContent id="_IDMainFeedContentTasks" 
                         contentText="{i18n>maintainTasks}"
-                        subheader="{i18n>agentsTasks}" value="{stats>/tasks}" />
+                        subheader="" value="{stats>/tasks}" />
                 </TileContent>
             </GenericTile>
             <GenericTile 
@@ -112,7 +112,7 @@
                 <TileContent id="_IDMainTileContentTaskflows">
                     <FeedContent id="_IDMainFeedContentTaskflows" 
                         contentText="{i18n>maintainTaskflows}"
-                        subheader="{i18n>agentsTaskflows}" value="{stats>/taskflows}" />
+                        subheader="" value="{stats>/taskflows}" />
                 </TileContent>
             </GenericTile>
             <GenericTile 
@@ -124,7 +124,7 @@
                 <TileContent id="_IDMainTileContentChats">
                     <FeedContent id="_IDMainFeedContentChats" 
                         contentText="{i18n>searchChats}"
-                        subheader="{i18n>chats}" value="{stats>/chats}" />
+                        subheader="" value="{stats>/chats}" />
                 </TileContent>
             </GenericTile>
             <GenericTile 
@@ -136,7 +136,7 @@
                 <TileContent id="_IDMainTileContentLogs">
                     <FeedContent id="_IDMainFeedContentLogs" 
                         contentText="{i18n>searchLogs}"
-                        subheader="{i18n>logs}" value="{stats>/logs}" />
+                        subheader="" />
                 </TileContent>
             </GenericTile>
             <GenericTile 
@@ -148,7 +148,7 @@
                 <TileContent id="_IDMainTileContentAsyncTasks">
                     <FeedContent id="_IDMainFeedContentAsyncTasks" 
                         contentText="{i18n>searchAsyncTasks}"
-                        subheader="{i18n>asyncTasks}" value="{stats>/async}" />
+                        subheader="" />
                 </TileContent>
             </GenericTile>
         </content>
