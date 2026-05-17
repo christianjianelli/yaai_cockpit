@@ -754,6 +754,8 @@ sap.ui.define([
                           taskFlowId: responseData.agent.taskFlowId,
                           autonomous: responseData.agent.autonomous,
                           blocked: responseData.agent.blocked,
+                          startMessage: responseData.agent.startMessage,
+                          hitlMessage: responseData.agent.hitlMessage,
                           tools: responseData.agent.tools,
                           docs: responseData.agent.docs,
                           models: responseData.agent.models  
@@ -861,7 +863,9 @@ sap.ui.define([
                                  "_IDAgentPromptTemplateInput",
                                  "_IDAgentTaskFlowIdInput",
                                  "_IDAgentFormElementCheckBoxAutonomous",
-                                 "_IDAgentFormElementCheckBoxBlocked"];
+                                 "_IDAgentFormElementCheckBoxBlocked",
+                                 "_IDAgentStartMessageInput",
+                                 "_IDAgentHitlMessageInput"];
 
             const idsEnable = ["_IDAgentButtonAdd", 
                                "_IDAgentButtonDelete", 

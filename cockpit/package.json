@@ -9,7 +9,7 @@
   ],
   "main": "webapp/index.html",
   "devDependencies": {
-    "@sap-ux/eslint-plugin-fiori-tools": "^10.0.6",
+    "@sap-ux/eslint-plugin-fiori-tools": "^10.1.1",
     "@sap/ux-ui5-tooling": "^1.24.0",
     "@ui5/cli": "^4.0.0",
     "eslint": "^9",

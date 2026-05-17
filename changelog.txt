@@ -9,6 +9,15 @@ Legend
 - : removed
 
 
+2026-05-17 v1.1.5
+-------------------
++ Autonomous agent start message and human-in-the-loop fields added to Agent view and controller
++ Autonomous agent fields added to the _loadAgentData function in the Tools controller
+! Max length set for the Task name field in the AddTask fragment and Task view
+! Max length set for the Agent name and description fields in the Agent view 
+* Delete task bugfix
+
+
 2026-05-11 v1.1.4
 -------------------
 * Missing document filtering implemented in Agent controller

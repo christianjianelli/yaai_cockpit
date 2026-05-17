@@ -69,6 +69,7 @@
                                                     id="_IDAgentNameInput"
                                                     type="Text"
                                                     editable="false"
+                                                    maxLength="30"
                                                     value="{agents>name}">
                                                 </Input>
                                             </form:fields>
@@ -79,6 +80,7 @@
                                                     id="_IDAgentDescriptionInput"
                                                     type="Text"
                                                     editable="false"
+                                                    maxLength="200"
                                                     value="{agents>description}">
                                                 </Input>
                                             </form:fields>
@@ -126,6 +128,26 @@
                                                     value="{agents>taskFlowId}"
                                                     showValueHelp="true"
                                                     valueHelpRequest=".onTaskFlowIdValueHelpRequest">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement id="_IDAgentFormElementStartMessage" label="{i18n>startMessage}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAgentStartMessageInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{agents>startMessage}">
+                                                </Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement id="_IDAgentFormElementHitlMessage" label="{i18n>hitlMessage}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDAgentHitlMessageInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{agents>hitlMessage}">
                                                 </Input>
                                             </form:fields>
                                         </form:FormElement>

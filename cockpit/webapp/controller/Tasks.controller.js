@@ -15,6 +15,8 @@ sap.ui.define([
 
     return BaseController.extend("aaic.cockpit.controller.Tasks", {
         
+        selectedTasks: [],
+
         onInit() {
         
             const ownerComponent = this.getOwnerComponent();
@@ -187,12 +189,12 @@ sap.ui.define([
 
             const resourceBundle = view.getModel("i18n").getResourceBundle();
 
-            const selectedTasks = [];
-
+            this.selectedTasks = [];
+            
             if (selectedItems.length > 0) {
 
                 selectedItems.forEach(element => {
-                    selectedTasks.push({ 
+                    this.selectedTasks.push({ 
                         id: element.getBindingContext("tasks").getProperty("id")
                     });
                 });
@@ -209,7 +211,7 @@ sap.ui.define([
                             text: resourceBundle.getText("yes"),
                             press: function () {              
                                 this._confirmDialog.setBusy(true);              
-                                this._deleteTasks(selectedTasks, view);
+                                this._deleteTasks(view);
                                 this._confirmDialog.setBusy(false);
                                 this._confirmDialog.close();
                                 if (table) {
@@ -254,6 +256,8 @@ sap.ui.define([
             const model = view.getModel("tasks");
 
             model.setData({tasks: []});
+
+            Messaging.removeAllMessages();
             
             let endpoint = this.getEndpoint('task');
 
@@ -269,7 +273,7 @@ sap.ui.define([
           
                 const responseData = await this.fetchData(endpoint);
                 
-                model.setData(responseData);
+                model.setModelData(responseData);
 
                 view.setBusy(false);
 
@@ -293,7 +297,7 @@ sap.ui.define([
 
         },
 
-        _deleteTasks: async function(selectedTasks, view) {
+        _deleteTasks: async function(view) {
 
             view.setBusy(true);
          
@@ -301,7 +305,9 @@ sap.ui.define([
             
             const modelData = model.getData();
 
-            for (const selectedTask of selectedTasks) {
+            Messaging.removeAllMessages();
+
+            for (const selectedTask of this.selectedTasks) {
                 
                 const endpoint = this.getEndpoint('task') + '&id=' + selectedTask.id;
 

@@ -18,6 +18,7 @@
 					id="_IDAddTaskInputName"
 					type="Text"
 					width="20em"
+					maxLength="30"
 					editable="true">
 				</Input>
 				<Label 

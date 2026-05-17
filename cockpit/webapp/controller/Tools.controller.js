@@ -515,6 +515,11 @@ sap.ui.define([
                           filenameCtx: responseData.agent.filenameCtx,
                           fileCtxDescr: responseData.agent.fileCtxDescr,
                           promptTemplate: responseData.agent.promptTemplate,
+                          taskFlowId: responseData.agent.taskFlowId,
+                          autonomous: responseData.agent.autonomous,
+                          blocked: responseData.agent.blocked,
+                          startMessage: responseData.agent.startMessage,
+                          hitlMessage: responseData.agent.hitlMessage,
                           tools: responseData.agent.tools,
                           docs: responseData.agent.docs,
                           models: responseData.agent.models  

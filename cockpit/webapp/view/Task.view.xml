@@ -66,6 +66,7 @@
                                                 id="_IDTaskNameInput"
                                                 type="Text"
                                                 editable="false"
+                                                maxLength="30"
                                                 value="{tasks>name}">
                                             </Input>
                                         </form:fields>
