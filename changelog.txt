@@ -9,6 +9,11 @@ Legend
 - : removed
 
 
+2026-05-18 v1.1.6
+-------------------
+* Anthropic sequence diagram bugfix
+
+
 2026-05-17 v1.1.5
 -------------------
 + Autonomous agent start message and human-in-the-loop fields added to Agent view and controller

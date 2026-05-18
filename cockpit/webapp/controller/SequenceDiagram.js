@@ -177,8 +177,8 @@ sap.ui.define([
 
                     content.forEach(element => {
                         // Tool call
-                        if (element.type === "tool_use") {
-                            mermaid += `Assistant ->> Tool: Tool call: ${element.name}\n`;
+                        if (element.text?.type === "tool_use") {
+                            mermaid += `Assistant ->> Tool: Tool call: ${element.text.name}\n`;
                         }
                         // Tool response
                         else if (element.type === "tool_result") {
@@ -428,6 +428,9 @@ sap.ui.define([
             
             //################ Private APIs ###################
             _escapeForMermaid: function(text) {
+                if (text === null || text === undefined) {
+                    return "";
+                }
                 if (typeof text !== 'string') {
                     let converted = JSON.stringify(text);
                     converted = converted.slice(0, 57) + "...";
