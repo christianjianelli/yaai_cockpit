@@ -34,7 +34,6 @@
                 popinLayout="GridSmall"
                 growing="true"
 		        growingThreshold="10"
-                mode="MultiSelect"
                 items="{ 
                     path: 'apis>/apis',
                     templateShareable:false,

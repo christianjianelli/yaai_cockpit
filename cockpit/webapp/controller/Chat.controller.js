@@ -302,7 +302,8 @@ sap.ui.define([
                     planRagId: responseData.chat.planRagId,
                     messages: responseData.chat.messages,
                     log: responseData.chat.log,
-                    tools: responseData.chat.tools
+                    tools: responseData.chat.tools,
+                    taskFlow: responseData.chat.taskFlow
                 };
 
             if (chat.planRagId.length > 0) {
@@ -316,6 +317,12 @@ sap.ui.define([
             } else {
                 view.byId("_IDChatIconTabFilterLoadedTools").setVisible(false);
             }    
+
+            if (chat.taskFlow.length > 0) {
+                view.byId("_IDChatIconTabFilterTaskflow").setVisible(true);
+            } else {
+                view.byId("_IDChatIconTabFilterTaskflow").setVisible(false);
+            }
 
             let model = view.getModel("chats");
 

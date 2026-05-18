@@ -9,6 +9,12 @@ Legend
 - : removed
 
 
+2026-05-18 v1.1.7
+-------------------
++ Taskflow tab filter added to Chat view
+! Table mode Multiselect removed from Logs and Apis views
+
+
 2026-05-18 v1.1.6
 -------------------
 * Anthropic sequence diagram bugfix

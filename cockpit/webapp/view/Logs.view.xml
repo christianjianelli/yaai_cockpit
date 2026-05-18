@@ -55,7 +55,6 @@
                 autoPopinMode="true"
                 growing="true"
 		        growingThreshold="100"
-                mode="MultiSelect"
                 items="{ 
                     path: 'logs>/messages',
                     templateShareable:false,

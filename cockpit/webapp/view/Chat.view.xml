@@ -227,7 +227,6 @@
                                         autoPopinMode="true"
                                         growing="true"
 		                                growingThreshold="100"
-                                        mode="MultiSelect"
                                         items="{ 
                                             path: 'chats>log',
                                             templateShareable:false,
@@ -322,7 +321,6 @@
                                         autoPopinMode="true"
                                         growing="true"
 		                                growingThreshold="100"
-                                        mode="MultiSelect"
                                         items="{ 
                                             path: 'chats>tools',
                                             templateShareable:false,
@@ -360,6 +358,65 @@
                                                     <Text id="_IDChatToolsTextMethodName" text="{chats>methodName}" />
                                                     <Text id="_IDChatToolsTextProxyClassName" text="{chats>proxyClass}" />
                                                     <Text id="_IDChatToolsTextToolDescription" text="{chats>description}" />
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </IconTabFilter>
+                                <IconTabFilter id="_IDChatIconTabFilterTaskflow" text="{i18n>taskflow}" key="taskflow" visible="false">
+                                    <Table 
+                                        id="_IDChatTaskflowTable"
+                                        inset="false"
+                                        alternateRowColors="false"
+                                        popinLayout="GridSmall"
+                                        autoPopinMode="true"
+                                        growing="false"
+                                        items="{ 
+                                            path: 'chats>taskFlow',
+                                            templateShareable:false
+                                        }">
+                                        <headerToolbar>
+                                            <OverflowToolbar id="_IDChatTaskflowOverflowToolbar">
+                                                <Title id="_IDChatTaskflowOverflowToolbarTitle" text="{i18n>taskflow}" level="H2"/>
+                                                <ToolbarSpacer id="_IDChatTaskflowOverflowToolbarToolbarSpacer"/>
+                                            </OverflowToolbar>
+                                        </headerToolbar>
+                                        <dependents>
+                                            <plugins:ColumnResizer id="_IDChatColumnResizerTaskflowTable"/>
+                                        </dependents>
+                                        <columns>
+                                            <Column id="_IDChatTaskflowColumnTaskName">
+                                                <Text id="_IDChatTaskflowColumnTextTaskName" text="{i18n>taskName}" />
+                                            </Column>
+                                            <Column id="_IDChatTaskflowColumnPreviousTaskName">
+                                                <Text id="_IDChatTaskflowColumnTextPreviousTaskName" text="{i18n>previousTaskName}" />
+                                            </Column>
+                                            <Column id="_IDChatTaskflowColumnTaskStatus">
+                                                <Text id="_IDChatTaskflowColumnTextTaskStatus" text="{i18n>status}" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem id="_IDChatTaskflowColumnListItem">
+                                                <cells>
+                                                    <Text id="_IDChatTextTaskName" text="{chats>taskName}" />
+                                                    <Text id="_IDChatTextToolDescription" text="{chats>previousTaskName}" />
+                                                    <MessageStrip id="_IDChatTaskflowMessageStrip"
+                                                        text="{= ${chats>taskStatus} === 'E' 
+                                                                ? ${i18n>failed}
+                                                                : ${chats>taskStatus} === 'P' 
+                                                                    ? ${i18n>inProgress} 
+                                                                    : ${chats>taskStatus} === 'C' 
+                                                                        ? ${i18n>finished}
+                                                                        : ${i18n>pending} }"
+                                                        type="{= ${chats>taskStatus} === 'E' 
+                                                                ? 'Error' 
+                                                                : ${chats>taskStatus} === 'P' 
+                                                                    ? 'Warning' 
+                                                                    : ${chats>taskStatus} === 'C' 
+                                                                        ? 'Success' 
+                                                                        : 'Information' }"
+                                                        showIcon="true">
+                                                    </MessageStrip>
                                                 </cells>
                                             </ColumnListItem>
                                         </items>
