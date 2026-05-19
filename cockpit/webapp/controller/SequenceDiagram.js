@@ -40,7 +40,7 @@ sap.ui.define([
                     }
                 }
 
-                let mermaid = "sequenceDiagram\n";
+                let mermaid = "---\nconfig:\n  theme: neutral\n---\nsequenceDiagram\n";
 
                 for (const p of participantsSet) {
                     mermaid += `participant ${p}\n`;
@@ -146,7 +146,7 @@ sap.ui.define([
                     
                 }
 
-                let mermaid = "sequenceDiagram\n";
+                let mermaid = "---\nconfig:\n  theme: neutral\n---\nsequenceDiagram\n";
 
                 for (const p of participantsSet) {
                     mermaid += `participant ${p}\n`;
@@ -269,7 +269,7 @@ sap.ui.define([
                     
                 }
 
-                let mermaid = "sequenceDiagram\n";
+                let mermaid = "---\nconfig:\n  theme: neutral\n---\nsequenceDiagram\n";
 
                 for (const p of participantsSet) {
                     mermaid += `participant ${p}\n`;
@@ -370,7 +370,7 @@ sap.ui.define([
                     }
                 }
 
-                let mermaid = "sequenceDiagram\n";
+                let mermaid = "---\nconfig:\n  theme: neutral\n---\nsequenceDiagram\n";
 
                 for (const p of participantsSet) {
                     mermaid += `participant ${p}\n`;

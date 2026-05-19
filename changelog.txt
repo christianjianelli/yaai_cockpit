@@ -9,6 +9,11 @@ Legend
 - : removed
 
 
+2026-05-19 v1.1.8
+-------------------
+! Mermaid diagrams theme neutral 
+
+
 2026-05-18 v1.1.7
 -------------------
 + Taskflow tab filter added to Chat view

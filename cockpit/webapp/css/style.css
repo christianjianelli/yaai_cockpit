@@ -22,3 +22,8 @@
   vertical-align: top;
   white-space: normal;
 }
+
+#aaic-sequence-diagram-container, 
+#aaic-flowchart-diagram-container {
+  background-color: #ffffff;
+}

@@ -579,8 +579,9 @@ sap.ui.define([
         },
 
         _generateMermaidFlowchart: function (tasks) {
+
             // Mermaid header
-            const lines = ["flowchart TD"];
+            const lines = ["---", "config:","  theme: neutral", "---", "flowchart TD"];
 
             // Store unique nodes
             const nodes = new Map();
