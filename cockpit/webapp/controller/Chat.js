@@ -630,6 +630,7 @@ sap.ui.define([
                             break;
 
                         case 'MISTRAL':
+                        case 'SAP_AI_CORE':
                             
                             msg = JSON.parse(newMessage.msg);
 
