@@ -46,6 +46,16 @@
                 </TileContent>
             </GenericTile>
             <GenericTile 
+                id="_IDMainGenericTileSapAICore" 
+                class="sapUiSmallMargin" 
+                header="{i18n>sapAICore}"
+		        subheader="{i18n>apiSettings}" 
+                press="onApiTilePress('SAP_AI_CORE')">
+                <TileContent id="_IDMainTileContentSapAICore">
+                    <ImageContent id="_IDMainImageContentSapAICore" src="images/sap.png" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
                 id="_IDMainGenericTileOllama" 
                 class="sapUiSmallMargin" 
                 header="{i18n>ollama}"

@@ -108,6 +108,10 @@ sap.ui.define([
 
                 case 'OLLAMA':
                     mermaidSequenceDiagram = SequenceDiagram.createMermaidSequenceDiagramOllama(chat);
+                    break;
+                    
+                case 'SAP_AI_CORE':
+                    mermaidSequenceDiagram = SequenceDiagram.createMermaidSequenceDiagramOpenAI(chat);
                     break;    
             
                 default:

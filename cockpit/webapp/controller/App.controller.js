@@ -145,6 +145,10 @@ sap.ui.define(
             ownerComponent.setOnHoldNavigation("RouteApi", { id: "MISTRAL" });
             break;
 
+          case "sap-ai-core-api":
+            ownerComponent.setOnHoldNavigation("RouteApi", { id: "SAP_AI_CORE" });
+            break;  
+
           case "ollama-api":
             ownerComponent.setOnHoldNavigation("RouteApi", { id: "OLLAMA" });
             break;  
@@ -425,6 +429,9 @@ sap.ui.define(
                 {
                   title: "Mistral",
                   key: "mistral-api"
+                },{
+                  title: "SAP AI Core",
+                  key: "sap-ai-core-api"
                 },{
                   title: "Ollama",
                   key: "ollama-api"
