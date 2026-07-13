@@ -158,7 +158,7 @@
                                                     id="_IDApiClientIdInput"
                                                     type="Text"
                                                     editable="false"
-                                                    required="true"
+                                                    required="false"
                                                     change=".onPropertyChanged"
                                                     value="{apis>oauth/clientId}">
                                                 </Input>  
@@ -172,7 +172,7 @@
                                                     id="_IDApiClientSecretInput"
                                                     type="Text"
                                                     editable="false"
-                                                    required="true"
+                                                    required="false"
                                                     change=".onPropertyChanged"
                                                     value="{apis>oauth/clientSecret}">
                                                 </Input>  
