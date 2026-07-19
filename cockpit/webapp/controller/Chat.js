@@ -631,6 +631,8 @@ sap.ui.define([
 
                         case 'MISTRAL':
                         case 'SAP_AI_CORE':
+                        case 'DEEPSEEK':
+                        case 'MOONSHOT':    
                             
                             msg = JSON.parse(newMessage.msg);
 
@@ -729,6 +731,52 @@ sap.ui.define([
                             break;
 
                         default:
+                            
+                            msg = JSON.parse(newMessage.msg);
+
+                            try {
+                                const parsed = JSON.parse(msg.content);
+                                msg.content = parsed;
+                            } catch (error) {
+                                //No problem ...
+                            }
+
+                            if (msg.role.toLowerCase() === "user") {
+                                
+                                if (tempUserMsg) {
+                                    // Discard temporary user message rendered
+                                    tempUserMsg.remove();
+                                }
+
+                                this.removeLlmTyping();
+
+                                this.addUserMessage(msg.content, newMessage.seqno, this._getDateTime(newMessage.msgDate, newMessage.msgTime) );
+
+                            }
+
+                            if (msg.role.toLowerCase() === "assistant" && msg.type.toLowerCase() !== "function_call" && msg.type.toLowerCase() !== "function_call_output") {
+
+                                if (Array.isArray(msg.content)) {
+
+                                    msg.content.forEach(contentElement => {
+
+                                        if (element.type === "text") {
+
+                                            this.removeLlmTyping();
+
+                                            this.addLlmMessage(contentElement.text, newMessage.seqno );
+                                        }
+                                    
+                                    });
+
+                                } else {
+
+                                    this.removeLlmTyping();
+
+                                    this.addLlmMessage(msg.content, newMessage.seqno, this._getDateTime(newMessage.msgDate, newMessage.msgTime) );
+                                }
+                            }
+
                             break;
                     }
 

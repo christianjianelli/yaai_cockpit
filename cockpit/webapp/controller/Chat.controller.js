@@ -103,19 +103,18 @@ sap.ui.define([
                     break;
                 
                 case 'MISTRAL':
+                case 'SAP_AI_CORE':
+                case 'DEEPSEEK':
+                case 'MOONSHOT':
                     mermaidSequenceDiagram = SequenceDiagram.createMermaidSequenceDiagramOpenAI(chat);
                     break;
 
                 case 'OLLAMA':
                     mermaidSequenceDiagram = SequenceDiagram.createMermaidSequenceDiagramOllama(chat);
                     break;
-                    
-                case 'SAP_AI_CORE':
-                    mermaidSequenceDiagram = SequenceDiagram.createMermaidSequenceDiagramOpenAI(chat);
-                    break;    
-            
+                
                 default:
-                    mermaidSequenceDiagram = "sequenceDiagram\n";
+                    mermaidSequenceDiagram = SequenceDiagram.createMermaidSequenceDiagramOpenAI(chat);
                     break;
             }
             

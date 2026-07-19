@@ -44,6 +44,9 @@ Configure the Base URL of the API, register available LLM models, and set the de
 - Google Gemini
 - Mistral
 - Ollama
+- SAP AI Core
+- Deepseek
+- Moonshot AI
 
 **Example:** Open AI API Settings
 

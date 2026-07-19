@@ -145,14 +145,22 @@ sap.ui.define(
             ownerComponent.setOnHoldNavigation("RouteApi", { id: "MISTRAL" });
             break;
 
-          case "sap-ai-core-api":
-            ownerComponent.setOnHoldNavigation("RouteApi", { id: "SAP_AI_CORE" });
-            break;  
-
           case "ollama-api":
             ownerComponent.setOnHoldNavigation("RouteApi", { id: "OLLAMA" });
             break;  
 
+          case "sap-ai-core-api":
+            ownerComponent.setOnHoldNavigation("RouteApi", { id: "SAP_AI_CORE" });
+            break;  
+          
+          case "deepseek-api":
+            ownerComponent.setOnHoldNavigation("RouteApi", { id: "DEEPSEEK" });
+            break;  
+          
+          case "moonshot-api":
+            ownerComponent.setOnHoldNavigation("RouteApi", { id: "MOONSHOT" });
+            break; 
+            
           case "all-apis":
             ownerComponent.setOnHoldNavigation("RouteApis");
             break;
@@ -417,26 +425,28 @@ sap.ui.define(
                 {
                   title: "OpenAI",
                   key: "openai-api"
-                },
-                {
+                },{
                   title: "Anthropic",
                   key: "anthropic-api"
-                },
-                {
+                },{
                   title: "Google Gemini",
                   key: "google-api"
-                },
-                {
+                },{
                   title: "Mistral",
                   key: "mistral-api"
+                },{
+                  title: "Ollama",
+                  key: "ollama-api"
                 },{
                   title: "SAP AI Core",
                   key: "sap-ai-core-api"
                 },{
-                  title: "Ollama",
-                  key: "ollama-api"
-                },
-                {
+                  title: "Deepseek",
+                  key: "deepseek-api"
+                },{
+                  title: "Moonshot",
+                  key: "moonshot-api"
+                },{
                   title: resourceBundle.getText("allAPIs"),
                   key: "all-apis"
                 }

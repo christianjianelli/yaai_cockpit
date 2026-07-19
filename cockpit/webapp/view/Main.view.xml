@@ -46,6 +46,16 @@
                 </TileContent>
             </GenericTile>
             <GenericTile 
+                id="_IDMainGenericTileOllama" 
+                class="sapUiSmallMargin" 
+                header="{i18n>ollama}"
+		        subheader="{i18n>apiSettings}" 
+                press="onApiTilePress('OLLAMA')">
+                <TileContent id="_IDMainTileContentOllama">
+                    <ImageContent id="_IDMainImageContentOllama" src="images/ollama_logo_small.png" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
                 id="_IDMainGenericTileSapAICore" 
                 class="sapUiSmallMargin" 
                 header="{i18n>sapAICore}"
@@ -56,13 +66,23 @@
                 </TileContent>
             </GenericTile>
             <GenericTile 
-                id="_IDMainGenericTileOllama" 
+                id="_IDMainGenericTileDeepseek" 
                 class="sapUiSmallMargin" 
-                header="{i18n>ollama}"
+                header="{i18n>deepseek}"
 		        subheader="{i18n>apiSettings}" 
-                press="onApiTilePress('OLLAMA')">
-                <TileContent id="_IDMainTileContentOllama">
-                    <ImageContent id="_IDMainImageContentOllama" src="images/ollama_logo_small.png" />
+                press="onApiTilePress('DEEPSEEK')">
+                <TileContent id="_IDMainTileContentDeepseek">
+                    <ImageContent id="_IDMainImageContentDeepseek" src="images/deepseek.png" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile 
+                id="_IDMainGenericTileMoonshot" 
+                class="sapUiSmallMargin" 
+                header="{i18n>moonshot}"
+		        subheader="{i18n>apiSettings}" 
+                press="onApiTilePress('MOONSHOT')">
+                <TileContent id="_IDMainTileContentMoonshot">
+                    <ImageContent id="_IDMainImageContentMoonshot" src="images/moonshot.png" />
                 </TileContent>
             </GenericTile>
             <GenericTile 
