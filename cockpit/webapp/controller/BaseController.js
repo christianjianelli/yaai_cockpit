@@ -122,6 +122,22 @@ sap.ui.define(
 				}
 			},
 
+			isAPIEnabled: function (apiName) {
+
+				const view = this.getView();
+				
+				const apisModel = view.getModel("apis");
+
+        		const apisModelData = apisModel.getData();
+
+				apisModelData.apis.forEach(element => {
+                    if (element.id === apiName) {
+                        return !element.disabled;
+                    }
+                });
+
+			},
+
 			//################ Private APIs ###################
 
 			_getMessagePopover: function () {

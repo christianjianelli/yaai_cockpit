@@ -78,6 +78,17 @@
                                             </form:fields>
                                         </form:FormElement>
                                     </form:formElements>
+                                    <form:formElements>
+                                        <form:FormElement id="_IDApiFormElementDisabled" label="{i18n>disabled}">
+                                            <form:fields>
+                                                <CheckBox 
+                                                    id="_IDApiDisabledCheckbox" 
+                                                    select=".onDisabledChanged" 
+                                                    selected="{apis>disabled}" 
+                                                    editable="false"/>
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
                                 </form:FormContainer>
                             </form:formContainers>
                         </form:Form>

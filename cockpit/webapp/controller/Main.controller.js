@@ -32,6 +32,14 @@ sap.ui.define([
 
         },
 
+        onBeforeRendering() {
+
+            const oView = this.getView();
+
+            this._setApisTilesVisibility(oView);
+        
+        },
+
         handleLinkPress: function (api) {
 
             const ownerComponent = this.getOwnerComponent();
@@ -117,6 +125,41 @@ sap.ui.define([
                 
             });                          
 
+        },
+
+        _setApisTilesVisibility: async function(oView) {
+
+            const oModel = oView.getModel("apis");
+
+            const oModelData = oModel.getData();
+
+            const tiles = {
+                "OPENAI": "_IDMainGenericTileOpenAI",
+                "ANTHROPIC": "_IDMainGenericTileAnthropic",
+                "GOOGLE": "_IDMainGenericTileGoogle",
+                "MISTRAL": "_IDMainGenericTileMistral",
+                "OLLAMA": "_IDMainGenericTileOllama",
+                "SAP_AI_CORE": "_IDMainGenericTileSapAICore",
+                "DEEPSEEK": "_IDMainGenericTileDeepseek",
+                "MOONSHOT": "_IDMainGenericTileMoonshot"
+            };
+
+            if (oModelData.apis) {
+                
+                oModelData.apis.forEach(api => {
+
+                    if (api.disabled === true) {
+
+                        const oTile = oView.byId(tiles[api.id]);
+
+                        if (oTile) {
+                            oTile.setVisible(false);
+                        }
+                    }
+
+                });
+
+            }
         }
 
     });

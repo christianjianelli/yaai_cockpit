@@ -354,7 +354,11 @@ sap.ui.define([
                         
             const view = this.getView();
 
-            const idsEditable = ["_IDApiBaseUrlInput", "_IDApiOAuthBaseUrlInput", "_IDApiClientIdInput", "_IDApiClientSecretInput"];
+            const idsEditable = ["_IDApiBaseUrlInput", 
+                                 "_IDApiOAuthBaseUrlInput", 
+                                 "_IDApiDisabledCheckbox", 
+                                 "_IDApiClientIdInput", 
+                                 "_IDApiClientSecretInput"];
 
             const idsEnable = ["_IDApiButtonSave",
                                "_IDApiOverflowToolbarButtonAdd",

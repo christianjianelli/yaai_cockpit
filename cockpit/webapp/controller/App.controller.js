@@ -60,8 +60,6 @@ sap.ui.define(
       onBeforeRendering() {
 
         this._loadNavigation();
-
-        this._loadApis();
         
       },
 
@@ -95,9 +93,9 @@ sap.ui.define(
 
       },
 
-      onSidePanelToggle: function (event) {
+      onSidePanelToggle: async function (event) {
 
-        this._loadApis();
+        await this._loadApis();
 
         Chat.resumeChat();
 
@@ -149,7 +147,7 @@ sap.ui.define(
             ownerComponent.setOnHoldNavigation("RouteApi", { id: "OLLAMA" });
             break;  
 
-          case "sap-ai-core-api":
+          case "sap_ai_core-api":
             ownerComponent.setOnHoldNavigation("RouteApi", { id: "SAP_AI_CORE" });
             break;  
           
@@ -371,7 +369,7 @@ sap.ui.define(
 
       onDisplayUserSettings: async function (event) {
 
-        this._loadApis();
+        await this._loadApis();
         
         // Create popover lazily
         this.UserSettingsDialog ??= await this.loadFragment({
@@ -409,6 +407,145 @@ sap.ui.define(
 
         const navigationModel = view.getModel("navigation");
 
+        await this._loadApis();
+        
+        const apisModel = view.getModel("apis");
+
+        const apisData = apisModel.getData();
+
+        let apiItems = [];
+
+        apiItems.push({
+          title: resourceBundle.getText("allAPIs"),
+          key: 'all-apis'
+        });
+
+        if (apisData && apisData.apis) {
+
+          apisData.apis.forEach(api => {
+
+            if (api.disabled === true) {
+              return;
+            }
+            
+            switch (api.id) {
+
+              case "OPENAI":
+                
+                apiItems.push({
+                  title: resourceBundle.getText("openai"),
+                  key: api.id.toLowerCase() + "-api"
+                });
+                
+                break;
+
+              case "ANTHROPIC": 
+
+                apiItems.push({
+                  title: resourceBundle.getText("anthropic"),
+                  key: api.id.toLowerCase() + "-api"
+                });
+
+                break;
+              
+              case "GOOGLE":
+              
+                apiItems.push({
+                  title: resourceBundle.getText("google"),
+                  key: api.id.toLowerCase() + "-api"
+                });
+                
+                break;
+              
+              case "MISTRAL":
+                
+                apiItems.push({
+                  title: resourceBundle.getText("mistral"),
+                  key: api.id.toLowerCase() + "-api"
+                });
+              
+                break;
+              
+              case "OLLAMA":
+              
+                apiItems.push({
+                  title: resourceBundle.getText("ollama"),
+                  key: api.id.toLowerCase() + "-api"
+                });
+              
+                break;
+              
+              case "SAP_AI_CORE":
+              
+                apiItems.push({
+                  title: resourceBundle.getText("sapAICore"),
+                  key: api.id.toLowerCase() + "-api"
+                });
+              
+                break;
+              
+              case "DEEPSEEK":
+                
+                apiItems.push({
+                  title: resourceBundle.getText("deepseek"),
+                  key: api.id.toLowerCase() + "-api"
+                });
+                
+                break;
+                
+              case "MOONSHOT":
+                
+                apiItems.push({
+                  title: resourceBundle.getText("moonshot"),
+                  key: api.id.toLowerCase() + "-api"
+                });
+                
+                break;
+              
+              default:
+    
+                apiItems.push({
+                  title: api.id,
+                  key: api.id.toLowerCase() + "-api"
+                });
+
+                return;
+            }
+          });
+
+        } else {
+
+          apiItems = [{
+              title: "OpenAI",
+              key: "openai-api"
+            },{
+              title: "Anthropic",
+              key: "anthropic-api"
+            },{
+              title: "Google Gemini",
+              key: "google-api"
+            },{
+              title: "Mistral",
+              key: "mistral-api"
+            },{
+              title: "Ollama",
+              key: "ollama-api"
+            },{
+              title: "SAP AI Core",
+              key: "sap_ai_core-api"
+            },{
+              title: "Deepseek",
+              key: "deepseek-api"
+            },{
+              title: "Moonshot",
+              key: "moonshot-api"
+            },{
+              title: resourceBundle.getText("allAPIs"),
+              key: "all-apis"
+            }
+          ];
+        }
+
         const navigationData = {
           navigation: [
             {
@@ -421,36 +558,7 @@ sap.ui.define(
               icon: "sap-icon://ai",
               expanded: true,
               key: "apis",
-              items: [
-                {
-                  title: "OpenAI",
-                  key: "openai-api"
-                },{
-                  title: "Anthropic",
-                  key: "anthropic-api"
-                },{
-                  title: "Google Gemini",
-                  key: "google-api"
-                },{
-                  title: "Mistral",
-                  key: "mistral-api"
-                },{
-                  title: "Ollama",
-                  key: "ollama-api"
-                },{
-                  title: "SAP AI Core",
-                  key: "sap-ai-core-api"
-                },{
-                  title: "Deepseek",
-                  key: "deepseek-api"
-                },{
-                  title: "Moonshot",
-                  key: "moonshot-api"
-                },{
-                  title: resourceBundle.getText("allAPIs"),
-                  key: "all-apis"
-                }
-              ]
+              items: apiItems
             },
             {
               title: resourceBundle.getText("tools"),
@@ -517,7 +625,7 @@ sap.ui.define(
           sidePanel.setBusy(true);
         }
 
-        let model = view.getModel("apis");
+        const model = view.getModel("apis");
 
         try {
 
@@ -527,7 +635,7 @@ sap.ui.define(
 
           model.setModelData(modelData);
 
-          if (sidePanel) {
+          if (sidePanel) {            
             sidePanel.setBusy(false);
           }
 

@@ -59,12 +59,16 @@
                     <Column id="_IDApisColumnBaseUrl">
                         <Text id="_IDApisColumnTextBaseUrl" text="{i18n>baseUrl}" />
                     </Column>
+                    <Column id="_IDApisColumnDisabled">
+                        <Text id="_IDApisColumnTextDisabled" text="{i18n>disabled}" />
+                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem id="_IDApisColumnListItem" type="Navigation" press=".onItemPress">
                         <cells>
                             <Text id="_IDApisTextId" text="{apis>id}" />
                             <Text id="_IDApisTextBaseUrl" text="{apis>baseUrl}" />
+                            <CheckBox id="_IDApisCheckBoxDisabled" selected="{apis>disabled}" editable="false" />
                         </cells>
                     </ColumnListItem>
                 </items>
