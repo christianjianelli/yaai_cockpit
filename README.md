@@ -26,6 +26,27 @@ See the [Installation Guide](/docs/Installation.md)
 
 ---
 
+## 🐞 Found a bug?
+
+If something doesn't work as expected, please don't give up on ABAP AI tools Cockpit!
+
+If you encounter a bug, I'd really appreciate it if you could open a [GitHub Issue](https://github.com/christianjianelli/yaai_cockpit/issues/new). Even if you're not sure whether it's actually a bug, I'd much rather hear about it than have you stop using the project.
+
+You don't need to investigate the cause first, just describe what you were trying to do and what happened instead.
+
+Your bug report helps improve ABAP AI tools Cockpit for everyone.
+
+👉 **Report a bug:** https://github.com/christianjianelli/yaai_cockpit/issues/new
+
+## ❓ Need Help?
+
+If you have a question, need help getting started, need help using ABAP AI tools Cockpit, or aren't sure whether you've found a bug, feel free to start a GitHub [Discussion](https://github.com/christianjianelli/yaai_cockpit/discussions). If you've confirmed it's a bug, please open a GitHub [Issue](https://github.com/christianjianelli/yaai_cockpit/issues) instead.
+
+I'm happy to help, and your questions often inspire improvements to both the documentation and the project itself.
+
+- 🤔 **Need help or have a question?** Ask in [Discussions](https://github.com/christianjianelli/yaai_cockpit/discussions).
+- 💡 **Want to suggest an improvement?** Share your idea in [Discussions](https://github.com/christianjianelli/yaai_cockpit/discussions).
+
 ## How-to Guides
 
  - [How to Create and Test AI Agents in the ABAP AI tools Cockpit](/docs/guides/create-and-test-ai-agents.md)
