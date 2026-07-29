@@ -151,7 +151,7 @@
                             <form:formContainers>
                                 <form:FormContainer id="_IDApiFormContainerOAuth">
                                     <form:formElements>
-                                        <form:FormElement id="_IDApiFormElementOAuthBaseUrl" label="{i18n>baseUrl}">
+                                        <form:FormElement id="_IDApiFormElementOAuthBaseUrl" label="{i18n>authUrl}">
                                             <form:fields>
                                                 <Input
                                                     id="_IDApiOAuthBaseUrlInput"

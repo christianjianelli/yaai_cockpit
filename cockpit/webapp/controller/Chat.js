@@ -241,7 +241,7 @@ sap.ui.define([
                     // Handle any errors during the fetch or parsing process
                     console.error('Operation failed:', error);
 
-                    MessageBox.error(this._resourceBundle.getText("operationFailed") + error);
+                    MessageBox.error(this._resourceBundle.getText("operationFailed"));
 
                     this.removeLlmTyping();
 
@@ -356,7 +356,7 @@ sap.ui.define([
                             //console.log('Process completed!', statusResponseData);
                             break;
                         } else if (statusResponseData.status.toUpperCase() === 'FAILED') {
-                            throw new Error('Process failed!' + statusResponseData);
+                            throw new Error('Process failed!');
                         } else {
                             this.addLlmTyping();
                         }
@@ -368,7 +368,7 @@ sap.ui.define([
                         // Handle any errors during the fetch or parsing process
                         console.error('Operation failed:', error);
 
-                        MessageBox.error(this._resourceBundle.getText("operationFailed") + error);
+                        MessageBox.error(this._resourceBundle.getText("operationFailed"));
 
                         return;
                     }
@@ -408,7 +408,7 @@ sap.ui.define([
                     // Handle any errors during the fetch or parsing process
                     console.error('Operation failed:', error);
 
-                    MessageBox.error(this._resourceBundle.getText("operationFailed") + error);
+                    MessageBox.error(this._resourceBundle.getText("operationFailed"));
 
                     return;
                 }
@@ -417,7 +417,7 @@ sap.ui.define([
 
                     console.error('No response received');
                     
-                    MessageBox.error(this._resourceBundle.getText("operationFailed") + error);
+                    MessageBox.error(this._resourceBundle.getText("operationFailed"));
 
                     return;
 

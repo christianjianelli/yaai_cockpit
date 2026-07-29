@@ -1,7 +1,7 @@
 {
   "name": "cockpit",
-  "version": "1.1.9",
-  "description": "ABAP AI tools Cloud Cockpit",
+  "version": "1.2.0",
+  "description": "ABAP AI tools Cockpit",
   "keywords": [
     "ui5",
     "openui5",
