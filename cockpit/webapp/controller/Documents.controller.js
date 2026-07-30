@@ -83,8 +83,16 @@ sap.ui.define([
 
         onAdd: function (event) {
             
-            this.onOpenDialog();   
+            const view = this.getView();
 
+            const fileUploader = view.byId("_IDUploadFileUploader");
+
+            if (fileUploader) {
+                fileUploader.setValue("");
+            }
+
+            this.onOpenDialog();   
+            
         },
 
         onDelete: function (event) {
@@ -97,13 +105,7 @@ sap.ui.define([
 
             const resourceBundle = view.getModel("i18n").getResourceBundle();
 
-            const selectedIds = [];
-
             if (selectedItems.length > 0) {
-
-                selectedItems.forEach(element => {
-                    selectedIds.push(element.getBindingContext("rag").getProperty("id"));
-                }); 
 
                 if (!this._confirmDialog) {
                     
@@ -116,12 +118,26 @@ sap.ui.define([
                             type: "Emphasized",
                             text: resourceBundle.getText("yes"),
                             press: function () {
-                                view.setBusy(true);
+
+                                const selectedIds = [];
+                                                                
                                 if (table) {
+
+                                    view.setBusy(true); 
+
+                                    const selectedItems = table.getSelectedItems();
+
+                                    selectedItems.forEach(element => {
+                                        selectedIds.push(element.getBindingContext("rag").getProperty("id"));
+                                    }); 
+                                
+                                    this._deleteDocuments(selectedIds, view);
+
                                     table.removeSelections();
-                                }        
-                                this._deleteDocuments(selectedIds, view);
-                                this._confirmDialog.close();
+                                
+                                    this._confirmDialog.close();
+                                }
+                            
                             }.bind(this)
                         }),
                         endButton: new Button({
@@ -185,12 +201,16 @@ sap.ui.define([
 
             const view = this.getView();
 
+            const fileUploader = view.byId("_IDUploadFileUploader");
+
+            if (fileUploader.getValue() === "") {
+                return;
+            }
+
             this.Dialog.setBusy(true);
 
             var that = this;
-            
-            const fileUploader = this.byId("_IDUploadFileUploader");
-			
+            			
             fileUploader.checkFileReadable().then(async function() {
 
                 let responseData;
@@ -343,6 +363,10 @@ sap.ui.define([
             }
            
             const fileArrayBuffer = await this._file.arrayBuffer();
+
+            if (!fileArrayBuffer){
+                return;
+            }
 
             const formData = new FormData();
 

@@ -1,6 +1,6 @@
 {
   "name": "cockpit",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "ABAP AI tools Cockpit",
   "keywords": [
     "ui5",

@@ -8,6 +8,12 @@ Legend
 + : added
 - : removed
 
+2026-07-29 v1.2.1
+-------------------
+* RAG Documents - File deletion bugfix
+* RAG Documents - Empty file upload bugfix
+
+
 2026-07-29 v1.2.0
 -------------------
 * Chat error handling minor bugfixes
