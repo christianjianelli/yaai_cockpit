@@ -18,6 +18,8 @@ sap.ui.define([
             ]
         },
 
+        _versionCheckWarning: "",
+
         _sideNavigation: null,
 
         _sidePanelControl: null,
@@ -47,6 +49,8 @@ sap.ui.define([
             */
 
             this._loadUserInfo();
+
+            this._checkBackendVersion();
 
             //sap.ui.getCore().applyTheme("sap_horizon_dark");
 
@@ -336,22 +340,95 @@ sap.ui.define([
         
         _loadUserInfo: async function () {
         
-            const userInfo = await this._fetchData('/sap/bc/ui2/start_up');
+            try {
+                
+                const userInfo = await this._fetchData('/sap/bc/ui2/start_up');
 
-            const model = this.getModel("userinfo");
+                const model = this.getModel("userinfo");
 
-            model.setData({
-                email: userInfo.email,
-                username: userInfo.fullName,
-                userid: userInfo.id,
-                initials: userInfo.email.slice(0, 2).toUpperCase(),
-                language: userInfo.language,
-                languageBcp47: userInfo.languageBcp47
-            });
+                model.setData({
+                    email: userInfo.email,
+                    username: userInfo.fullName,
+                    userid: userInfo.id,
+                    initials: userInfo.email.slice(0, 2).toUpperCase(),
+                    language: userInfo.language,
+                    languageBcp47: userInfo.languageBcp47
+                });
 
-            this._language = userInfo.languageBcp47 || "en";
+                this._language = userInfo.languageBcp47 || "en";
 
-            Localization.setLanguage(this._language);
+                Localization.setLanguage(this._language);
+
+            } catch (error) {
+                return;
+            }
+
+        }, 
+
+        _checkBackendVersion: async function () {
+
+            this._versionCheckWarning = "";
+
+            const IgnoreVersionCheck = localStorage.getItem('IgnoreVersionCheck');
+
+            if (IgnoreVersionCheck === 'yes') {
+                return;
+            }
+
+            //Cockpit version: [ ... ABAP AI tools compatible versions ... ]
+            const versionsCompatibility = {
+                "1.2.2": ["1.2.2"]
+            };
+
+            const regex = /^[0-9.]+$/;
+
+            const resourceBundle = this.getModel("i18n").getResourceBundle();
+
+            try {
+                
+                const backendVersion = await this._fetchData('/sap/yaai/version');
+
+                if (!regex.test(backendVersion)) {
+                    return;
+                }
+
+                const frontendVersion = this.getManifestEntry("/sap.app/applicationVersion/version");
+
+                if (!versionsCompatibility[frontendVersion]){
+                    return;
+                }
+
+                if (versionsCompatibility[frontendVersion].length < 1){
+                    return;
+                }
+
+                if (backendVersion < versionsCompatibility[frontendVersion][0]) {
+
+                    this._versionCheckWarning = resourceBundle.getText("backendVersionWarning");
+
+                    this._versionCheckWarning = this._versionCheckWarning.replace("&1", backendVersion);
+
+                    this._versionCheckWarning = this._versionCheckWarning.replace("&2", frontendVersion);
+                    
+                    console.log(this._versionCheckWarning);
+
+                }
+
+                if (backendVersion > versionsCompatibility[frontendVersion][versionsCompatibility[frontendVersion].length - 1]) {
+
+                    this._versionCheckWarning = resourceBundle.getText("frontendVersionWarning");
+
+                    this._versionCheckWarning = this._versionCheckWarning.replace("&1", frontendVersion);
+
+                    this._versionCheckWarning = this._versionCheckWarning.replace("&2", backendVersion);
+                    
+                    console.log(this._versionCheckWarning);
+
+                }
+
+            } catch (error) {
+                return;
+            }    
 
         }
 

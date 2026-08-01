@@ -1,6 +1,6 @@
 {
   "name": "cockpit",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "ABAP AI tools Cockpit",
   "keywords": [
     "ui5",
@@ -9,10 +9,10 @@
   ],
   "main": "webapp/index.html",
   "devDependencies": {
-    "@sap-ux/eslint-plugin-fiori-tools": "^10.7.7",
-    "@sap/ux-ui5-tooling": "^1.28.0",
+    "@sap-ux/eslint-plugin-fiori-tools": "^10.7.14",
+    "@sap/ux-ui5-tooling": "^1.29.0",
     "@ui5/cli": "^4.0.0",
-    "eslint": "^9",
+    "eslint": "^10.8.0",
     "rimraf": "^5.0.5"
   },
   "scripts": {

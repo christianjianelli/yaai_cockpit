@@ -8,6 +8,8 @@
 		confirm=".onToolValueHelpDialogClose"
 		cancel=".onToolValueHelpDialogClose"
 		showClearButton="false"
+		growing="true"
+		growingThreshold="20"
 		items="{
 			path: 'tools>/tools',
 			sorter: {

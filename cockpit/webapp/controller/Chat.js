@@ -20,6 +20,8 @@ sap.ui.define([
 
             _resourceBundle: null,
 
+            _abortMonitorAsyncExecution: false,
+
             setResourceBundle(resourceBundle) {
 
                 this._resourceBundle = resourceBundle;
@@ -48,6 +50,12 @@ sap.ui.define([
 
                 return this._selectApiControl;
 
+            },
+
+            setAbortMonitorAsyncExecution(value) {
+
+                this._abortMonitorAsyncExecution = value;
+            
             },
 
             addUserMessage: function (message, seqno = 0, datetime = "", scroll = true) {
@@ -216,6 +224,8 @@ sap.ui.define([
 
                 let endpoint = this.getEndpoint('async_chat');
 
+                this._abortMonitorAsyncExecution = false;
+
                 // Add the User prompt to the chat
                 this.addUserMessage(userPrompt);
 
@@ -339,6 +349,12 @@ sap.ui.define([
                 
                 while (!isCompleted && attempts < maxAttempts) {
                 
+                    if (this._abortMonitorAsyncExecution) {
+                        console.log('Chat monitoring aborted by user.');
+                        this.removeLlmTyping();
+                        return;
+                    }
+                    
                     // Wait 2 seconds between checks
                     await new Promise(resolve => setTimeout(resolve, 2000));
                     

@@ -22,7 +22,7 @@ sap.ui.define([
 
         _edit: false,
 
-        _apis: ["OPENAI", "ANTHROPIC", "GOOGLE", "MISTRAL", "OLLAMA"],
+        _apis: ["OPENAI", "ANTHROPIC", "GOOGLE", "MISTRAL", "OLLAMA", "SAP_AI_CORE", "DEEPSEEK", "MOONSHOT"],
 
         _selectedApi: 0,
 
@@ -234,6 +234,12 @@ sap.ui.define([
 		},
 
         onDocumentValueHelpDialogClose: function (event) {
+            
+            const binding = event.getSource().getBinding("items");
+
+            if (binding) {
+                binding.filter([]);
+            }
 
             const selectedItem = event.getParameter("selectedItem");
 
@@ -316,7 +322,13 @@ sap.ui.define([
 		},
 
         onToolValueHelpDialogClose: function (event) {
+          
+            const binding = event.getSource().getBinding("items");
 
+            if (binding) {
+                binding.filter([]);
+            }
+            
             const selectedItem = event.getParameter("selectedItem");
 
 			const input = this.byId(this._valueHelpInputId);
@@ -428,6 +440,12 @@ sap.ui.define([
 
         onTaskflowValueHelpDialogClose: function(event) {
 
+            const binding = event.getSource().getBinding("items");
+
+            if (binding) {
+                binding.filter([]);
+            }
+            
             const selectedItem = event.getParameter("selectedItem");
 
             if (!selectedItem) {
@@ -682,7 +700,7 @@ sap.ui.define([
                 ],
                 and: false
             });
-			var binding = event.getParameter("itemsBinding");
+			const binding = event.getParameter("itemsBinding");
 			binding.filter([filter]);
 		},
 

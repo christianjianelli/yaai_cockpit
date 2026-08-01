@@ -17,7 +17,7 @@
 				<RadioButtonGroup 
 					id="_IDAddAgentModelRBGApi" 
 					class="sapUiSmallMarginBottom"
-					columns="5" 
+					columns="3" 
 					selectedIndex="0"
 					select=".onApiSelect">
 					<RadioButton id="IDAddAgentModelRBOpenAI" text="{i18n>openai}" />
@@ -25,6 +25,9 @@
 					<RadioButton id="IDAddAgentModelRBGoogle" text="{i18n>google}" />
 					<RadioButton id="IDAddAgentModelRBMistral" text="{i18n>mistral}" />
 					<RadioButton id="IDAddAgentModelRBOllama" text="{i18n>ollama}" />
+					<RadioButton id="IDAddAgentModelRBSAPAICore" text="{i18n>sapAICore}" />
+					<RadioButton id="IDAddAgentModelRBDeepSeek" text="{i18n>deepseek}" />
+					<RadioButton id="IDAddAgentModelRBMoonshotAI" text="{i18n>moonshot}" />
 				</RadioButtonGroup>
 				<Label 
 					id="_IDAddAgentModelLabelModel" 

@@ -22,7 +22,8 @@
                 <Title level="H1" text="{i18n>title}" wrapping="false" id="productName" />
 				<ToolbarSpacer id="_IDAppToolbarSpacer" />
 				<ToolbarSeparator id="_IDAppToolbarSeparator" />
-				<OverflowToolbarButton id="_IDAppOverflowToolbarButton2" icon="sap-icon://action-settings" type="Transparent" text="Settings" press=".onDisplayUserSettings"/>
+				<OverflowToolbarButton id="_IDAppOverflowToolbarButtonVersionCheck" icon="sap-icon://high-priority" type="Attention" visible="false" press=".onDisplayBackendVersionWarning"/>
+				<OverflowToolbarButton id="_IDAppOverflowToolbarButtonSettings" icon="sap-icon://action-settings" type="Transparent" press=".onDisplayUserSettings"/>
 				<tnt:ToolHeaderUtilitySeparator id="_IDAppToolHeaderUtilitySeparator"/>
 				<ToolbarSpacer id="_IDAppToolbarSpacer1" width="1.125rem"/>
 				<Avatar id="_IDAppAvatar" initials="{userinfo>/initials}" displaySize="XS" press=".onDisplayUserInfo" />
@@ -98,10 +99,11 @@
 								width="100%" 
 								liveChange=".onUserPromptLiveChange"/>
 							<l:HorizontalLayout id="_IDAppHorizontalLayout">
-								<Button id="_IDAppButtonSend" text="{i18n>send}" press=".onSend"></Button>
-								<Button id="_IDAppButtonRefresh" class="sapUiTinyMarginBegin" text="{i18n>refresh}" press=".onRefresh"></Button>
-								<Button id="_IDAppButtonClear" class="sapUiTinyMarginBegin" text="{i18n>clear}" press=".onClear"></Button>
-								<Button id="_IDAppButtonNewChat" class="sapUiTinyMarginBegin" text="{i18n>newChat}" press=".onNewChat"></Button>
+								<Button id="_IDAppButtonSend" text="{i18n>send}" icon="sap-icon://paper-plane" tooltip="{i18n>send}" type="Emphasized" press=".onSend"></Button>
+                                <Button id="_IDAppButtonRefresh" class="sapUiTinyMarginBegin" tooltip="{i18n>refresh}" icon="sap-icon://refresh" press=".onRefresh"></Button>
+                                <Button id="_IDAppButtonClear" class="sapUiTinyMarginBegin" tooltip="{i18n>clear}" icon="sap-icon://clear-all" press=".onClear"></Button>
+                                <Button id="_IDAppButtonNewChat" class="sapUiTinyMarginBegin" tooltip="{i18n>newChat}" icon="sap-icon://create" press=".onNewChat"></Button>
+                                <Button id="_IDAppButtonStop" class="sapUiTinyMarginBegin" icon="sap-icon://stop" tooltip="Stop" visible="false" press=".onStopChat"></Button>
 								<Text id="_IDAppTextUserPromptRemainingLength" class="sapUiTinyMarginBegin sapUiTinyMarginTop remainingLength"></Text>
 							</l:HorizontalLayout>
 						</VBox>

@@ -53,14 +53,26 @@ sap.ui.define(
           Chat.agentId = modelData.DefaultAgentId;
         }
 
-        //this._loadUserInfo();
-
       },
 
       onBeforeRendering() {
 
         this._loadNavigation();
+
+        const ownerComponent = this.getOwnerComponent();
+
+        if (ownerComponent._versionCheckWarning !== "") {
         
+          const view = this.getView();
+
+          const button = view.byId("_IDAppOverflowToolbarButtonVersionCheck");
+
+          if (button) {
+            button.setVisible(true);
+          }
+
+        }
+                
       },
 
       onAfterRenderingHTMLControl: function (event) {
@@ -198,6 +210,14 @@ sap.ui.define(
           case "documentation":
             window.open("https://github.com/christianjianelli/yaai_cockpit");  
             break;
+
+          case "bug":
+            window.open("https://github.com/christianjianelli/yaai_cockpit/issues/new");  
+            break;
+          
+          case "idea":
+            window.open("https://github.com/christianjianelli/yaai_cockpit/discussions");  
+            break;
             
           default:
             break;
@@ -256,6 +276,10 @@ sap.ui.define(
           const button = view.byId(buttonId);  
           button.setEnabled(false);
         }
+
+        const stopButton = view.byId("_IDAppButtonStop");
+
+        stopButton.setVisible(true);
         
         textArea.setValue("");
 
@@ -268,6 +292,8 @@ sap.ui.define(
           const button = view.byId(buttonId);  
           button.setEnabled(true);
         }
+
+        stopButton.setVisible(false);
         
       },
 
@@ -396,6 +422,48 @@ sap.ui.define(
       onCloseUserSettings: function(event) {
         this.UserSettingsDialog.close();
 			},
+
+      onDisplayBackendVersionWarning: function(event) {
+        
+        const ownerComponent = this.getOwnerComponent();
+
+        const view = this.getView();
+
+        if (ownerComponent) {
+
+          MessageBox.information(ownerComponent._versionCheckWarning, {
+            actions: [MessageBox.Action.OK, MessageBox.Action.IGNORE],
+            emphasizedAction: MessageBox.Action.OK,
+            onClose: function (sAction) {
+              if (sAction === MessageBox.Action.IGNORE) {
+                
+                localStorage.setItem('IgnoreVersionCheck', 'yes');
+
+                const button = view.byId("_IDAppOverflowToolbarButtonVersionCheck");
+
+                if (button) {
+                  button.setVisible(false);
+                }
+
+              } 
+            }
+          });
+        }
+
+			},
+
+      onStopChat: function(event) {
+
+        Chat.setAbortMonitorAsyncExecution(true);
+
+        const buttonsIds = ["_IDAppButtonRefresh", "_IDAppButtonSend", "_IDAppButtonClear", "_IDAppButtonNewChat"];
+
+        for (const buttonId of buttonsIds) {
+          const button = view.byId(buttonId);  
+          button.setEnabled(true);
+        }
+
+      },
 
       //################ Private APIs ###################
 
@@ -606,6 +674,16 @@ sap.ui.define(
               title: resourceBundle.getText("documentation"),
               icon: "sap-icon://learning-assistant",
               key: "documentation"
+            },
+            {
+              title: resourceBundle.getText("reportBug"),
+              icon: "sap-icon://quality-issue",
+              key: "bug"
+            },
+            {
+              title: resourceBundle.getText("suggestImprovement"),
+              icon: "sap-icon://lightbulb",
+              key: "idea"
             }
           ],
           selectedKey: "home"
@@ -690,25 +768,6 @@ sap.ui.define(
           return false;
           
         }
-
-      },
-
-      _loadUserInfo: async function () {
-        
-        /*
-        const userInfo = await this.fetchData('/sap/bc/ui2/start_up');
-
-        const view = this.getView();
-
-        const model = view.getModel("userinfo");
-
-        model.setData({
-          email: userInfo.email,
-          username: userInfo.fullName,
-          userid: userInfo.id,
-          initials: userInfo.email.slice(0, 2).toUpperCase()
-        });
-        */
 
       }
        
