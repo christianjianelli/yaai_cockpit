@@ -8,6 +8,15 @@ Legend
 + : added
 - : removed
 
+
+2026-08-01 v1.2.2
+-------------------
++ SAP AI Core, DeepSeek and Mooshot AI APIs added to the Add Model popup in the Agent view
+* Value help filters automatic reset after closing the value help popup in the Agent view
++ Backend version compatibility warning implemented
+! Chat buttons texts replaced by icons
++ Stop button added to the Chat
+
 2026-07-29 v1.2.1
 -------------------
 * RAG Documents - File deletion bugfix
