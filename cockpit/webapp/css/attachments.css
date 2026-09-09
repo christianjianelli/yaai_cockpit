@@ -1,0 +1,54 @@
+#aaic-attachments {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.aaic-attachment-ghost, .aaic-attachment-ghost-temp {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 8px 12px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    margin: 2px;
+
+    background: #f3f3f3;
+    opacity: 0.6;
+
+    user-select: none;
+}
+
+.aaic-attachment-icon {
+    font-size: 26px;
+}
+
+.aaic-attachment-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.aaic-attachment-name {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.aaic-attachment-size {
+    font-size: 12px;
+    color: #666;
+}
+
+.aaic-attachment-remove-btn {
+    margin-left: 8px;
+    border: none;
+    background: none;
+    color: #c00;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.aaic-attachment-remove-btn:hover {
+    color: red;
+}

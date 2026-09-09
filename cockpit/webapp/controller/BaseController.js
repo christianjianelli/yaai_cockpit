@@ -117,8 +117,8 @@ sap.ui.define(
 						return await response.text();
 					}
 				} catch (error) {
-					console.error('Error fetching data:', error);
-					throw error;
+					console.log('Error fetching data:', error);
+					//throw error;
 				}
 			},
 

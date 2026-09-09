@@ -377,7 +377,7 @@ sap.ui.define([
 
             //Cockpit version: [ ... ABAP AI tools compatible versions ... ]
             const versionsCompatibility = {
-                "1.2.2": ["1.2.2"]
+                "1.2.3": ["1.2.3"]
             };
 
             const regex = /^[0-9.]+$/;

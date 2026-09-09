@@ -8,6 +8,25 @@ Legend
 + : added
 - : removed
 
+2026-09-05 v1.2.3
+-------------------
++ Drop images and files into chat message text area
++ Paste images and files into chat message text area
++ Show images and files sent to the LLM in the chat conversation
++ New tab Files added to the Chat View to display the images and files added to the conversation
++ New tab Approvals added to the Chat View to approve tool call approval requests requested by AI Agents
++ New fields added to the Tool configuration to define whether the tool call requires user's approval 
++ Add API configuration to transport request
++ Add Tools to transport request
++ Add Documents (RAG) to transport request
++ Add Agent configuration to transport request
++ Add Taskflow configuration to transport request
++ Think and reasoning effort parameters added to Ollama API in the Agent view add model 
++ Reasoning effort parameter values updated (none, xhigh, max) in the Agent view add model
++ Total number of tokens added to the Chats view
+* Some minor bugfixes related to table rows selection
++ Attachments CSS styles added for the images and files display in the Chat conversation
++ New fragment added for the add to transport request feature
 
 2026-08-01 v1.2.2
 -------------------

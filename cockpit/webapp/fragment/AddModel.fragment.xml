@@ -20,6 +20,10 @@
 					width="20em"
 					editable="true">
 				</Input>
+				<CheckBox id="_IDAddModelToolsCheckBox" editable="true" text="{i18n>tools}"/>
+				<CheckBox id="_IDAddModelVisionCheckBox" editable="true" text="{i18n>vision}"/>
+				<CheckBox id="_IDAddModelFilesCheckBox" editable="true" text="{i18n>files}"/>
+				<CheckBox id="_IDAddModelAudioCheckBox" editable="true" text="{i18n>audio}"/>
 			</l:VerticalLayout>
 		</content>
 		<buttons>        

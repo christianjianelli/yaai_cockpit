@@ -83,7 +83,8 @@
 								change=".onSelectApiChange"
 								items="{
 									path: 'apis>/apis',
-									sorter: { path: 'id' }
+									sorter: { path: 'id' },
+									filters:[{path: 'disabled', operator: 'EQ', value1: false}]
 								}">
 								<core:Item id="_IDAppSelectItemApi" key="{apis>id}" text="{apis>id}" />
 							</Select>

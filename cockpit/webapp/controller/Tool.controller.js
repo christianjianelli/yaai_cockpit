@@ -100,7 +100,9 @@ sap.ui.define([
                 class_name: this.getView().getBindingContext("tools").getProperty("className"),
                 method_name: this.getView().getBindingContext("tools").getProperty("methodName"),
                 proxy_class: this.getView().getBindingContext("tools").getProperty("proxyClass"),
-                description: this.getView().getBindingContext("tools").getProperty("description")
+                description: this.getView().getBindingContext("tools").getProperty("description"),
+                approval: this.getView().getBindingContext("tools").getProperty("approval"),
+                approval_text: this.getView().getBindingContext("tools").getProperty("approvalText")
             };
 
             if ( tool.class_name === "" || tool.method_name === "" || tool.description === "") {
@@ -211,7 +213,9 @@ sap.ui.define([
                     className: responseData.tool.className,
                     methodName: responseData.tool.methodName,
                     proxyClass: responseData.tool.proxyClass,
-                    description: responseData.tool.description
+                    description: responseData.tool.description,
+                    approval: responseData.tool.approval,
+                    approvalText: responseData.tool.approvalText
                 });
             
             } else {
@@ -224,7 +228,9 @@ sap.ui.define([
                         className: responseData.tool.className,
                         methodName: responseData.tool.methodName,
                         proxyClass: responseData.tool.proxyClass,
-                        description: responseData.tool.description
+                        description: responseData.tool.description,
+                        approval: responseData.tool.approval,
+                        approvalText: responseData.tool.approvalText
                     });
                 
                 } else {
@@ -233,6 +239,8 @@ sap.ui.define([
                     modelData.tools[index].methodName = responseData.tool.methodName;
                     modelData.tools[index].proxyClass = responseData.tool.proxyClass;
                     modelData.tools[index].description = responseData.tool.description;
+                    modelData.tools[index].approval = responseData.tool.approval;
+                    modelData.tools[index].approvalText = responseData.tool.approvalText;
                 }
 
                 model.setModelData(modelData);
@@ -265,7 +273,10 @@ sap.ui.define([
             
             const view = this.getView();
 
-            const idsEditable = ["_IDToolProxyClassInput", "_IDToolToolDescriptionInput"];
+            const idsEditable = ["_IDToolProxyClassInput", 
+                                 "_IDToolToolDescriptionInput", 
+                                 "_IDToolToolRequiresApprovalCheckBox", 
+                                 "_IDToolToolApprovalTextInput"];
 
             const idsEnable = ["_IDToolButtonSave"];                
 

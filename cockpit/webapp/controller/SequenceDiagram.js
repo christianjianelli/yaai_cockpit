@@ -177,8 +177,8 @@ sap.ui.define([
 
                     content.forEach(element => {
                         // Tool call
-                        if (element.text?.type === "tool_use") {
-                            mermaid += `Assistant ->> Tool: Tool call: ${element.text.name}\n`;
+                        if (element.type === "tool_use") {
+                            mermaid += `Assistant ->> Tool: Tool call: ${element.name}\n`;
                         }
                         // Tool response
                         else if (element.type === "tool_result") {
@@ -200,7 +200,7 @@ sap.ui.define([
                             let to;
                             if (from === "User") to = "Assistant";
                             else if (from === "System") to = "Assistant";
-                            else if (from === "Assistant" && element.text.type === "tool_use") to = "Tool";
+                            else if (from === "Assistant" && element.type === "tool_use") to = "Tool";
                             else if (from === "Assistant") to = "User";
                             let msgContent = element.text;
                             msgContent = this._escapeForMermaid(msgContent);

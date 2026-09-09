@@ -323,15 +323,7 @@ sap.ui.define([
 
         onToolValueHelpDialogClose: function (event) {
           
-            const binding = event.getSource().getBinding("items");
-
-            if (binding) {
-                binding.filter([]);
-            }
-            
             const selectedItem = event.getParameter("selectedItem");
-
-			const input = this.byId(this._valueHelpInputId);
 
 			if (!selectedItem) {
 				return;
@@ -342,7 +334,19 @@ sap.ui.define([
             const proxyClass = selectedItem.getBindingContext("tools").getProperty("proxyClass");
             const description = selectedItem.getBindingContext("tools").getProperty("description");
 
+            const binding = event.getSource().getBinding("items");
+
+            if (binding) {
+                binding.filter([]);
+            }
+
             const view = this.getView();
+
+            const table = view.byId("_IDAgentToolsTable");
+
+            if (table) {
+                table.removeSelections(true);
+            }
 
             const model = view.getModel("agents");
 
@@ -387,17 +391,24 @@ sap.ui.define([
                 
                 apis.setModelData(apisModelData);
                 
-                const modelsvh = view.getModel("modelsvh");
-
-                apisModelData.apis.forEach(element => {
-                    if (element.id === this._apis[this._selectedApi]) {
-                        modelsvh.setData(element);
-                    }
-                });
-
-                view.setBusy(false);
             }
 
+            if (!apisModelData.apis) {
+                view.setBusy(false);
+                return;
+            }
+
+            const modelsvh = view.getModel("modelsvh");
+
+            modelsvh.setData({});
+
+            apisModelData.apis.forEach(element => {
+                if (element.disabled === false && element.id === this._apis[this._selectedApi]) {
+                    modelsvh.setData(element);
+                }
+            });
+
+            view.setBusy(false);
 			
 		},
 
@@ -462,7 +473,7 @@ sap.ui.define([
 
         },
 
-        onDelete: function(event) {
+        onDeleteTool: function(event) {
 
             const view = this.getView();
 
@@ -496,7 +507,7 @@ sap.ui.define([
 
                 }
 
-                table.removeSelections();
+                table.removeSelections(true);
 
             }
 
@@ -507,6 +518,10 @@ sap.ui.define([
             const view = this.getView();
 
             const table = view.byId("_IDAgentModelsTable");
+
+            if (!table) {
+                return;
+            }
 
             const model = view.getModel("agents");
             
@@ -535,6 +550,8 @@ sap.ui.define([
 
                 }
 
+                table.removeSelections(true);
+
             }
 
         },
@@ -544,6 +561,10 @@ sap.ui.define([
             const view = this.getView();
 
             const table = view.byId("_IDAgentDocsTable");
+
+            if (!table) {
+                return;
+            }
 
             const model = view.getModel("agents");
             
@@ -572,18 +593,21 @@ sap.ui.define([
 
                 }
 
+                table.removeSelections(true);
+
             }
 
         },
 
         onApiSelect: function(event) {
 
-            let visibility = true;
-
             const selectedIndex = event.getSource().getSelectedIndex();
 
             this._selectedApi = selectedIndex;
 
+            //let visibility = true;
+
+            /*
             if (selectedIndex !== 0) {
                 visibility = false;
             }
@@ -595,6 +619,51 @@ sap.ui.define([
             
             view.byId("_IDAddAgentModelLabelReasoning").setVisible(visibility);
             view.byId("_IDAddAgentModelRBGReasoning").setVisible(visibility);
+            */
+
+            const view = this.getView();
+
+            switch (this._apis[selectedIndex]) {
+                
+                case 'OPENAI':
+                    
+                    view.byId("_IDAddAgentModelLabelVerbosity").setVisible(true);
+                    view.byId("_IDAddAgentModelRBGVerbosity").setVisible(true);
+
+                    view.byId("_IDAddAgentModelLabelThink").setVisible(false);
+                    view.byId("_IDAddAgentModelRBGThink").setVisible(false);
+                    
+                    view.byId("_IDAddAgentModelLabelReasoning").setVisible(true);
+                    view.byId("_IDAddAgentModelRBGReasoning").setVisible(true);
+
+                    break;
+                
+                case 'OLLAMA':
+
+                    view.byId("_IDAddAgentModelLabelVerbosity").setVisible(false);
+                    view.byId("_IDAddAgentModelRBGVerbosity").setVisible(false);
+
+                    view.byId("_IDAddAgentModelLabelThink").setVisible(true);
+                    view.byId("_IDAddAgentModelRBGThink").setVisible(true);
+                    
+                    view.byId("_IDAddAgentModelLabelReasoning").setVisible(true);
+                    view.byId("_IDAddAgentModelRBGReasoning").setVisible(true);
+
+                    break;
+
+                default:
+
+                    view.byId("_IDAddAgentModelLabelVerbosity").setVisible(false);
+                    view.byId("_IDAddAgentModelRBGVerbosity").setVisible(false);
+                    
+                    view.byId("_IDAddAgentModelLabelThink").setVisible(false);
+                    view.byId("_IDAddAgentModelRBGThink").setVisible(false);
+
+                    view.byId("_IDAddAgentModelLabelReasoning").setVisible(false);
+                    view.byId("_IDAddAgentModelRBGReasoning").setVisible(false);
+
+                    break;
+            }
 
             const apiModel = view.getModel("apis");
 
@@ -602,8 +671,10 @@ sap.ui.define([
 
             const modelsvh = view.getModel("modelsvh");
 
+            modelsvh.setData({});
+
             apiModelData.apis.forEach(element => {
-                if (element.id === this._apis[selectedIndex]) {
+                if (element.disabled === false && element.id === this._apis[selectedIndex]) {
                     modelsvh.setData(element);
                 }
             });
@@ -613,7 +684,8 @@ sap.ui.define([
         onAddAgentModel: function(event) {
 
             const verbosity = ["low", "medium", "high"];
-            const reasoning = ["minimal", "low", "medium", "high"];
+            const think = [true, false];
+            const reasoning = ["none", "minimal", "low", "medium", "high", "xhigh", "max"];
             
             const view = this.getView();
             const table = view.byId("_IDAgentModelsTable");
@@ -622,22 +694,42 @@ sap.ui.define([
             const temperatureSlider = view.byId("_IDAddAgentModelSliderTemperature");
             const verbosityRBG = view.byId("_IDAddAgentModelRBGVerbosity");
             const reasoningRBG = view.byId("_IDAddAgentModelRBGReasoning");
+            const thinkRBG = view.byId("_IDAddAgentModelRBGThink");
             const maxToolCallsSlider = view.byId("_IDAddAgentModelSliderMaxToolCalls");
 
-            table.removeSelections();
+            table.removeSelections(true);
 
             let agentModel = {
                 api: this._apis[apiRBG.getSelectedIndex()],
                 model: modelInput.getValue(),
                 temperature: temperatureSlider.getValue(),
                 verbosity: verbosity[verbosityRBG.getSelectedIndex()],
+                think: think[thinkRBG.getSelectedIndex()],
                 reasoning: reasoning[reasoningRBG.getSelectedIndex()],
                 maxToolCalls: maxToolCallsSlider.getValue()
             };
 
+            const apiModel = view.getModel("apis");
+
+            const apiModelData = apiModel.getData();
+
+            let isAPIDisabled = false;
+
+            apiModelData.apis.forEach(element => {
+                if (element.disabled === true && element.id === agentModel.api) {
+                    isAPIDisabled = true;
+                }
+            });
+
+            if (isAPIDisabled) {
+                const resourceBundle = view.getModel("i18n").getResourceBundle();
+                MessageBox.error(resourceBundle.getText("llmApiDisabled"));
+                return;
+            }
+
             if (agentModel.model === "") {
                 const resourceBundle = view.getModel("i18n").getResourceBundle();
-                MessageToast.show(resourceBundle.getText("llmModelFieldRequired"));
+                MessageBox.error(resourceBundle.getText("llmModelFieldRequired"));
                 return;
             }
             
@@ -654,8 +746,9 @@ sap.ui.define([
             apiRBG.setSelectedIndex(0)
             modelInput.setValue("");
             temperatureSlider.setValue(1);
-            verbosityRBG.setSelectedIndex(0);
-            reasoningRBG.setSelectedIndex(0);
+            verbosityRBG.setSelectedIndex(1);
+            thinkRBG.setSelectedIndex(0);
+            reasoningRBG.setSelectedIndex(3);
             maxToolCallsSlider.setValue(5);
             
             this.AddModelDialog.close();
@@ -739,9 +832,96 @@ sap.ui.define([
 
                 model.updateModelData(modelData);
 
+                if (table) {
+                    table.removeSelections(true);
+                }
+
             }
 
         },
+
+        onOpenAddToTransportDialog: async function(event) {
+
+            // Create dialog lazily
+			this.addToTransportDialog ??= await this.loadFragment({
+				name: "aaic.cockpit.fragment.AddToTransport",
+                controller: this
+			});
+
+			this.addToTransportDialog.open();
+
+        },
+
+        onCloseDialogAddToTransport: function(event) {
+            this.addToTransportDialog.close();
+        },
+
+        onAddToTransport: async function(event) {
+
+            const view = this.getView();
+
+            const resourceBundle = view.getModel("i18n").getResourceBundle();
+
+            const transportRequest = view.byId("_IDAddToTransportInputTransportRequest").getValue();
+
+            if (!transportRequest) {
+                MessageToast.show(resourceBundle.getText("pleaseEnterTransport"));
+                return;
+            }
+
+            this.addToTransportDialog.close();
+
+            view.setBusy( true );
+
+            const endpoint = this.getEndpoint('transp_config');
+
+            const config = { 
+                entity: 'AGENT',
+                keys: [{ id: this._id }],
+                transport: transportRequest
+            };
+
+            const options = {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+                body: JSON.stringify(config)
+			};
+
+            try {
+                
+                const responseData = await this.fetchData(endpoint, options);
+
+                if (responseData.success === true) {
+                
+                    MessageToast.show(resourceBundle.getText('configAddedToTransport') + ': ' + transportRequest);
+
+                } else {
+
+                    MessageBox.error(responseData.error);
+
+                }
+
+                view.setBusy( false );
+
+            } catch (error) {
+
+                view.setBusy( false );
+
+                MessageBox.error(error.message);
+
+                const message = new Message({
+                    message: error.message,
+                    description: resourceBundle.getText("communicationError"),
+                    type: MessageType.Error
+                });
+                
+                Messaging.addMessages(message);
+
+            }
+
+        },  
 
         //################ Private APIs ###################
 
@@ -826,6 +1006,8 @@ sap.ui.define([
 
             }
 
+            this._clearTableSelections();
+
             model.setModelData(modelData);
 
             view.bindElement({
@@ -907,6 +1089,30 @@ sap.ui.define([
                     control.setEnabled(editable);
                 }
             });
+        },
+        
+        _clearTableSelections: function(all=true) {
+
+            const view = this.getView();         
+
+            const toolsTable = view.byId("_IDAgentToolsTable");
+
+            const docsTable = view.byId("_IDAgentDocsTable");
+
+            const modelsTable = view.byId("_IDAgentModelsTable");         
+
+            if(toolsTable){
+                toolsTable.removeSelections(all);
+            }
+
+            if(docsTable){
+                docsTable.removeSelections(all);
+            }
+
+            if(modelsTable){
+                modelsTable.removeSelections(all);
+            }
         }
+
     });
 });

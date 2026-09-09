@@ -1,9 +1,10 @@
 sap.ui.define([
     "aaic/cockpit/controller/BaseController",
     "sap/ui/core/Messaging",
+    "sap/m/MessageBox",
     "aaic/cockpit/controller/Chat",
     "aaic/cockpit/controller/SequenceDiagram",
-], (BaseController, Messaging, Chat, SequenceDiagram) => {
+], (BaseController, Messaging, MessageBox, Chat, SequenceDiagram) => {
     "use strict";
 
     return BaseController.extend("aaic.cockpit.controller.Chat", {
@@ -119,6 +120,10 @@ sap.ui.define([
             }
             
             const container = document.getElementById('aaic-sequence-diagram-container');
+
+            if (!container) {
+                return;
+            }
             
             let pre = document.getElementById('aaic-sequence-diagram-source-code');
 
@@ -282,6 +287,121 @@ sap.ui.define([
 
         },
 
+        onApproveApprovalRequest: async function(event) {
+
+            const buttonId = event.getSource().getId();
+
+            let scope = 'ONE_TIME';
+
+            if (buttonId.includes("ApproveAll")) {
+                scope = 'CHAT';
+            }
+            
+            const view = this.getView();
+            
+            const resourceBundle = view.getModel("i18n").getResourceBundle();
+            
+            const table = view.byId("_IDChatApprovalsTable");
+            
+            let selectedItems = [];
+
+            if (table) {
+                selectedItems = table.getSelectedItems();
+            }
+
+            if (selectedItems.length === 0) {
+                return;
+            }
+
+            if (selectedItems.length > 1) {
+                MessageBox.information(resourceBundle.getText("multipleApprovalsNotAllowed"));
+                return;
+            }
+
+            const chatId = this._id;
+            const endpoint = this.getEndpoint('approval');
+
+            selectedItems.forEach(async (item) => {
+
+                const context = item.getBindingContext("chats");
+
+                if (context) {
+                    
+                    const formData = new FormData();
+
+                    // Fill form data
+                    formData.append('chat_id', chatId);
+                    formData.append('class_name', context.getProperty("className"));
+                    formData.append('method_name', context.getProperty("methodName"));
+                    formData.append('scope', scope);
+                    formData.append('action', 'approve');
+
+                    try {
+
+                        // Await the fetch call. This pauses execution until the response is received.
+                        const response = await fetch(endpoint, {
+                            method: 'PUT',
+                            body: formData
+                        });
+
+                        // Await the response.json() call to parse the body.
+                        const responseData = await response.json();
+
+                        // Handle the successful data
+                        if (responseData.updated) {
+                            
+                            console.log('Approval request approved successfully:', responseData);   
+
+                            this._loadData();
+                        }
+
+                    } catch (error) {
+                
+                        // Handle any errors during the fetch or parsing process
+                        console.error('Update operation failed:', error);
+                        
+                    }    
+                }
+            });
+
+        },
+
+        onDownloadFile: function(event) {
+
+            const view = this.getView();
+
+            const model = view.getModel("chats");
+
+            const modelData = model.getData();
+
+            const source = event.getSource();
+
+            const context = source.getBindingContext("chats");
+
+            if (!context) {
+                return;
+            }
+
+            const filename = context.getProperty("filename");
+
+            modelData.chats.forEach(chat => {
+
+                if (chat.id === this._id) {
+                    
+                    chat.files.forEach(file => {
+
+                        if (file.filename === filename) {
+                            const dataUrl = `data:${file.contentType};base64,${file.content}`;
+                            this._downloadBase64File(dataUrl, file.filename);
+                        }
+
+                    });
+
+                }
+            
+            });
+        },
+
         //################ Private APIs ###################
 
         _loadData: async function() {
@@ -294,6 +414,16 @@ sap.ui.define([
           
             const responseData = await this.fetchData(endpoint + "&id=" + this._id);
 
+            if (!responseData) {
+                view.setBusy(false);
+                return;
+            }
+
+            if (!responseData.chat) {
+                view.setBusy(false);
+                return;
+            }
+
             const chat = {
                     id: responseData.chat.id,
                     api: responseData.chat.api,
@@ -301,11 +431,14 @@ sap.ui.define([
                     chatDate: responseData.chat.chatDate,
                     chatTime: responseData.chat.chatTime,
                     maxSeqNo: responseData.chat.maxSeqNo,
+                    tokens: responseData.chat.tokens,
                     blocked: responseData.chat.blocked,
                     planRagId: responseData.chat.planRagId,
                     messages: responseData.chat.messages,
+                    approvals: responseData.chat.approvals,
                     log: responseData.chat.log,
                     tools: responseData.chat.tools,
+                    files: responseData.chat.files,
                     taskFlow: responseData.chat.taskFlow
                 };
 
@@ -362,6 +495,21 @@ sap.ui.define([
 
             view.setBusy(false);
 
+        },
+
+        _downloadBase64File: function(dataUrl, filename) {
+            
+            const link = document.createElement("a");
+                        
+            link.href = dataUrl;
+            
+            link.download = filename;
+            
+            document.body.appendChild(link);
+            
+            link.click();
+
+            document.body.removeChild(link);
         }
     });
 });

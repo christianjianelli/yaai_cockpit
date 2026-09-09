@@ -72,11 +72,26 @@
 					id="_IDAddAgentModelRBGVerbosity" 
 					class="sapUiSmallMarginBottom"
 					columns="3" 
-					selectedIndex="0">
+					selectedIndex="1">
 					<RadioButton id="_IDAddAgentModelRBVerbosityLow" text="{i18n>low}" />
 					<RadioButton id="_IDAddAgentModelRBVerbosityMedium" text="{i18n>medium}" />
 					<RadioButton id="_IDAddAgentModelRBVerbosityHigh" text="{i18n>high}" />
 				</RadioButtonGroup>	
+				<Label 
+					id="_IDAddAgentModelLabelThink" 
+					labelFor="_IDAddAgentModelRBGThink" 
+					visible="false"
+					text="{i18n>think}">
+				</Label>
+				<RadioButtonGroup 
+					id="_IDAddAgentModelRBGThink" 
+					class="sapUiSmallMarginBottom"
+					visible="false"
+					columns="2" 
+					selectedIndex="1">
+					<RadioButton id="_IDAddAgentModelRBThinkOn" text="{i18n>on}" />
+					<RadioButton id="_IDAddAgentModelRBThinkOff" text="{i18n>off}" />
+				</RadioButtonGroup>
 				<Label 
 					id="_IDAddAgentModelLabelReasoning" 
 					labelFor="_IDAddAgentModelRBGReasoning" 
@@ -86,11 +101,14 @@
 					id="_IDAddAgentModelRBGReasoning" 
 					class="sapUiSmallMarginBottom"
 					columns="4" 
-					selectedIndex="0">
-					<RadioButton id="_IDAddAgentModelRBReasoningMin" text="{i18n>minimal}" />
+					selectedIndex="3">
+					<RadioButton id="_IDAddAgentModelRBReasoningNone" text="{i18n>none}" />
+					<RadioButton id="_IDAddAgentModelRBReasoningMinimal" text="{i18n>minimal}" />
 					<RadioButton id="_IDAddAgentModelRBReasoningLow" text="{i18n>low}" />
 					<RadioButton id="_IDAddAgentModelRBReasoningMedium" text="{i18n>medium}" />
 					<RadioButton id="_IDAddAgentModelRBReasoningHigh" text="{i18n>high}" />
+					<RadioButton id="_IDAddAgentModelRBReasoningXHigh" text="{i18n>xhigh}" />
+					<RadioButton id="_IDAddAgentModelRBReasoningMax" text="{i18n>max}" />
 				</RadioButtonGroup>	
 				<Label 
 					id="_IDAddAgentModelLabelMaxToolCalls" 

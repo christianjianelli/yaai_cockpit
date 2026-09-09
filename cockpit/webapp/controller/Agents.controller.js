@@ -94,6 +94,10 @@ sap.ui.define([
 
             const table = view.byId("_IDAgentsTable");
 
+            if (!table) {
+                return;
+            }
+
             const selectedItems = table.getSelectedItems();
 
             const resourceBundle = view.getModel("i18n").getResourceBundle();
@@ -123,6 +127,9 @@ sap.ui.define([
                                 this._deleteAgents(selectedAgents, view);
                                 this._confirmDialog.setBusy(false);
                                 this._confirmDialog.close();
+                                if (table) {
+                                    table.removeSelections(true);
+                                }
                             }.bind(this)
                         }),
                         endButton: new Button({

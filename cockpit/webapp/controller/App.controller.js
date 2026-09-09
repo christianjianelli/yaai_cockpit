@@ -103,6 +103,19 @@ sap.ui.define(
           textAgentId.setValue(Chat.agentId);
         }
 
+        const textArea = view.byId("_IDAppTextAreaUserPrompt");
+       
+        if (textArea) {
+          textArea.detachBrowserEvent("paste", this._onTextAreaPaste);
+          textArea.attachBrowserEvent("paste", this._onTextAreaPaste);
+
+          textArea.detachBrowserEvent("dragover", this._onTextAreaDragOver);
+          textArea.attachBrowserEvent("dragover", this._onTextAreaDragOver);
+
+          textArea.detachBrowserEvent("drop", this._onTextAreaDrop);
+          textArea.attachBrowserEvent("drop", this._onTextAreaDrop);
+        }
+      
       },
 
       onSidePanelToggle: async function (event) {
@@ -456,6 +469,8 @@ sap.ui.define(
 
         Chat.setAbortMonitorAsyncExecution(true);
 
+        const view = this.getView();
+
         const buttonsIds = ["_IDAppButtonRefresh", "_IDAppButtonSend", "_IDAppButtonClear", "_IDAppButtonNewChat"];
 
         for (const buttonId of buttonsIds) {
@@ -769,7 +784,59 @@ sap.ui.define(
           
         }
 
+      },
+      
+      _onTextAreaPaste: async function(event) {
+
+        const files = event.originalEvent.clipboardData.files;
+        
+        if (!files) {
+            return;
+        }
+
+        if (!files.length) {
+            return;
+        }
+
+        for (const file of files) {
+
+          const id = crypto.randomUUID();
+
+          if (file.name === file.type.replace('/', '.')) {
+              const ext = file.type.split('/')[1];
+              const newName = `image-${id}.${ext}`;
+              const renamedFile = new File([file], newName, { type: file.type });
+              // Use renamedFile
+              Chat.attachments.set(id, renamedFile);
+              Chat.addGhostAttachment(renamedFile, id);
+          } else {
+            // Use file as-is
+            Chat.attachments.set(id, file);
+            Chat.addGhostAttachment(file, id);
+          }
+
+        }
+      },
+
+      _onTextAreaDragOver: async function(event) {
+        // Allow dropping
+        event.originalEvent.preventDefault();
+      },
+
+      _onTextAreaDrop: async function(event) {
+        
+        event.originalEvent.preventDefault();
+          
+        const files = event.originalEvent.dataTransfer.files;
+
+        for (const file of files) {
+
+          const id = crypto.randomUUID();
+
+          Chat.attachments.set(id, file);
+          
+          Chat.addGhostAttachment(file, id);
+        }
       }
-       
     });
   });

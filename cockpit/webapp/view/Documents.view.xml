@@ -71,6 +71,7 @@
                             <Title id="_IDDocumentsOverflowToolbarTitle" text="{i18n>documents}" level="H2"/>
                             <ToolbarSpacer id="_IDDocumentsToolbarSpacerHeaderToolbar"/>
                             <Button id="_IDDocumentsButtonAdd" icon="sap-icon://add-document" text="{i18n>add}" press=".onAdd"></Button>
+                            <Button id="_IDDocumentsButtonAddToTransport" class="sapUiTinyMarginEnd" type="Default" icon="sap-icon://shipping-status" text="{i18n>addToTransport}" press=".onOpenAddToTransportDialog"/>
                             <Button id="_IDDocumentsButtonDelete" icon="sap-icon://delete" text="{i18n>delete}" type="Reject" press=".onDelete"></Button>
                         </content>
                     </OverflowToolbar>

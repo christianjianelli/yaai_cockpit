@@ -212,7 +212,7 @@ sap.ui.define([
             view.setBusy(false);
 
             if (table) {
-                table.removeSelections();
+                table.removeSelections(true);
             }
 
         },
@@ -307,7 +307,7 @@ sap.ui.define([
             view.setBusy(false);
 
             if (table) {
-                table.removeSelections();
+                table.removeSelections(true);
             }
 
         },
@@ -359,7 +359,7 @@ sap.ui.define([
 
                                 this._delete(chatId);
                                 
-                                table.removeSelections();
+                                table.removeSelections(true);
                             }                           
                             
                             this._confirmDialog.setBusy(false);

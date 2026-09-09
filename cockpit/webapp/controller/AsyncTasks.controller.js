@@ -147,7 +147,7 @@ sap.ui.define([
                                 await this._cancel(asyncTaskId);
                             }
                             if (table) {
-                                table.removeSelections();
+                                table.removeSelections(true);
                             }                           
                             this._confirmDialog.setBusy(false);
                             this._confirmDialog.close();

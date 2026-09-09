@@ -4,13 +4,16 @@ sap.ui.define([
     "sap/ui/core/message/Message",
 	"sap/ui/core/message/MessageType",
     "sap/m/MessageToast",
+    "sap/m/MessageBox",
     "sap/m/Dialog",
     "sap/m/Button",
     "sap/m/Text"
-], (BaseController, Messaging, Message, MessageType, MessageToast, Dialog, Button, Text) => {
+], (BaseController, Messaging, Message, MessageType, MessageToast, MessageBox, Dialog, Button, Text) => {
     "use strict";
 
     return BaseController.extend("aaic.cockpit.controller.Taskflow", {
+
+        _id: "",
 
         _hasChanges: false,
 
@@ -29,7 +32,7 @@ sap.ui.define([
         onRouteMatched: function (event) {
 
             let args = event.getParameter("arguments");
-
+            
             let view = this.getView();
 
             let model = view.getModel("taskflows");
@@ -326,7 +329,7 @@ sap.ui.define([
                                 this._confirmDialog.setBusy(false);
                                 this._confirmDialog.close();
                                 if (table) {
-                                    table.removeSelections();
+                                    table.removeSelections(true);
                                 }
                             }.bind(this)
                         }),
@@ -413,6 +416,89 @@ sap.ui.define([
             }
 
         },
+
+        onOpenAddToTransportDialog: async function(event) {
+
+            // Create dialog lazily
+			this.addToTransportDialog ??= await this.loadFragment({
+				name: "aaic.cockpit.fragment.AddToTransport",
+                controller: this
+			});
+
+			this.addToTransportDialog.open();
+
+        },
+
+        onCloseDialogAddToTransport: function(event) {
+            this.addToTransportDialog.close();
+        },        
+
+        onAddToTransport: async function(event) {
+
+            const view = this.getView();
+
+            const resourceBundle = view.getModel("i18n").getResourceBundle();
+
+            const transportRequest = view.byId("_IDAddToTransportInputTransportRequest").getValue();
+
+            if (!transportRequest) {
+                MessageToast.show(resourceBundle.getText("pleaseEnterTransport"));
+                return;
+            }
+
+            this.addToTransportDialog.close();
+
+            view.setBusy( true );
+
+            const endpoint = this.getEndpoint('transp_config');
+
+            const config = { 
+                entity: 'TASKFLOW',
+                keys: [{ id: this._id }],
+                transport: transportRequest
+            };
+
+            const options = {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+                body: JSON.stringify(config)
+			};
+
+            try {
+                
+                const responseData = await this.fetchData(endpoint, options);
+
+                if (responseData.success === true) {
+                
+                    MessageToast.show(resourceBundle.getText('configAddedToTransport') + ': ' + transportRequest);
+
+                } else {
+
+                    MessageBox.error(responseData.error);
+
+                }
+
+                view.setBusy( false );
+
+            } catch (error) {
+
+                view.setBusy( false );
+
+                MessageBox.error(error.message);
+
+                const message = new Message({
+                    message: error.message,
+                    description: resourceBundle.getText("communicationError"),
+                    type: MessageType.Error
+                });
+                
+                Messaging.addMessages(message);
+
+            }
+
+        },    
 
         //################ Private APIs ###################
 

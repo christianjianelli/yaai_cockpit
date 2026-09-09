@@ -72,6 +72,12 @@ sap.ui.define([
         onSearch: function () {
             
             const view = this.getView();
+
+            const table = view.byId("_IDDocumentsTable");
+
+            if (table) {
+                table.removeSelections(true);
+            }
             
             const filename = view.byId("_IDDocumentsFilenameFilter").getValue();
             const description = view.byId("_IDDocumentsDescriptionFilter").getValue();
@@ -133,7 +139,7 @@ sap.ui.define([
                                 
                                     this._deleteDocuments(selectedIds, view);
 
-                                    table.removeSelections();
+                                    table.removeSelections(true);
                                 
                                     this._confirmDialog.close();
                                 }
@@ -297,6 +303,119 @@ sap.ui.define([
 			}).then(function() {
 				fileUploader.clear();
 			});
+        },
+
+        onOpenAddToTransportDialog: async function(event) {
+
+            const view = this.getView();
+
+            const table = view.byId("_IDDocumentsTable");
+
+            const selectedItems = table.getSelectedItems();
+
+            if (selectedItems.length < 1) {
+                return;
+            }
+
+            // Create dialog lazily
+			this._addToTransportDialog ??= await this.loadFragment({
+				name: "aaic.cockpit.fragment.AddToTransport",
+                controller: this
+			});
+
+			this._addToTransportDialog.open();
+
+        },
+
+        onCloseDialogAddToTransport: function(event) {
+            this._addToTransportDialog.close();
+        },
+
+        onAddToTransport: async function(event) {
+
+            const view = this.getView();
+
+            const resourceBundle = view.getModel("i18n").getResourceBundle();
+
+            const transportRequest = view.byId("_IDAddToTransportInputTransportRequest").getValue();
+
+            if (!transportRequest) {
+                MessageToast.show(resourceBundle.getText("pleaseEnterTransport"));
+                return;
+            }
+            
+            const table = view.byId("_IDDocumentsTable");
+
+            const selectedItems = table.getSelectedItems();
+
+            const config = { 
+                entity: 'RAG',
+                keys: [],
+                transport: transportRequest
+            };
+
+            if (selectedItems.length > 0) {
+
+                selectedItems.forEach(element => {
+
+                    config.keys.push({
+                        id: element.getBindingContext("rag").getProperty("id")
+                    });
+
+                });
+
+                if (table) {
+                    table.removeSelections(true);
+                }
+
+            }
+
+            this._addToTransportDialog.close();
+
+            view.setBusy( true );
+
+            const endpoint = this.getEndpoint('transp_config');
+
+            const options = {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+                body: JSON.stringify(config)
+			};
+
+            try {
+                
+                const responseData = await this.fetchData(endpoint, options);
+
+                if (responseData.success === true) {
+                
+                    MessageToast.show(resourceBundle.getText('configAddedToTransport') + ': ' + transportRequest);
+
+                } else {
+
+                    MessageBox.error(responseData.error);
+
+                }
+
+                view.setBusy( false );
+
+            } catch (error) {
+
+                view.setBusy( false );
+
+                MessageBox.error(error.message);
+
+                const message = new Message({
+                    message: error.message,
+                    description: resourceBundle.getText("communicationError"),
+                    type: MessageType.Error
+                });
+                
+                Messaging.addMessages(message);
+
+            }
+
         },
 
         //################ Private APIs ###################

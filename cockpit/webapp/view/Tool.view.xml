@@ -90,6 +90,25 @@
                                             </Input>
                                         </form:fields>
                                     </form:FormElement>
+                                    <form:FormElement id="_IDToolFormElementToolRequiresApproval" label="{i18n>requiresApproval}">
+                                        <form:fields>
+                                            <CheckBox
+                                                id="_IDToolToolRequiresApprovalCheckBox"
+                                                selected="{tools>approval}"
+                                                editable="false">
+                                            </CheckBox>
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement id="_IDToolFormElementToolApprovalText" label="{i18n>approvalText}">
+                                        <form:fields>
+                                            <Input
+                                                id="_IDToolToolApprovalTextInput"
+                                                type="Text"
+                                                editable="false"
+                                                value="{tools>approvalText}">
+                                            </Input>
+                                        </form:fields>
+                                    </form:FormElement>
                                 </form:formElements>
                             </form:FormContainer>
                         </form:formContainers>

@@ -125,6 +125,18 @@
                                         </form:FormElement>
                                     </form:formElements>
                                     <form:formElements>
+                                        <form:FormElement id="_IDChatFormElementChatTokens" label="{i18n>tokens}">
+                                            <form:fields>
+                                                <Input
+                                                    id="_IDChatChatTokensInput"
+                                                    type="Text"
+                                                    editable="false"
+                                                    value="{chats>tokens}">
+                                                </Input>  
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:formElements>
                                         <form:FormElement id="_IDChatFormElementBlocked" label="{i18n>blocked}">
                                             <form:fields>
                                                 <CheckBox id="_IDChatBlockedCheckbox" selected="{chats>blocked}" editable="false" ></CheckBox>
@@ -217,6 +229,123 @@
                                             afterRendering=".onAfterRenderingHTMLControlSD">
                                         </core:HTML>
                                     </l:VerticalLayout>
+                                </IconTabFilter>
+                                <IconTabFilter id="_IDChatIconTabFilterApprovals" text="{i18n>approvals}" key="approvals" visible="true">
+                                    <Table 
+                                        id="_IDChatApprovalsTable"
+                                        inset="false"
+                                        alternateRowColors="false"
+                                        popinLayout="GridSmall"
+                                        autoPopinMode="true"
+                                        growing="true"
+		                                growingThreshold="100"
+                                        mode="MultiSelect"
+                                        items="{ 
+                                            path: 'chats>approvals',
+                                            templateShareable:false,
+                                            sorter: [{
+                                                path: 'className'
+                                            }]
+                                        }">
+                                        <headerToolbar>
+                                            <OverflowToolbar id="_IDChatApprovalsOverflowToolbar">
+                                                <Title id="_IDChatApprovalsOverflowToolbarTitle" text="{i18n>toolCallApprovalRequests}" level="H2"/>
+                                                <ToolbarSpacer id="_IDChatApprovalsOverflowToolbarToolbarSpacer"/>
+                                                <Button id="_IDChatApprovalsButtonApprove" text="{i18n>oneTimeApproval}" icon="sap-icon://accept" press=".onApproveApprovalRequest"/>
+                                                <Button id="_IDChatApprovalsButtonApproveAll" text="{i18n>chatWideApproval}" icon="sap-icon://multiselect-all" press=".onApproveApprovalRequest"/>
+                                                <Button id="_IDChatApprovalsButtonDelete" text="{i18n>delete}" icon="sap-icon://delete" press=".onDeleteApprovalRequest"/>
+                                            </OverflowToolbar>
+                                        </headerToolbar>
+                                        <dependents>
+                                            <plugins:ColumnResizer id="_IDChatColumnResizerApprovalsTable"/>
+                                        </dependents>
+                                        <columns>
+                                            <Column id="_IDChatApprovalsColumnClassName">
+                                                <Text id="_IDChatApprovalsColumnTextClassName" text="{i18n>className}" />
+                                            </Column>
+                                            <Column id="_IDChatApprovalsColumnMethodName">
+                                                <Text id="_IDChatApprovalsColumnTextMethodName" text="{i18n>methodName}" />
+                                            </Column>
+                                            <Column id="_IDChatApprovalsColumnScope">
+                                                <Text id="_IDChatApprovalsColumnTextScope" text="{i18n>scope}" />
+                                            </Column>
+                                            <Column id="_IDChatApprovalsColumnApproved">
+                                                <Text id="_IDChatApprovalsColumnTextApproved" text="{i18n>approved}" />
+                                            </Column>
+                                            <Column id="_IDChatApprovalsColumnUsed">
+                                                <Text id="_IDChatApprovalsColumnTextUsed" text="{i18n>used}" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem id="_IDChatApprovalsColumnListItem">
+                                                <cells>
+                                                    <Text id="_IDChatApprovalsTextClassName" text="{chats>className}" />
+                                                    <Text id="_IDChatApprovalsTextMethodName" text="{chats>methodName}" />
+                                                    <Text id="_IDChatApprovalsTextScope" text="{chats>scope}" />
+                                                    <ObjectStatus
+                                                        id="_IDChatApprovalsObjectStatusApproved"
+                                                        icon="{= ${chats>approved} === true ? 'sap-icon://sys-enter-2' : 'sap-icon://pending' }"
+                                                        state="{= ${chats>approved} === true ? 'Information' : 'None' }" />
+                                                    <ObjectStatus
+                                                        id="_IDChatApprovalsObjectStatusUsed"
+                                                        icon="{= ${chats>used} === true ? 'sap-icon://sys-enter-2' : 'sap-icon://pending' }"
+                                                        state="{= ${chats>used} === true ? 'Information' : 'None' }" />
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </IconTabFilter>
+                                <IconTabFilter id="_IDChatIconTabFilterFiles" text="{i18n>files}" key="files" visible="true">
+                                    <Table 
+                                        id="_IDChatFilesTable"
+                                        inset="false"
+                                        alternateRowColors="false"
+                                        popinLayout="GridSmall"
+                                        autoPopinMode="true"
+                                        growing="true"
+		                                growingThreshold="100"
+                                        items="{ 
+                                            path: 'chats>files',
+                                            templateShareable:false,
+                                            sorter: [{
+                                                path: 'seqno'
+                                            }]
+                                        }">
+                                        <headerToolbar>
+                                            <OverflowToolbar id="_IDChatFilesOverflowToolbar">
+                                                <Title id="_IDChatFilesOverflowToolbarTitle" text="{i18n>files}" level="H2"/>
+                                                <ToolbarSpacer id="_IDChatFilesOverflowToolbarToolbarSpacer"/>
+                                            </OverflowToolbar>
+                                        </headerToolbar>
+                                        <dependents>
+                                            <plugins:ColumnResizer id="_IDChatColumnResizerFilesTable"/>
+                                        </dependents>
+                                        <columns>
+                                            <Column id="_IDChatFilesColumnFilename">
+                                                <Text id="_IDChatFilesColumnTextFilename" text="{i18n>filename}" />
+                                            </Column>
+                                            <Column id="_IDChatFilesColumnFileType">
+                                                <Text id="_IDChatFilesColumnTextFileType" text="{i18n>fileType}" />
+                                            </Column>
+                                            <Column id="_IDChatFilesColumnFileSize">
+                                                <Text id="_IDChatFilesColumnTextFileSize" text="{i18n>fileSize}" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem id="_IDChatFilesColumnListItem">
+                                                <cells>
+                                                    <Button
+                                                        id="_IDChatFilesButtonDownload"
+                                                        icon="sap-icon://download"
+                                                        press=".onDownloadFile"
+                                                        text="{chats>filename}"
+                                                        type="Transparent" />
+                                                    <Text id="_IDChatFilesTextFileType" text="{chats>fileType}" />
+                                                    <Text id="_IDChatFilesTextFileSize" text="{chats>fileSize}" />
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
                                 </IconTabFilter>
                                 <IconTabFilter id="_IDChatIconTabFilterLog" text="{i18n>log}" key="log">
                                     <Table 

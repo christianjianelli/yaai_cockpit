@@ -14,6 +14,8 @@ sap.ui.define([
 
             agentId: "",
 
+            attachments: new Map(),
+
             _sidePanelControl: null,
 
             _selectApiControl: null,
@@ -192,6 +194,8 @@ sap.ui.define([
 
                 this.addWelcomeMessage();
 
+                this.attachments.clear();
+
                 //Chat cleared.
                 MessageToast.show(this._resourceBundle.getText("chatCleared"));
 
@@ -219,8 +223,11 @@ sap.ui.define([
                     message: userPrompt, 
                     context: '', 
                     agent_id: agentId,
-                    model: ''   
+                    model: '',
+                    files:[]
                 };
+
+                asyncChat.files = await this._getAttachmentsAsBase64();
 
                 let endpoint = this.getEndpoint('async_chat');
 
@@ -230,6 +237,12 @@ sap.ui.define([
                 this.addUserMessage(userPrompt);
 
                 this.addLlmTyping();
+
+                //console.log(JSON.stringify(asyncChat));
+
+                const container = document.querySelector('#aaic-chat-message-container');
+
+                container.querySelectorAll('.aaic-attachment-ghost-temp').forEach(btn => btn.remove());
 
                 try {
 
@@ -243,8 +256,9 @@ sap.ui.define([
 
                     this.chatId = responseData.chatId;
 
-                    // Handle the successful data
-                    console.log(responseData);
+                    this.attachments.clear();
+
+                    //console.log(responseData);
 
                 } catch (error) {
                     
@@ -329,6 +343,72 @@ sap.ui.define([
                 
                 this._loadChatMessages();
 
+            },
+
+            addGhostAttachment: async function(file, id, seqno = 0) {
+
+                let container;
+
+                if (seqno > 0) {
+                  container = document.getElementById(`aaic-chat-message-${seqno}`);
+                } else {
+                  container = document.querySelector('#aaic-chat-message-container');
+                }
+
+                if (!container) {
+                    return;
+                }
+
+                const base64File = await this._fileToBase64(file);
+
+                const ghost = document.createElement("div");
+                
+                ghost.className = "aaic-attachment-ghost";
+
+                let icon = this._getIcon(file);
+
+                if (file.type.startsWith("image/")) {
+                    icon = `<img src="data:${file.type};base64, ${base64File}" width="50" height="50" alt="Attachment Icon" />`;
+                }
+
+                if (seqno === 0) {
+
+                    ghost.className = "aaic-attachment-ghost-temp";
+
+                    ghost.innerHTML = `
+                    <div class="aaic-attachment-icon">${icon}</div>
+
+                    <div class="aaic-attachment-info">
+                        <div class="aaic-attachment-name">${file.name || "Unnamed file"}</div>
+                        <div class="aaic-attachment-size">${this._formatBytes(file.size)}</div>
+                    </div>
+
+                    <button class="aaic-attachment-remove-btn" title="Discard">&times;</button>
+                    `;
+
+                    ghost.querySelector(".aaic-attachment-remove-btn").addEventListener("click", () => {
+                                    
+                        this.attachments.delete(id);
+
+                        // Remove UI
+                        ghost.remove();
+
+                        console.log("Remaining attachments:", this.attachments.size);
+                    });
+
+                } else {
+
+                    ghost.innerHTML = `
+                    <div class="aaic-attachment-icon">${icon}</div>
+
+                    <div class="aaic-attachment-info">
+                        <div class="aaic-attachment-name">${file.name || "Unnamed file"}</div>
+                        <div class="aaic-attachment-size">${this._formatBytes(file.size)}</div>
+                    </div>
+                    `;
+                }
+
+                container.appendChild(ghost);
             },
 
             //################ Private APIs ###################
@@ -455,10 +535,6 @@ sap.ui.define([
 
                 }
 
-                if (newChatMessages.length > 0) {
-                    //this.removeLlmTyping();
-                }
-
                 let tempUserMsg = document.getElementById(`aaic-chat-message-0`);
 
                 newChatMessages.forEach(newMessage => {
@@ -488,6 +564,13 @@ sap.ui.define([
                                 this.removeLlmTyping();
 
                                 this.addUserMessage(msg.content, newMessage.seqno, this._getDateTime(newMessage.msgDate, newMessage.msgTime) );
+
+                                responseData.chat.files.forEach(file => {
+                                    if (file.seqno === newMessage.seqno) {
+                                        const fileObj = this._base64ToFile(file.content, file.filename, file.fileType);
+                                        this.addGhostAttachment(fileObj, file.filename, file.seqno);
+                                    }
+                                });
 
                             }
 
@@ -544,6 +627,13 @@ sap.ui.define([
 
                                             this.addUserMessage(msg.contentElement.text , newMessage.seqno, this._getDateTime(newMessage.msgDate, newMessage.msgTime) );
 
+                                            responseData.chat.files.forEach(file => {
+                                                if (file.seqno === newMessage.seqno) {
+                                                    const fileObj = this._base64ToFile(file.content, file.filename, file.fileType);
+                                                    this.addGhostAttachment(fileObj, file.filename, file.seqno);
+                                                }
+                                            });
+
                                         }
                                     
                                     });
@@ -558,6 +648,13 @@ sap.ui.define([
                                     this.removeLlmTyping();
 
                                     this.addUserMessage(msg.content , newMessage.seqno, this._getDateTime(newMessage.msgDate, newMessage.msgTime) );
+
+                                    responseData.chat.files.forEach(file => {
+                                        if (file.seqno === newMessage.seqno) {
+                                            const fileObj = this._base64ToFile(file.content, file.filename, file.fileType);
+                                            this.addGhostAttachment(fileObj, file.filename, file.seqno);
+                                        }
+                                    });
 
                                 }
                             }
@@ -619,6 +716,13 @@ sap.ui.define([
 
                                             this.addUserMessage(part.text , newMessage.seqno, this._getDateTime(newMessage.msgDate, newMessage.msgTime) );
 
+                                            responseData.chat.files.forEach(file => {
+                                                if (file.seqno === newMessage.seqno) {
+                                                    const fileObj = this._base64ToFile(file.content, file.filename, file.fileType);
+                                                    this.addGhostAttachment(fileObj, file.filename, file.seqno);
+                                                }
+                                            });
+
                                         }
                                     
                                     });
@@ -670,6 +774,13 @@ sap.ui.define([
 
                                 this.addUserMessage(msg.content, newMessage.seqno, this._getDateTime(newMessage.msgDate, newMessage.msgTime) );
 
+                                responseData.chat.files.forEach(file => {
+                                    if (file.seqno === newMessage.seqno) {
+                                        const fileObj = this._base64ToFile(file.content, file.filename, file.fileType);
+                                        this.addGhostAttachment(fileObj, file.filename, file.seqno);
+                                    }
+                                });
+
                             }
 
                             if (msg.role.toLowerCase() === "assistant" && msg.type.toLowerCase() !== "function_call" && msg.type.toLowerCase() !== "function_call_output") {
@@ -718,6 +829,13 @@ sap.ui.define([
                                 this.removeLlmTyping();
 
                                 this.addUserMessage(msg.content, newMessage.seqno, this._getDateTime(newMessage.msgDate, newMessage.msgTime) );
+
+                                responseData.chat.files.forEach(file => {
+                                    if (file.seqno === newMessage.seqno) {
+                                        const fileObj = this._base64ToFile(file.content, file.filename, file.fileType);
+                                        this.addGhostAttachment(fileObj, file.filename, file.seqno);
+                                    }
+                                });
 
                             }
 
@@ -835,7 +953,67 @@ sap.ui.define([
             _getDateTime: function (msgDate, msgTime) {
                 const [year, month, day] = msgDate.split('-');
                 return `${day}/${month}/${year} ${msgTime}`;
-            }
+            },
+
+            _formatBytes: function(bytes) {
+
+                if (bytes < 1024) return `${bytes} B`;
+
+                if (bytes < 1024 * 1024)
+                    return `${(bytes / 1024).toFixed(1)} KB`;
+
+                return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+            },
+
+            _getIcon: function(file) {
+                if (file.type.startsWith("image/")) return "🖼️";
+                if (file.type.startsWith("audio/")) return "🎵";
+                return "📄";
+            },
+
+            _fileToBase64: async function(file) {
+                const reader = new FileReader();
+
+                const dataUrl = await new Promise((resolve, reject) => {
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(reader.error);
+
+                reader.readAsDataURL(file);
+                });
+
+                // Strip the "data:<mime>;base64," prefix
+                return dataUrl.split(",")[1];
+            },
+
+            _getAttachmentsAsBase64: async function() {
+                return Promise.all(
+                    //_attachments.values() returns a Map Iterator
+                    //Using the spread operator to convert it into an array, then mapping over it
+                    [...this.attachments.values()].map(async file => ({
+                        filename: file.name,
+                        type: file.type,
+                        size: file.size,
+                        content: await this._fileToBase64(file)
+                    }))
+                );
+            },
             
+            _base64ToFile: function(base64, filename, mimeType) {
+
+                const binary = atob(base64);
+                const bytes = new Uint8Array(binary.length);
+
+                for (let i = 0; i < binary.length; i++) {
+                    bytes[i] = binary.charCodeAt(i);
+                }
+
+                return new File(
+                    [bytes],
+                    filename,
+                    {
+                        type: mimeType
+                    }
+                );
+            }
         };
     });

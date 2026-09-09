@@ -137,7 +137,7 @@ sap.ui.define([
             });
 
             if (table) {
-                table.removeSelections();
+                table.removeSelections(true);
             }
 
             modelData.apis[index].models = models;
@@ -164,16 +164,29 @@ sap.ui.define([
 
             const llm = view.byId('_IDAddModelInput').getValue();
 
+            const tools = view.byId('_IDAddModelToolsCheckBox').getSelected();
+            const vision = view.byId('_IDAddModelVisionCheckBox').getSelected();
+            const files = view.byId('_IDAddModelFilesCheckBox').getSelected();
+            const audio = view.byId('_IDAddModelAudioCheckBox').getSelected();
+
             const index = modelData.apis.findIndex(api => api.id === this._api);
 
             modelData.apis[index].models.push({
                 "model": llm,
-                "defaultModel": false
+                "defaultModel": false,
+                "tools": tools,
+                "vision": vision,
+                "files": files,
+                "audio": audio
             });
 
             model.updateModelData(modelData);
 
             view.byId('_IDAddModelInput').setValue("");
+            view.byId('_IDAddModelToolsCheckBox').setSelected(false);
+            view.byId('_IDAddModelVisionCheckBox').setSelected(false);
+            view.byId('_IDAddModelFilesCheckBox').setSelected(false);
+            view.byId('_IDAddModelAudioCheckBox').setSelected(false);
 
             this.Dialog.close();
    
@@ -215,8 +228,91 @@ sap.ui.define([
             this._edit = !this._edit;
 
             this._setEditMode(this._edit);
+            
+        },
+
+        onOpenAddToTransportDialog: async function(event) {
+
+            // Create dialog lazily
+			this.addToTransportDialog ??= await this.loadFragment({
+				name: "aaic.cockpit.fragment.AddToTransport",
+                controller: this
+			});
+
+			this.addToTransportDialog.open();
 
         },
+
+        onCloseDialogAddToTransport: function(event) {
+            this.addToTransportDialog.close();
+        },
+
+        onAddToTransport: async function(event) {
+
+            const view = this.getView();
+
+            const resourceBundle = view.getModel("i18n").getResourceBundle();
+
+            const transportRequest = view.byId("_IDAddToTransportInputTransportRequest").getValue();
+
+            if (!transportRequest) {
+                MessageToast.show(resourceBundle.getText("pleaseEnterTransport"));
+                return;
+            }
+
+            this.addToTransportDialog.close();
+
+            view.setBusy( true );
+
+            const endpoint = this.getEndpoint('transp_config');
+
+            const config = { 
+                entity: 'API',
+                keys: [{ id: this._api }],
+                transport: transportRequest
+            };
+
+            const options = {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+                body: JSON.stringify(config)
+			};
+
+            try {
+                
+                const responseData = await this.fetchData(endpoint, options);
+
+                if (responseData.success === true) {
+                
+                    MessageToast.show(resourceBundle.getText('configAddedToTransport') + ': ' + transportRequest);
+
+                } else {
+
+                    MessageBox.error(responseData.error);
+
+                }
+
+                view.setBusy( false );
+
+            } catch (error) {
+
+                view.setBusy( false );
+
+                MessageBox.error(error.message);
+
+                const message = new Message({
+                    message: error.message,
+                    description: resourceBundle.getText("communicationError"),
+                    type: MessageType.Error
+                });
+                
+                Messaging.addMessages(message);
+
+            }
+
+        },        
 
         //################ Private APIs ###################
 

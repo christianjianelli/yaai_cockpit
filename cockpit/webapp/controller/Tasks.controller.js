@@ -40,6 +40,8 @@ sap.ui.define([
             }
 
             Messaging.removeAllMessages();
+
+            this._loadData();
             
         },
 
@@ -215,7 +217,7 @@ sap.ui.define([
                                 this._confirmDialog.setBusy(false);
                                 this._confirmDialog.close();
                                 if (table) {
-                                    table.removeSelections();
+                                    table.removeSelections(true);
                                 }
                             }.bind(this)
                         }),
@@ -247,7 +249,7 @@ sap.ui.define([
 			this._addTaskDialog.open();
 		},
 
-        _loadData: async function(taskName, taskId) {
+        _loadData: async function(taskName="", taskId="") {
 
             const view = this.getView();
 
@@ -366,7 +368,7 @@ sap.ui.define([
             const table = view.byId("_IDTasksTable");
 
             if (table) {
-                table.removeSelections();
+                table.removeSelections(true);
             }
 
             view.setBusy(false);
