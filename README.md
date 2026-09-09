@@ -77,6 +77,16 @@ Configure the Base URL of the API, register available LLM models, and set the de
 
 ---
 
+### New Feature! Vision and Files Support
+
+The integrated Chat now supports copying and pasting images or files, as well as dragging and dropping images or files directly into the chat prompt text box.
+
+A ghosted preview of the original image or file is added to the conversation, but the image or file is sent only when you submit your prompt.
+
+<p style="margin-left: 50px">
+   <img src="./docs/images/cockpit_chat_with_images_example.gif" alt="Chat Images and Files support" width="600px">
+</p>
+
 ### Tools
 
 Configure the tools available in the system. These tools are used by AI Agents to perform tasks via Function Calling (also known as Tool Calling). In ABAP AI tools, these tools are instance methods of ABAP classes.
