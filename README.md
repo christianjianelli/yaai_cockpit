@@ -87,6 +87,8 @@ A ghosted preview of the original image or file is added to the conversation, bu
    <img src="./docs/images/cockpit_chat_with_images_example.gif" alt="Chat Images and Files support" width="600px">
 </p>
 
+See [How to add images and files in the ABAP AI tools Cockpit integrated Chat](./docs/guides/images_and_files_support.md) for more examples.
+
 ### Tools
 
 Configure the tools available in the system. These tools are used by AI Agents to perform tasks via Function Calling (also known as Tool Calling). In ABAP AI tools, these tools are instance methods of ABAP classes.
