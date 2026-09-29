@@ -192,6 +192,8 @@ sap.ui.define([
 
                 document.getElementById('aaic-chat-message-container').innerHTML = '';
 
+                document.getElementById('aaic-chat-attachments-container').innerHTML = '';
+
                 this.addWelcomeMessage();
 
                 this.attachments.clear();
@@ -240,9 +242,13 @@ sap.ui.define([
 
                 //console.log(JSON.stringify(asyncChat));
 
-                const container = document.querySelector('#aaic-chat-message-container');
+                //const container = document.querySelector('#aaic-chat-message-container');
+                
+                //container.querySelectorAll('.aaic-attachment-ghost-temp').forEach(btn => btn.remove());
+                
+                const attachmentsContainer = document.querySelector('#aaic-chat-attachments-container');
 
-                container.querySelectorAll('.aaic-attachment-ghost-temp').forEach(btn => btn.remove());
+                attachmentsContainer.innerHTML = '';
 
                 try {
 
@@ -352,7 +358,7 @@ sap.ui.define([
                 if (seqno > 0) {
                   container = document.getElementById(`aaic-chat-message-${seqno}`);
                 } else {
-                  container = document.querySelector('#aaic-chat-message-container');
+                  container = document.querySelector('#aaic-chat-attachments-container');
                 }
 
                 if (!container) {
@@ -423,7 +429,7 @@ sap.ui.define([
 
                 let endpoint = this.getEndpoint('async_chat');
                 
-                const maxAttempts = 60; // Prevent infinite loops
+                const maxAttempts = 120; // Prevent infinite loops
 
                 let statusResponseData = {};
                 

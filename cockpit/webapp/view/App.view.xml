@@ -72,7 +72,7 @@
 							<core:HTML 
 								id="_IDAppHTML" 
 								class="sapUiMediumMarginTop"
-								content='&lt;div id="aaic-chat-container"&gt;&lt;div id="aaic-chat-message-container"&gt;&lt;/div&gt; &lt;/div&gt;'
+								content='&lt;div id="aaic-chat-container"&gt;&lt;div id="aaic-chat-message-container"&gt;&lt;/div&gt;&lt;div id="aaic-chat-attachments-container"&gt;&lt;/div&gt; &lt;/div&gt;'
 								afterRendering=".onAfterRenderingHTMLControl">
 							</core:HTML>
 							<Label id="_IDAppLabelSelectApi" class="sapUiSmallMarginTop" text="{i18n>selectApi}" labelFor="_IDAppSelectApi" />

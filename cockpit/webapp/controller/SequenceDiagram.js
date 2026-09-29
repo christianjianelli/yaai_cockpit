@@ -169,16 +169,14 @@ sap.ui.define([
 
                     //The default content type is text 
                     if (!Array.isArray(content)) {
-                        content = [{
-                            type: "text",
-                            text: content
-                        }];
+                        const type = content.type || "text";
+                        content = [{ type, text: content }];
                     }
 
                     content.forEach(element => {
                         // Tool call
                         if (element.type === "tool_use") {
-                            mermaid += `Assistant ->> Tool: Tool call: ${element.name}\n`;
+                            mermaid += `Assistant ->> Tool: Tool call: ${element.text.name}\n`;
                         }
                         // Tool response
                         else if (element.type === "tool_result") {

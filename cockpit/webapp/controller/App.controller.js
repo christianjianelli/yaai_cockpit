@@ -112,6 +112,9 @@ sap.ui.define(
           textArea.detachBrowserEvent("dragover", this._onTextAreaDragOver);
           textArea.attachBrowserEvent("dragover", this._onTextAreaDragOver);
 
+          textArea.detachBrowserEvent("dragleave", this._onTextAreaDragLeave);
+          textArea.attachBrowserEvent("dragleave", this._onTextAreaDragLeave);          
+
           textArea.detachBrowserEvent("drop", this._onTextAreaDrop);
           textArea.attachBrowserEvent("drop", this._onTextAreaDrop);
         }
@@ -821,11 +824,19 @@ sap.ui.define(
       _onTextAreaDragOver: async function(event) {
         // Allow dropping
         event.originalEvent.preventDefault();
+
+        this.addStyleClass("aaic-chat-file-drop-target");
+      },
+
+      _onTextAreaDragLeave: async function(event) {
+        this.removeStyleClass("aaic-chat-file-drop-target");
       },
 
       _onTextAreaDrop: async function(event) {
         
         event.originalEvent.preventDefault();
+
+        this.removeStyleClass("aaic-chat-file-drop-target");
           
         const files = event.originalEvent.dataTransfer.files;
 
