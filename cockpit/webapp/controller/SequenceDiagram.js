@@ -14,6 +14,17 @@ sap.ui.define([
                     assistant: "Assistant"
                 };
 
+                const participantOrder = [
+                    "System",
+                    "Developer",
+                    "User",
+                    "Assistant",
+                    "Tool"
+                ];
+
+                // Reordered collected participants
+                const orderedParticipants = [];
+
                 if (!chat.messages) {
                     return "sequenceDiagram\n";
                 }
@@ -38,6 +49,19 @@ sap.ui.define([
                         const mappedRole = roleMap[role] || role;
                         participantsSet.add(mappedRole);
                     }
+                }
+
+                for (const participant of participantOrder) {
+                    if (participantsSet.has(participant)) {
+                        orderedParticipants.push(participant);
+                    }
+                }
+
+                // Clear the original Set and populate it in the new order
+                participantsSet.clear();
+
+                for (const participant of orderedParticipants) {
+                    participantsSet.add(participant);
                 }
 
                 let mermaid = "---\nconfig:\n  theme: neutral\n---\nsequenceDiagram\n";
